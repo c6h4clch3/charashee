@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function groups()
+    {
+        return $this->hasMany('App\Models\Coc\Groups\Group');
+    }
+
+    public function characters()
+    {
+        return $this->hasMany('App\Models\Coc\Characters\Character');
+    }
 }

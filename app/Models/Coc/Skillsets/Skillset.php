@@ -14,6 +14,6 @@ class Skillset extends Model
     public function skills()
     {
         return $this->belongsToMany('App\Models\Coc\Skills\Skill', 'coc_skillset_skills')
-            ->withPivot('is_option')->withTimestamps();
+            ->withTimestamps();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models\Coc\Characters;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Coc\Skills\Skill;
 
 class Character extends Model
 {
@@ -22,10 +23,10 @@ class Character extends Model
             return [
                 'name' => $skill->name,
                 'init' => $skill->init,
-                'isStatic' => $skill->is_static,
-                'jobPoint' => $skill->pivot->job_point,
-                'interestPoint' => $skill->pivot->job_point,
-                'othersPoint' => $skill->pivot->others_point,
+                'reference' => $skill->reference,
+                'job_point' => $skill->pivot->job_point,
+                'interest_point' => $skill->pivot->job_point,
+                'others_point' => $skill->pivot->others_point,
             ];
         }, $this->skills);
     }

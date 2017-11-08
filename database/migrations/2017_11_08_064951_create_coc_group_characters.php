@@ -30,6 +30,6 @@ class CreateCocGroupCharacters extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('coc_group_characters');
     }
 }

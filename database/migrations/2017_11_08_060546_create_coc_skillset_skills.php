@@ -17,7 +17,6 @@ class CreateCocSkillsetSkills extends Migration
             $table->increments('id');
             $table->integer('skillset_id')->unsigned();
             $table->integer('skill_id')->unsigned();
-            $table->boolean('is_option');
             $table->foreign('skillset_id')->references('id')->on('coc_skillsets')->onDelete('cascade');
             $table->foreign('skill_id')->references('id')->on('coc_skills')->onDelete('cascade');
             $table->timestamps();

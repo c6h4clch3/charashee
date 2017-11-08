@@ -7,27 +7,35 @@ services:
       - /var/lib/mysql
   mysql:
     build: ./mysql
+    ports:
+      - '3306:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: pass
-      MYSQL_DATABASE: character_sheet
-      MYSQL_USER: develop
-      MYSQL_PASSWORD: develop
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_DATABASE=character_sheet
+      - MYSQL_USER=develop
+      - MYSQL_PASSWORD=develop
     volumes_from:
       - data
+    command:
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --skip-character-set-client-handshake
   php:
     build: ./php
     ports:
-#      - '(any port No. you want is OK):80'
+      # - 'any port you want to use:80'
     volumes:
       - ../:/var/www/html
-    depends_on:
+      - ./php/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    links:
       - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_DATABASE=character_sheet
+      - DB_USERNAME=develop
+      - DB_PASSWORD=develop
   composer:
     build: ./composer
-    volumes_from:
-      - data
-  npm:
-    build: ./npm
     volumes_from:
       - data
   php-artisan:

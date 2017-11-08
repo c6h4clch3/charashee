@@ -16,6 +16,7 @@ class CreateSkillsTable extends Migration
         Schema::create('coc_skills', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->boolean('is_static');
             $table->string('init');
             $table->timestamps();
         });

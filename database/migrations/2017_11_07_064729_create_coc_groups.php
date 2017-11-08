@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSkillsetsTable extends Migration
+class CreateCocGroups extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateSkillsetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('coc_skillsets', function (Blueprint $table) {
+        Schema::create('coc_groups', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->string('name');
-            $table->integer('options')->unsigned();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateSkillsetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coc_skillsets');
+        Schema::dropIfExists('coc_groups');
     }
 }

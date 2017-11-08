@@ -13,24 +13,26 @@ class CreateCharactersTable extends Migration
      */
     public function up()
     {
-        Schema::create('characters', function (Blueprint $table) {
+        Schema::create('coc_characters', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->string('name');
-            $table->integer('age');
+            $table->integer('age')->unsigned();
             $table->string('sex');
             $table->string('job');
-            $table->smallInteger('str');
-            $table->smallInteger('con');
-            $table->smallInteger('dex');
-            $table->smallInteger('pow');
-            $table->smallInteger('app');
-            $table->smallInteger('siz');
-            $table->smallInteger('int');
-            $table->smallInteger('edu');
-            $table->smallInteger('hp');
-            $table->smallInteger('mp');
-            $table->smallInteger('san');
+            $table->smallInteger('str')->unsigned();
+            $table->smallInteger('con')->unsigned();
+            $table->smallInteger('dex')->unsigned();
+            $table->smallInteger('pow')->unsigned();
+            $table->smallInteger('app')->unsigned();
+            $table->smallInteger('siz')->unsigned();
+            $table->smallInteger('int')->unsigned();
+            $table->smallInteger('edu')->unsigned();
+            $table->smallInteger('hp')->unsigned();
+            $table->smallInteger('mp')->unsigned();
+            $table->smallInteger('san')->unsigned();
             $table->string('comment');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -42,6 +44,6 @@ class CreateCharactersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('characters');
+        Schema::dropIfExists('coc_characters');
     }
 }

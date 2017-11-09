@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Coc\Characters;
+namespace App\Models\Coc\Characters;
 
 interface CharactersRepositoryInterface
 {
@@ -16,13 +16,15 @@ interface CharactersRepositoryInterface
     public function getCharacterById(int $id);
 
     /**
+     * @param int user_id
      * @param array $character
      */
-    public function createCharacter(array $character);
+    public function createCharacter(int $user_id, array $character);
 
     /**
-     * @param int $id
+     * @param int $user_id
+     * @param int $character_id
      * @param array $character
      */
-    public function updateCharacter(int $id, array $character);
+    public function updateCharacter(int $user_id, int $character_id, array $character);
 }

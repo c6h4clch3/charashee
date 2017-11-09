@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Repositories\Coc\Characters;
+namespace App\Models\Coc\Characters;
 
-use App\Repositories\Coc\Characters\CharactersRepositoryInterface;
-use App\Models\Coc\Characters\Character;
 use App\Models\Coc\Skills\Skill;
 use App\User;
 
@@ -22,17 +20,17 @@ class CharactersRepository implements CharactersRepositoryInterface
 
     public function getCharactersAll()
     {
-        return $this->$character->all();
+        return $this->character->all()->all();
     }
 
     public function getCharacterById(int $id)
     {
-        return $this->$character->find($id);
+        return $this->character->find($id)->all();
     }
 
     public function createCharacter(int $user_id, array $character)
     {
-        DB::transaction(function() use ($user_id, $character) {
+        $result = DB::transaction(function() use ($user_id, $character) {
             $record = array_filter($character, function($key) {
                 return in_array($key, [
                     'name',
@@ -71,12 +69,16 @@ class CharactersRepository implements CharactersRepositoryInterface
             }
 
             $this->user->find($user_id)->characters()->save($created);
+
+            return $created;
         });
+
+        return $result;
     }
 
     public function updateCharacter(int $user_id, int $character_id, array $character)
     {
-        DB::transaction(function() use ($character_id, $character) {
+        $result = DB::transaction(function() use ($character_id, $character) {
             $record = array_filter($character, function($key) {
                 return in_array($key, [
                     'name',
@@ -114,6 +116,10 @@ class CharactersRepository implements CharactersRepositoryInterface
                     'others_point' => $skill['others_point'],
                 ]);
             }
+
+            return $targetCharacter;
         });
+
+        return $result;
     }
 }

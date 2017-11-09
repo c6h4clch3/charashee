@@ -3,7 +3,6 @@
 namespace App\Models\Coc\Characters;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Coc\Skills\Skill;
 
 class Character extends Model
 {

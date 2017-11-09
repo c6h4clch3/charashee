@@ -8,14 +8,10 @@ use App\User;
 class CharactersRepository implements CharactersRepositoryInterface
 {
     protected $character;
-    protected $skill;
-    protected $user;
 
-    public function __construct(Character $character, User $user, Skill $skill)
+    public function __construct(Character $character)
     {
         $this->character = $character;
-        $this->skill = $skill;
-        $this->user = $user;
     }
 
     public function getCharactersAll()

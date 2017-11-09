@@ -22,4 +22,18 @@ class GroupsRepository implements GroupsRepositoryInterface
     {
         return $this->group->find($id)->all();
     }
+
+    public function createGroup(string $name)
+    {
+        return $this->group->create([
+            'name' => $name,
+        ])->save();
+    }
+
+    public function updateGroup(int $id, string $name)
+    {
+        return $this->group->find($id)->update([
+            'name' => $name,
+        ])->save();
+    }
 }

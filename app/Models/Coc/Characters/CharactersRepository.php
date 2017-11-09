@@ -28,98 +28,13 @@ class CharactersRepository implements CharactersRepositoryInterface
         return $this->character->find($id)->all();
     }
 
-    public function createCharacter(int $user_id, array $character)
+    public function createCharacter(array $character)
     {
-        $result = DB::transaction(function() use ($user_id, $character) {
-            $record = array_filter($character, function($key) {
-                return in_array($key, [
-                    'name',
-                    'age',
-                    'sex',
-                    'job',
-                    'str',
-                    'con',
-                    'dex',
-                    'pow',
-                    'app',
-                    'siz',
-                    'int',
-                    'edu',
-                    'hp',
-                    'mp',
-                    'san',
-                    'comment',
-                ]);
-            }, ARRAY_FILTER_USE_KEY);
-
-            $created = $this->character->create($record);
-
-            foreach($character['skills'] as $skill) {
-                $target = $this->skills->firstOrCreate([
-                    'name' => $skill['name'],
-                    'init' => $skill['init'],
-                    'reference' => $skill['reference'],
-                ]);
-
-                $created->skills()->attach($target, [
-                    'job_point' => $skill['job_point'],
-                    'interest_point' => $skill['interest_point'],
-                    'others_point' => $skill['others_point'],
-                ]);
-            }
-
-            $this->user->find($user_id)->characters()->save($created);
-
-            return $created;
-        });
-
-        return $result;
+        return $this->character->create($character)->save();
     }
 
-    public function updateCharacter(int $user_id, int $character_id, array $character)
+    public function updateCharacter(int $character_id, array $character)
     {
-        $result = DB::transaction(function() use ($character_id, $character) {
-            $record = array_filter($character, function($key) {
-                return in_array($key, [
-                    'name',
-                    'age',
-                    'sex',
-                    'job',
-                    'str',
-                    'con',
-                    'dex',
-                    'pow',
-                    'app',
-                    'siz',
-                    'int',
-                    'edu',
-                    'hp',
-                    'mp',
-                    'san',
-                    'comment',
-                ]);
-            }, ARRAY_FILTER_USE_KEY);
-
-            $targetCharacter = $this->character->where('user_id', $user_id)->find($character_id)->update($record);
-
-            $targetCharacter->skills()->detach();
-            foreach($character['skills'] as $skill) {
-                $targetSkill = $this->skills->firstOrCreate([
-                    'name' => $skill['name'],
-                    'init' => $skill['init'],
-                    'reference' => $skill['reference'],
-                ]);
-
-                $targetCharacter->skills()->attach($targetSkill, [
-                    'job_point' => $skill['job_point'],
-                    'interest_point' => $skill['interest_point'],
-                    'others_point' => $skill['others_point'],
-                ]);
-            }
-
-            return $targetCharacter;
-        });
-
-        return $result;
+        return $this->character->find($character_id)->update($character)->save();
     }
 }

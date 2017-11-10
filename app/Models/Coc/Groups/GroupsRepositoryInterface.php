@@ -4,11 +4,27 @@ namespace App\Models\Groups;
 
 interface GroupsRepositoryInterface
 {
-    public function loadAllGroups();
+    /**
+     * @return mixed
+     */
+    public function loadAll();
 
-    public function loadGroupById(int $id);
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function loadById(int $id);
 
-    public function createGroup(string $name);
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function create(string $name);
 
-    public function updateGroup(int $id, string $name);
+    /**
+     * @param int $id
+     * @param string $name
+     * @return mixed
+     */
+    public function update(int $id, string $name);
 }

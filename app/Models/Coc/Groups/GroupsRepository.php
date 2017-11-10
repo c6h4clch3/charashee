@@ -13,24 +13,24 @@ class GroupsRepository implements GroupsRepositoryInterface
         $this->group = $group;
     }
 
-    public function loadAllGroups()
+    public function loadAll()
     {
         return $this->group->all()->all();
     }
 
-    public function loadGroupById(int $id)
+    public function loadById(int $id)
     {
         return $this->group->find($id)->all();
     }
 
-    public function createGroup(string $name)
+    public function create(string $name)
     {
         return $this->group->create([
             'name' => $name,
         ])->save();
     }
 
-    public function updateGroup(int $id, string $name)
+    public function update(int $id, string $name)
     {
         return $this->group->find($id)->update([
             'name' => $name,

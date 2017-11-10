@@ -30,7 +30,7 @@ class SkillsRepository implements SkillsRepositoryInterface
         ]);
     }
 
-    public function deleteUntiedSkill()
+    public function deleteUntied()
     {
         $this->doesntHave('characters')->doesntHave('skillsets')->delete();
     }

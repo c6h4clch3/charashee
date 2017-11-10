@@ -6,23 +6,37 @@ interface CharactersRepositoryInterface
 {
     /**
      * @return array
+     * @return mixed
      */
-    public function getCharactersAll();
+    public function loadAll();
 
     /**
      * @param int $id
-     * @return object
+     * @return mixed
      */
-    public function getCharacterById(int $id);
+    public function loadById(int $id);
+
+    /**
+     * @return mixed
+     */
+    public function count();
+
+    /**
+     * @param int $page
+     * @return mixed
+     */
+    public function loadByPage(int $page);
 
     /**
      * @param array $character
+     * @return mixed
      */
-    public function createCharacter(array $character);
+    public function create(array $character);
 
     /**
      * @param int $character_id
      * @param array $character
+     * @return mixed
      */
-    public function updateCharacter(int $character_id, array $character);
+    public function update(int $character_id, array $character);
 }

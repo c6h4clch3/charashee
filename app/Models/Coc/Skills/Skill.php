@@ -11,6 +11,12 @@ class Skill extends Model
      */
     protected $table = 'coc_skills';
 
+    protected $fillable = [
+        'name',
+        'init',
+        'reference',
+    ];
+
     public function skillsets()
     {
         return $this->belongsToMany('App\Models\Coc\Skillsets\Skillset', 'coc_skillset_skills')

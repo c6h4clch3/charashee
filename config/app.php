@@ -228,4 +228,10 @@ return [
 
     ],
 
+    'api' => [
+        'characters' => [
+            'page_items' => 30,
+        ]
+    ]
+
 ];

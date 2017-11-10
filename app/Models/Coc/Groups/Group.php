@@ -11,6 +11,10 @@ class Group extends Model
      */
     protected $table = 'coc_groups';
 
+    protected $fillable = [
+        'name',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\User');

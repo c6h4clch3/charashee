@@ -11,10 +11,34 @@ class Character extends Model
      */
     protected $table = 'coc_characters';
 
+    protected $fillable = [
+        'name',
+        'age',
+        'sex',
+        'job',
+        'str',
+        'con',
+        'dex',
+        'pow',
+        'app',
+        'siz',
+        'int',
+        'edu',
+        'hp',
+        'mp',
+        'san',
+        'comment',
+    ];
+
     public function skills()
     {
         return $this->belongsToMany('App\Coc\Skills\Skill', 'coc_character_skills')
             ->withPivot('job_point', 'interest_point', 'others_point')->withTimestamps();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     public function getSkillData() {
@@ -24,7 +48,7 @@ class Character extends Model
                 'init' => $skill->init,
                 'reference' => $skill->reference,
                 'job_point' => $skill->pivot->job_point,
-                'interest_point' => $skill->pivot->job_point,
+                'interest_point' => $skill->pivot->interest_point,
                 'others_point' => $skill->pivot->others_point,
             ];
         }, $this->skills);

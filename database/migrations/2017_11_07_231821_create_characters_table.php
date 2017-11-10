@@ -15,7 +15,7 @@ class CreateCharactersTable extends Migration
     {
         Schema::create('coc_characters', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('name');
             $table->integer('age')->unsigned();
             $table->string('sex');

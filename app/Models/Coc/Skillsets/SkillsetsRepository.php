@@ -13,11 +13,11 @@ class SkillsetsRepository implements SkillsetsRepositoryInterface
 
     public function loadAll()
     {
-        return $this->skillset->all()->all();
+        return $this->skillset->all();
     }
 
     public function loadById(int $id)
     {
-        return $this->skillset->find($id)->all();
+        return $this->skillset->find($id);
     }
 }

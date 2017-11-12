@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Coc\Characters\CharactersRepository;
 use App\Models\Coc\Skills\SkillsRepository;
+use Illuminate\Support\Facades\Auth;
 
 class CharactersService
 {
@@ -25,11 +26,15 @@ class CharactersService
 
     public function getAllOwn()
     {
-        return $this->user->characters()->all();
+        return $this->user->characters->all();
     }
 
-    public function getPagenated(int $page) {
-        $characters = $this->charactersRepository->loadByPage($page);
+    public function getPagenated($page) {
+        if (is_null($page)) {
+            $characters = $this->charactersRepository->loadAll();
+        } else {
+            $characters = $this->charactersRepository->loadByPage($page);
+        }
         $info = $this->charactersRepository->count();
 
         return compact('characters', 'info');

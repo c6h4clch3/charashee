@@ -16,12 +16,12 @@ class CharactersRepository implements CharactersRepositoryInterface
 
     public function loadAll()
     {
-        return $this->character->all()->all();
+        return $this->character->all();
     }
 
     public function loadById(int $id)
     {
-        return $this->character->find($id)->all();
+        return $this->character->find($id);
     }
 
     public function count()
@@ -32,7 +32,7 @@ class CharactersRepository implements CharactersRepositoryInterface
         return compact('all', 'page');
     }
 
-    public function loadByPage(int $page)
+    public function loadByPage($page)
     {
         return $this->character->forPage($page, $this->unit);
     }

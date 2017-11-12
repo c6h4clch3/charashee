@@ -15,12 +15,12 @@ class GroupsRepository implements GroupsRepositoryInterface
 
     public function loadAll()
     {
-        return $this->group->all()->all();
+        return $this->group->all();
     }
 
     public function loadById(int $id)
     {
-        return $this->group->find($id)->all();
+        return $this->group->find($id);
     }
 
     public function create(string $name)

@@ -17,4 +17,8 @@ Route::middleware(['auth:api'])->group(function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::get('/user/characters', 'Coc\CharactersController@getOwned');
+    Route::get('/characters/{page?}', 'Coc\CharactersController@get');
+    Route::get('/skillsets', 'Coc\SkillsetsController@get');
+    Route::get('/skillsets/{id}', 'Coc\SKillsetsController@find');
 });

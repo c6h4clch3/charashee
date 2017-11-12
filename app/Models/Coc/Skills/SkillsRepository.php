@@ -13,12 +13,12 @@ class SkillsRepository implements SkillsRepositoryInterface
 
     public function loadAll()
     {
-        return $this->skill->all()->all();
+        return $this->skill->all();
     }
 
     public function loadById(int $id)
     {
-        return $this->skill->find($id)->all();
+        return $this->skill->find($id);
     }
 
     public function firstOrCreate(string $name, int $init, $reference)

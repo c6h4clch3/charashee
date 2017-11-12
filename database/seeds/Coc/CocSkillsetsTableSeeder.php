@@ -28,7 +28,7 @@ class CocSkillsetsTableSeeder extends Seeder
 
             $skillset = Skillset::create($record);
             $skillset->save();
-            $skillset->skills()->sync($row);
+            $skillset->skills()->sync(array_filter($row));
         });
 
         $lexer->parse(base_path().self::PATH, $interpreter);

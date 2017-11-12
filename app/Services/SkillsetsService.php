@@ -15,6 +15,27 @@ class SkillsetsService
 
     public function getAll()
     {
-        return $this->skillsetsRepository->loadAll();
+        return array_map(function($skillset) {
+            return [
+                'id'   => $skillset->id,
+                'name' => $skillset->name,
+            ];
+        }, $this->skillsetsRepository->loadAll()->all());
+    }
+
+    public function getById(int $id)
+    {
+        $skillset = $this->skillsetsRepository->loadById($id);
+        return [
+            'id'     => $skillset->id,
+            'name'   => $skillset->name,
+            'skills' => array_map(function($skill) {
+                return [
+                    'name'      => $skill->name,
+                    'init'      => $skill->init,
+                    'reference' => $skill->reference,
+                ];
+            }, $skillset->skills()->get()->all()),
+        ];
     }
 }

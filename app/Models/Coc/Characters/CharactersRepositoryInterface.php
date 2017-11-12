@@ -25,7 +25,7 @@ interface CharactersRepositoryInterface
      * @param int $page
      * @return mixed
      */
-    public function loadByPage(int $page);
+    public function loadByPage($page);
 
     /**
      * @param array $character

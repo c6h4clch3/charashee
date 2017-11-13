@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Coc\Characters\CharactersRepository;
 use App\Models\Groups\GroupsRepository;
+use Illuminate\Support\Facades\Auth;
 
 class GroupsService
 {
@@ -35,7 +36,33 @@ class GroupsService
 
     public function getById(int $id)
     {
-        return $this->groupsRepository->loadById($id);
+        $group = $this->groupsRepository->loadById($id);
+
+        if (is_null($group)) {
+            return [];
+        }
+
+        if (count($group->characters) === 0) {
+            return [
+                'id' => $group->id,
+                'name' => $group->name,
+                'characters' => [],
+            ];
+        }
+
+        return [
+            'id' => $group->id,
+            'name' => $group->name,
+            'characters' => array_map(function($character) {
+                return [
+                    'id' => $character->id,
+                    'name' => $character->name,
+                    'age' => $character->age,
+                    'sex' => $character->sex,
+                    'job' => $character->job,
+                ];
+            }, $group->characters),
+        ];
     }
 
     public function create(string $name)

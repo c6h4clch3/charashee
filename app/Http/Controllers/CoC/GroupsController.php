@@ -10,11 +10,21 @@ class GroupsController extends Controller
 {
     public function get(Request $request, GroupsService $service)
     {
-        return $service->getAll();
+        return response()->json($service->getAll());
     }
 
     public function find(Request $request, GroupsService $service)
     {
-        $group = $service->getAll();
+        $id = (int)$request->id;
+        $group = $service->getById($id);
+
+        return response()->json($group);
+    }
+
+    public function create(Request $request, GroupsService $service)
+    {
+        $name = $request->name;
+
+        return response()->json($service->create($name));
     }
 }

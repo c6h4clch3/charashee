@@ -22,6 +22,6 @@ class Group extends Model
 
     public function characters()
     {
-        return $this->hasMany('App\Models\Characters\Character');
+        return $this->belongsToMany('App\Models\Coc\Characters\Character', 'coc_group_characters');
     }
 }

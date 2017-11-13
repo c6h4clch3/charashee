@@ -53,4 +53,9 @@ class Character extends Model
             ];
         }, $this->skills);
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany('App\Models\Coc\Groups\Group', 'coc_group_characters');
+    }
 }

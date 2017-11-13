@@ -20,12 +20,22 @@ class GroupsService
 
     public function getAll()
     {
-        return $this->groupsRepository->loadAll();
+        return array_map(function($group) {
+            return [
+                'id' => $group->id,
+                'name' => $group->name,
+            ];
+        }, $this->groupsRepository->loadAll()->all());
     }
 
     public function getAllOwn()
     {
         return $this->user->groups()->all();
+    }
+
+    public function getById(int $id)
+    {
+        return $this->groupsRepository->loadById($id);
     }
 
     public function create(string $name)

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Coc\Characters\CharactersRepository;
 use App\Models\Groups\GroupsRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GroupsService
 {
@@ -67,7 +68,10 @@ class GroupsService
 
     public function create(string $name)
     {
-        return $this->groupsRepository->create($name);
+        $group = $this->groupsRepository->create($name);
+        $this->user->groups()->save($group);
+
+        return $group;
     }
 
     public function registerAll(int $group_id, array $character_ids)

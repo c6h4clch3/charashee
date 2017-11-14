@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\Coc\Characters;
-
+use Log;
 
 class CharactersRepository implements CharactersRepositoryInterface
 {
@@ -59,7 +59,8 @@ class CharactersRepository implements CharactersRepositoryInterface
                 'comment',
             ]);
         }, ARRAY_FILTER_USE_KEY);
-        return $this->character->create($characterRecord)->save();
+        $model = $this->character->create($characterRecord);
+        return $model;
     }
 
     public function update(int $character_id, array $character)
@@ -84,6 +85,8 @@ class CharactersRepository implements CharactersRepositoryInterface
                 'comment',
             ]);
         }, ARRAY_FILTER_USE_KEY);
-        return $this->character->find($character_id)->update($characterRecord)->save();
+        $model = $this->character->find($character_id);
+        $model->update($characterRecord);
+        return $model;
     }
 }

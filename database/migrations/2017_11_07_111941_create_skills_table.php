@@ -18,6 +18,7 @@ class CreateSkillsTable extends Migration
             $table->string('name');
             $table->integer('init');
             $table->string('reference')->nullable();
+            $table->boolean('is_custom');
             $table->timestamps();
         });
     }

@@ -24,6 +24,7 @@ class CocSkillsetsTableSeeder extends Seeder
         $interpreter->addObserver(function(array $row) {
             $record = [
                 'name' => array_shift($row),
+                'is_custom' => array_shift($row),
             ];
 
             $skillset = Skillset::create($record);

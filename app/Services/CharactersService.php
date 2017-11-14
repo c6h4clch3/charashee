@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Coc\Characters\CharactersRepository;
 use App\Models\Coc\Skills\SkillsRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CharactersService
 {
@@ -57,7 +58,7 @@ class CharactersService
                     'others_point'   => $skill['others_point'],
                 ]);
             }
-            $characterRecord->user()->save($this->user);
+            $this->user->characters()->save($characterRecord);
 
             return $characterRecord;
         });
@@ -66,7 +67,7 @@ class CharactersService
     public function update(int $id, array $character)
     {
         return DB::transaction(function() use ($id, $character) {
-            $characterRecord = $this->characterRepository->update($id, $character);
+            $characterRecord = $this->charactersRepository->update($id, $character);
 
             $characterRecord->skills()->detach();
             foreach ($character['skills'] as $skill) {
@@ -82,7 +83,7 @@ class CharactersService
                 ]);
             }
 
-            $characterRecord->user()->save($this->user);
+            $this->user->characters()->save($characterRecord);
 
             return $characterRecord;
         });

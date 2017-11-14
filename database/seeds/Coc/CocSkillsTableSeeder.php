@@ -26,6 +26,7 @@ class CocSkillsTableSeeder extends Seeder
                 'name' => $row[0],
                 'init' => $row[1],
                 'reference' => $row[2] === '' ? null : $row[2],
+                'is_custom' => $row[3],
             ];
 
             Skill::create($record)->save();

@@ -21,10 +21,13 @@ Route::middleware(['auth:api'])->group(function() {
     Route::get('/user/groups', 'Coc\GroupsController@getOwned');
 
     Route::get('/characters/{page?}', 'Coc\CharactersController@get');
+    Route::post('/characters/create', 'Coc\CharactersController@create');
+    Route::post('/characters/update/{id}', 'Coc\CharactersController@update');
 
     Route::get('/groups', 'Coc\GroupsController@get');
     Route::get('/groups/{id}', 'Coc\GroupsController@find');
     Route::post('/groups/create', 'Coc\GroupsController@create');
+    Route::post('/groups/add/{id}', 'Coc\GroupsController@add');
 
     Route::get('/skillsets', 'Coc\SkillsetsController@get');
     Route::get('/skillsets/{id}', 'Coc\SKillsetsController@find');

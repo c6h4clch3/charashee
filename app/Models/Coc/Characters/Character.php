@@ -32,7 +32,7 @@ class Character extends Model
 
     public function skills()
     {
-        return $this->belongsToMany('App\Coc\Skills\Skill', 'coc_character_skills')
+        return $this->belongsToMany('App\Models\Coc\Skills\Skill', 'coc_character_skills')
             ->withPivot('job_point', 'interest_point', 'others_point')->withTimestamps();
     }
 
@@ -56,6 +56,7 @@ class Character extends Model
 
     public function groups()
     {
-        return $this->belongsToMany('App\Models\Coc\Groups\Group', 'coc_group_characters');
+        return $this->belongsToMany('App\Models\Coc\Groups\Group', 'coc_group_characters')
+            ->withTimestamps();
     }
 }

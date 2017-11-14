@@ -18,6 +18,6 @@ class SkillsetsRepository implements SkillsetsRepositoryInterface
 
     public function loadById(int $id)
     {
-        return $this->skillset->find($id);
+        return $this->skillset->with('skills')->find($id);
     }
 }

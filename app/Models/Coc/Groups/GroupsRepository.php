@@ -27,7 +27,7 @@ class GroupsRepository implements GroupsRepositoryInterface
     {
         return $this->group->create([
             'name' => $name,
-        ])->save();
+        ]);
     }
 
     public function update(int $id, string $name)

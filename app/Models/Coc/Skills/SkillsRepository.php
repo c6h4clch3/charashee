@@ -11,16 +11,25 @@ class SkillsRepository implements SkillsRepositoryInterface
         $this->skill = $skill;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function loadAll()
     {
         return $this->skill->all();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function loadById(int $id)
     {
         return $this->skill->find($id);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function firstOrCreate(string $name, int $init, $reference)
     {
         return $this->skill->firstOrCreate([
@@ -30,6 +39,9 @@ class SkillsRepository implements SkillsRepositoryInterface
         ]);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function deleteUntied()
     {
         $this->doesntHave('characters')->doesntHave('skillsets')->delete();

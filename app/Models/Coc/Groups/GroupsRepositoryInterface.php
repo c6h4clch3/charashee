@@ -2,6 +2,8 @@
 
 namespace App\Models\Groups;
 
+use App\Services\ServiceException;
+
 interface GroupsRepositoryInterface
 {
     /**
@@ -27,4 +29,11 @@ interface GroupsRepositoryInterface
      * @return mixed
      */
     public function update(int $id, string $name);
+
+    /**
+     * @param int $user_id
+     * @param int $group_id
+     * @throws ServiceException
+     */
+    public function userOwnsGroupGuard(int $user_id, int $group_id);
 }

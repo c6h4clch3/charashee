@@ -2,6 +2,8 @@
 
 namespace App\Models\Coc\Characters;
 
+use App\Services\ServiceException;
+
 interface CharactersRepositoryInterface
 {
     /**
@@ -39,4 +41,11 @@ interface CharactersRepositoryInterface
      * @return mixed
      */
     public function update(int $character_id, array $character);
+
+    /**
+     * @param int $user_id
+     * @param int $character_id
+     * @throws ServiceException
+     */
+    public function userOwnsCharacterGuard(int $user_id, int $character_id);
 }

@@ -11,11 +11,17 @@ class SkillsetsRepository implements SkillsetsRepositoryInterface
         $this->skillset = $skillset;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function loadAll()
     {
         return $this->skillset->all();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function loadById(int $id)
     {
         return $this->skillset->with('skills')->find($id);

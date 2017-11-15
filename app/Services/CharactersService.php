@@ -67,6 +67,7 @@ class CharactersService
     public function update(int $id, array $character)
     {
         return DB::transaction(function() use ($id, $character) {
+            $this->charactersRepository->userOwnsCharacterGuard(Auth::user()->id, $id);
             $characterRecord = $this->charactersRepository->update($id, $character);
 
             $characterRecord->skills()->detach();

@@ -17,12 +17,17 @@ import Vue, { Component } from 'vue';
 import { mapState } from 'vuex';
 export default {
     mounted(): void {
-        this.$store.dispatch('get', 1);
+        this.$store.dispatch('character/get', 1);
     },
     computed: {
-        ...mapState([
-            'character',
-        ]),
+        character: {
+            get() {
+                return this.$store.state.character;
+            },
+            set(value) {
+                this.$store.dispatch('character/input', value);
+            }
+        }
     }
 } as Component;
 </script>

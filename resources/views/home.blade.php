@@ -16,9 +16,7 @@
 
                     You are logged in!
 
-                    <div id="app">
-                        <example-component></example-component>
-                    </div>
+                    <router-view></router-view>
                 </div>
             </div>
         </div>

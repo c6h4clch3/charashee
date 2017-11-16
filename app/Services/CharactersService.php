@@ -34,25 +34,7 @@ class CharactersService
     {
         $characterModel = $this->charactersRepository->loadById($id);
 
-        return [
-            'name'    => $characterModel->name,
-            'age'     => $characterModel->age,
-            'sex'     => $characterModel->sex,
-            'job'     => $characterModel->job,
-            'str'     => $characterModel->str,
-            'con'     => $characterModel->con,
-            'dex'     => $characterModel->dex,
-            'pow'     => $characterModel->pow,
-            'app'     => $characterModel->app,
-            'siz'     => $characterModel->siz,
-            'int'     => $characterModel->int,
-            'edu'     => $characterModel->edu,
-            'hp'      => $characterModel->hp,
-            'mp'      => $characterModel->mp,
-            'san'     => $characterModel->san,
-            'comment' => $characterModel->comment,
-            'skills'  => $characterModel->skillData,
-        ];
+        return $this->plaining($characterModel);
     }
 
     public function getPagenated($page) {
@@ -85,7 +67,7 @@ class CharactersService
             }
             $this->user->characters()->save($characterRecord);
 
-            return $characterRecord;
+            return $this->plaining($characterRecord);
         });
     }
 
@@ -111,7 +93,30 @@ class CharactersService
 
             $this->user->characters()->save($characterRecord);
 
-            return $characterRecord;
+            return $this->plaining($characterRecord);
         });
+    }
+
+    private function plaining($characterModel)
+    {
+        return [
+            'name'    => $characterModel->name,
+            'age'     => $characterModel->age,
+            'sex'     => $characterModel->sex,
+            'job'     => $characterModel->job,
+            'str'     => $characterModel->str,
+            'con'     => $characterModel->con,
+            'dex'     => $characterModel->dex,
+            'pow'     => $characterModel->pow,
+            'app'     => $characterModel->app,
+            'siz'     => $characterModel->siz,
+            'int'     => $characterModel->int,
+            'edu'     => $characterModel->edu,
+            'hp'      => $characterModel->hp,
+            'mp'      => $characterModel->mp,
+            'san'     => $characterModel->san,
+            'comment' => $characterModel->comment,
+            'skills'  => $characterModel->skillData,
+        ];
     }
 }

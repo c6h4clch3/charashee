@@ -12,7 +12,6 @@ let mix = require('laravel-mix');
  */
 
 mix.disableSuccessNotifications()
-   .js('resources/assets/js/app.js', 'public/js')
    .sourceMaps()
    .webpackConfig({
      module: {
@@ -33,5 +32,6 @@ mix.disableSuccessNotifications()
        extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
      },
    })
+   .js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .version();

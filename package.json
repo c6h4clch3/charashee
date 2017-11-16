@@ -20,6 +20,7 @@
         "typescript": "^2.6.1",
         "vue": "^2.1.10",
         "vue-router": "^3.0.1",
-        "vuex": "^3.0.1"
+        "vuex": "^3.0.1",
+        "@types/es6-promise": "^0.0.33"
     }
 }

@@ -11,7 +11,7 @@ window.Vue = require('vue');
 
 import store from './store/app';
 
-import ExampleComponent from './components/ExampleComponent.vue';
+import ExampleComponent from './components/ExampleComponent';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

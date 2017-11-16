@@ -31,7 +31,7 @@ class CharactersRepository implements CharactersRepositoryInterface
      */
     public function loadById(int $id)
     {
-        return $this->character->find($id);
+        return $this->character->with('skills')->find($id);
     }
 
     /**
@@ -40,7 +40,7 @@ class CharactersRepository implements CharactersRepositoryInterface
     public function count()
     {
         $all = $this->character->all()->count();
-        $page = ($all / $this->unit) + 1;
+        $page = (int)($all / $this->unit) + 1;
 
         return compact('all', 'page');
     }
@@ -50,7 +50,7 @@ class CharactersRepository implements CharactersRepositoryInterface
      */
     public function loadByPage($page)
     {
-        return $this->character->forPage($page, $this->unit);
+        return $this->character->forPage($page, $this->unit)->get();
     }
 
     /**

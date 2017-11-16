@@ -20,7 +20,8 @@ Route::middleware(['auth:api'])->group(function() {
     Route::get('/user/characters', 'Coc\CharactersController@getOwned');
     Route::get('/user/groups', 'Coc\GroupsController@getOwned');
 
-    Route::get('/characters/{page?}', 'Coc\CharactersController@get');
+    Route::get('/characters', 'Coc\CharactersController@get');
+    Route::get('/characters/{id}', 'Coc\CharactersController@getById');
     Route::post('/characters/create', 'Coc\CharactersController@create');
     Route::post('/characters/update/{id}', 'Coc\CharactersController@update');
 

@@ -12,13 +12,18 @@ class CharactersController extends Controller
 {
     public function get(Request $request, CharactersService $service)
     {
-        $page = $request->page;
-        return response()->json($service->getPagenated($page));
+        return response()->json($service->getAll());
     }
 
     public function getOwned(Request $request, CharactersService $service)
     {
         return response()->json($service->getAllOwn());
+    }
+
+    public function getById(Request $request, CharactersService $service)
+    {
+        $id = $request->id;
+        return response()->json($service->getById($id));
     }
 
     public function create(Request $request, CharactersService $service)

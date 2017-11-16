@@ -30,6 +30,31 @@ class CharactersService
         return $this->user->characters->all();
     }
 
+    public function getById(int $id)
+    {
+        $characterModel = $this->charactersRepository->loadById($id);
+
+        return [
+            'name'    => $characterModel->name,
+            'age'     => $characterModel->age,
+            'sex'     => $characterModel->sex,
+            'job'     => $characterModel->job,
+            'str'     => $characterModel->str,
+            'con'     => $characterModel->con,
+            'dex'     => $characterModel->dex,
+            'pow'     => $characterModel->pow,
+            'app'     => $characterModel->app,
+            'siz'     => $characterModel->siz,
+            'int'     => $characterModel->int,
+            'edu'     => $characterModel->edu,
+            'hp'      => $characterModel->hp,
+            'mp'      => $characterModel->mp,
+            'san'     => $characterModel->san,
+            'comment' => $characterModel->comment,
+            'skills'  => $characterModel->skillData,
+        ];
+    }
+
     public function getPagenated($page) {
         if (is_null($page)) {
             $characters = $this->charactersRepository->loadAll();
@@ -76,7 +101,7 @@ class CharactersService
                 $init = $skill['init'];
                 $reference = $skill['reference'];
 
-                $skillRecord = $this->skillsRepository->firstOrCreate($init, $name, $reference);
+                $skillRecord = $this->skillsRepository->firstOrCreate($name, $init, $reference);
                 $characterRecord->skills()->attach($skillRecord, [
                     'job_point'      => $skill['job_point'],
                     'interest_point' => $skill['interest_point'],

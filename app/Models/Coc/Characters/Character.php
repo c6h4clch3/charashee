@@ -3,6 +3,7 @@
 namespace App\Models\Coc\Characters;
 
 use Illuminate\Database\Eloquent\Model;
+use Log;
 
 class Character extends Model
 {
@@ -41,7 +42,8 @@ class Character extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function getSkillData() {
+    public function getSkillDataAttribute() {
+        Log::debug('', [$this->skills, $this->skills(), $this->skills()->get()]);
         return array_map(function ($skill) {
             return [
                 'name' => $skill->name,
@@ -51,7 +53,7 @@ class Character extends Model
                 'interest_point' => $skill->pivot->interest_point,
                 'others_point' => $skill->pivot->others_point,
             ];
-        }, $this->skills);
+        }, $this->skills()->get()->all());
     }
 
     public function groups()

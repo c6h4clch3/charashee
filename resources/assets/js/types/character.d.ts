@@ -1,4 +1,4 @@
-interface character {
+declare interface character {
   name: string;
   age: number|null;
   sex: string;

@@ -10,5 +10,10 @@
   },
   "include": [
     "resources/assets/js/**/*"
-  ]
+  ],
+  "paths": {
+    "*": [
+      "**/types/*"
+    ]
+  }
 }

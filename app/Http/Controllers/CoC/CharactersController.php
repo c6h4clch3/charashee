@@ -26,6 +26,16 @@ class CharactersController extends Controller
         return response()->json($service->getById($id));
     }
 
+    public function getByIdWithGuard(Request $request, CharactersService $service)
+    {
+        $id = (int)$request->id;
+        $isOwn = $service->isOwn($id);
+        return response(
+        )->json([
+            'status' => $isOwn,
+        ]);
+    }
+
     public function create(Request $request, CharactersService $service)
     {
         $character = $request->input('character');

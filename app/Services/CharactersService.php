@@ -37,6 +37,16 @@ class CharactersService
         return $this->plaining($characterModel);
     }
 
+    public function isOwn(int $id)
+    {
+        try {
+            $this->charactersRepository->userOwnsCharacterGuard(Auth::user()->id, $id);
+            return true;
+        } catch (ServiceException $e) {
+            return false;
+        }
+    }
+
     public function getPagenated($page) {
         if (is_null($page)) {
             $characters = $this->charactersRepository->loadAll();

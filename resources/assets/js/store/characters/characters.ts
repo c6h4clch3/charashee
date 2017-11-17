@@ -38,7 +38,10 @@ export default {
         throw Error(reason);
       });
     },
-    input({commit, dispatch, rootState}, character: character) {
+    input({commit}, character: character) {
+      commit('insert', character);
+    },
+    post({commit, dispatch, rootState}, character: character) {
       let promise: Promise<character>;
       if (rootState.character_id === undefined) {
         promise = dispatch('create', character);
@@ -57,7 +60,7 @@ export default {
         const request =
           axios.post(
             '/api/characters/create',
-            character
+            {character:character}
           ) as AxiosPromise<character>;
 
         request.then((character) => {

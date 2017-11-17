@@ -22,6 +22,7 @@ Route::middleware(['auth:api'])->group(function() {
 
     Route::get('/characters', 'Coc\CharactersController@get');
     Route::get('/characters/{id}', 'Coc\CharactersController@getById');
+    Route::get('/characters/{id}/owned', 'Coc\CharactersController@getByIdWithGuard');
     Route::post('/characters/create', 'Coc\CharactersController@create');
     Route::post('/characters/update/{id}', 'Coc\CharactersController@update');
 

@@ -1,6 +1,6 @@
 <template>
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-8 col-md-push-2">
     <div class="panel panel-default">
       <router-view v-model="character"></router-view>
     </div>
@@ -12,7 +12,6 @@
 import { Component } from 'vue';
 import 'vue-router';
 import axios from 'axios';
-import CharacterForm from './CharacterFormComponent.vue';
 
 export default {
   computed: {
@@ -24,9 +23,6 @@ export default {
         this.$store.dispatch('character/input', character);
       }
     },
-  },
-  components: {
-    CharacterForm
   },
   props: [
     'id',

@@ -33,8 +33,23 @@
 
 <script lang="ts">
 import { Component } from 'vue';
-import 'vue-router';
+import { Route } from 'vue-router';
 import axios from 'axios';
+
+const isOwned = function(to: Route, from: Route, next: (to?: any) => void): void {
+  if (!to.path.match(/^\/character\/edit\/[0-9]+$/)) {
+    return next();
+  }
+  axios.get(`/api/characters/${to.params.id}/owned`).then(
+    (res) => {
+      if (res.data.status) {
+        next();
+      } else {
+        next(false);
+      }
+    }
+  );
+}
 
 export default {
   data() {
@@ -47,32 +62,10 @@ export default {
     this.$emit('input', this.$data);
   },
   beforeRouteUpdate (to, from, next) {
-    if (!to.path.match(/^\/character\/edit\/[0-9]+$/)) {
-      return next();
-    }
-    axios.get(`/api/character/${to.params.id}/is-own`).then(
-      (res) => {
-        if (res.data.status) {
-          next();
-        } else {
-          next(false);
-        }
-      }
-    );
+    isOwned(to, from, next);
   },
   beforeRouteEnter (to, from, next) {
-    if (!to.path.match(/^\/character\/edit\/[0-9]+$/)) {
-      return next();
-    }
-    axios.get(`/api/characters/${to.params.id}/owned`).then(
-      (res) => {
-        if (res.data.status) {
-          next();
-        } else {
-          next(false);
-        }
-      }
-    );
+    isOwned(to, from, next);
   }
 } as Component;
 </script>

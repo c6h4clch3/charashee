@@ -24,6 +24,12 @@
             <input class="form-control" v-model="sex" name="sex">
           </div>
         </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label" for="job">職業:</label>
+          <div class="col-xs-5">
+            <input class="form-control" v-model="job" name="job">
+          </div>
+        </div>
       </div>
     </section>
 
@@ -32,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { Component } from 'vue';
+import Vue from 'vue';
 import { Route } from 'vue-router';
 import axios from 'axios';
 
@@ -51,23 +57,30 @@ const isOwned = function(to: Route, from: Route, next: (to?: any) => void): void
   );
 }
 
-export default {
-  data() {
-    return this.$props.value as character;
+export default Vue.extend({
+  data(): character {
+    return this.$store.state.character as character;
   },
-  props: [
-    'value',
-  ],
   updated() {
     this.$emit('input', this.$data);
   },
+  mounted() {
+    if (this.id !== undefined) {
+      this.$store.dispatch('character/get', this.id);
+    } else {
+      this.$store.dispatch('character/init');
+    }
+  },
+  props: [
+    'id'
+  ],
   beforeRouteUpdate (to, from, next) {
     isOwned(to, from, next);
   },
   beforeRouteEnter (to, from, next) {
     isOwned(to, from, next);
-  }
-} as Component;
+  },
+});
 </script>
 
 <style>

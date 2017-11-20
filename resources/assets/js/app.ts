@@ -5,12 +5,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+import './bootstrap';
 
-window.Vue = require('vue');
+import Vue from 'vue';
 
 import store from './store/app';
 import router from './router/router';
+import { VueConstructor } from 'vue/types/vue';
+import { ComponentOptions } from 'vue/types/options';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -22,4 +24,4 @@ const app = new Vue({
     el: '#app',
     store,
     router
-});
+} as ComponentOptions<Vue>);

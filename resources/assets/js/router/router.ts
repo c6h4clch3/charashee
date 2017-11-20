@@ -9,7 +9,7 @@ import { Component } from 'vue/types/options';
 
 Vue.use(VueRouter);
 
-const routes = [
+const routes: RouteConfig[] = [
   {
     path: '/',
     component: ExampleComponent
@@ -22,6 +22,10 @@ const routes = [
         path: 'create',
         component: CharacterFormComponent
       },
+      {
+        path: '',
+        component: {}
+      }
     ]
   },
   {

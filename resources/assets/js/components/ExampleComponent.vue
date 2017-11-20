@@ -7,27 +7,28 @@
                 <div class="panel-body">
                     {{ character.name }}
                 </div>
+                <input v-model="character.age">
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import Vue, { Component } from 'vue';
+import Vue from 'vue';
 import { mapState } from 'vuex';
-export default {
+export default Vue.extend({
     mounted(): void {
         this.$store.dispatch('character/get', 1);
     },
     computed: {
         character: {
-            get() {
+            get(): character {
                 return this.$store.state.character;
             },
-            set(value) {
+            set(value: character): void {
                 this.$store.dispatch('character/input', value);
             }
         }
-    }
-} as Component;
+    },
+});
 </script>

@@ -41,18 +41,21 @@ export default {
     input({commit}, character: character) {
       commit('insert', character);
     },
-    post({commit, dispatch, rootState}, character: character) {
+    post({commit, dispatch}, data: {
+      id: string|number|undefined,
+      character: character
+    }) {
       let promise: Promise<character>;
-      if (rootState.character_id === undefined) {
-        promise = dispatch('create', character);
+      if (data.id === undefined) {
+        promise = dispatch('create', data.character);
       } else {
         promise = dispatch('update', {
-          id: rootState.character_id,
-          character: character,
+          id: data.id,
+          character: data.character,
         });
       }
       promise.then((val: character) => {
-        commit('insert', character)
+        commit('insert', val);
       });
     },
     create({}, character: character): Promise<character> {
@@ -71,7 +74,7 @@ export default {
       });
     },
     update({}, data: {
-      id: number,
+      id: number|string,
       character: character
     }) {
       return new Promise<character>((res, rej) => {

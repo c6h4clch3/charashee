@@ -32,6 +32,6 @@ mix.disableSuccessNotifications()
        extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
      },
    })
-   .js('resources/assets/js/app.js', 'public/js')
+   .js('resources/assets/js/app.ts', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .version();

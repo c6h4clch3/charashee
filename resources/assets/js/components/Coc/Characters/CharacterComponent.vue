@@ -2,18 +2,18 @@
 <div class="row">
   <div class="col-md-8 col-md-push-2">
     <div class="panel panel-default">
-      <router-view v-model="character"></router-view>
+      <router-view :id="id"></router-view>
     </div>
   </div>
 </div>
 </template>
 
 <script lang="ts">
-import { Component } from 'vue';
+import Vue from 'vue';
 import 'vue-router';
 import axios from 'axios';
 
-export default {
+export default Vue.extend({
   computed: {
     character: {
       get(): character {
@@ -25,15 +25,9 @@ export default {
     },
   },
   props: [
-    'id',
+    'id'
   ],
-  mounted() {
-    if (this.$props.id !== undefined) {
-      this.$store.dispatch('character_id', this.$props.id);
-      this.$store.dispatch('character/get', this.$props.id);
-    }
-  },
-} as Component;
+});
 </script>
 
 <style>

@@ -21,7 +21,10 @@ import { ComponentOptions } from 'vue/types/options';
  */
 
 const app = new Vue({
-    el: '#app',
-    store,
-    router
-} as ComponentOptions<Vue>);
+  el: '#app',
+  store,
+  router,
+  mounted() {
+    this.$store.dispatch('getUser');
+  }
+});

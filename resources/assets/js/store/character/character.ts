@@ -94,7 +94,7 @@ export default {
   },
   mutations: {
     init(state: character) {
-      state = {
+      Object.assign(state, {
         name: '',
         age: null,
         sex: '',
@@ -113,7 +113,7 @@ export default {
         comment: '',
         skills: [
         ] as Array<skill>,
-      } as character;
+      } as character);
     },
     insert(state: character, newState: character) {
       state = Object.assign(state, newState) as character;

@@ -25,7 +25,7 @@
               </ul>
             </div>
             <div class="col-sm-3">
-              <div class="btn-group pull-right">
+              <div class="btn-group pull-right" v-if="character.id === userId">
                 <router-link class="btn btn-default" tag="button" :to="`/character/${character.id}/edit`">
                   編集
                 </router-link>
@@ -51,6 +51,9 @@ export default Vue.extend({
   props: {
     value: {
       type: Array,
+    },
+    userId: {
+      type: Number
     },
   },
   computed: {

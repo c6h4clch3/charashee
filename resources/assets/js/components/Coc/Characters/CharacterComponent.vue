@@ -1,5 +1,5 @@
 <template>
-  <character-list :value="characters" />
+  <character-list :value="characters" :user-id="userId" />
 </template>
 
 <script lang="ts">
@@ -21,14 +21,14 @@ const validPageGuard = function(to: Route, from: Route, next: (to?: any | ((vm: 
   }
 
   next((vm: Vue) => {
-      vm.$store.dispatch(
-        'characterList/get',
-        parseInt(to.query.page)
-      ).then(() => {
-        next();
-      }).catch(() => {
-        next(listDefault);
-      });
+    vm.$store.dispatch(
+      'characterList/get',
+      parseInt(to.query.page)
+    ).then(() => {
+      next();
+    }).catch(() => {
+      next(listDefault);
+    });
   });
 };
 
@@ -47,6 +47,9 @@ export default Vue.extend({
     },
     pageLimit(): number {
       return this.$store.state.characterList.info.page;
+    },
+    userId(): number {
+      return this.$store.state.user.id;
     }
   },
   components: {

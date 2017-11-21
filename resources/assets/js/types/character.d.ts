@@ -1,4 +1,6 @@
-declare interface character {
+declare class character {
+  id?: number;
+  user_id?: number;
   name: string;
   age: number|null;
   sex: string;
@@ -12,5 +14,5 @@ declare interface character {
   int: number;
   edu: number;
   comment: string;
-  skills: Array<skill>;
+  skills?: Array<skill>;
 }

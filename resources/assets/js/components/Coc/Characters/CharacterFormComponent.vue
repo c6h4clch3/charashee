@@ -1,8 +1,10 @@
 <template>
-<section class="panel-default">
-  <div class="panel-heading">キャラクター作成/編集</div>
-  <div class="panel-body">
+<section class="panel panel-default">
+  <div class="panel-heading">
+    キャラクター作成/編集
+  </div>
 
+  <div class="panel-body">
     <section class="panel panel-default form-horizontal">
       <div class="panel-heading">キャラクター基本情報</div>
       <div class="panel-body">
@@ -32,54 +34,23 @@
         </div>
       </div>
     </section>
-
   </div>
 </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { Route } from 'vue-router';
-import axios from 'axios';
-
-const isOwned = function(to: Route, from: Route, next: (to?: any) => void): void {
-  if (!to.path.match(/^\/character\/edit\/[0-9]+$/)) {
-    return next();
-  }
-  axios.get(`/api/characters/${to.params.id}/owned`).then(
-    (res) => {
-      if (res.data.status) {
-        next();
-      } else {
-        next(false);
-      }
-    }
-  );
-}
 
 export default Vue.extend({
   data(): character {
-    return this.$store.state.character as character;
-  },
-  updated() {
-    this.$emit('input', this.$data);
-  },
-  mounted() {
-    if (this.id !== undefined) {
-      this.$store.dispatch('character/get', this.id);
-    } else {
-      this.$store.dispatch('character/init');
-    }
+    return this.$props.value as character;
   },
   props: [
-    'id'
+    'value'
   ],
-  beforeRouteUpdate (to, from, next) {
-    isOwned(to, from, next);
-  },
-  beforeRouteEnter (to, from, next) {
-    isOwned(to, from, next);
-  },
+  updated() {
+    this.$emit('input', this.$data);
+  }
 });
 </script>
 

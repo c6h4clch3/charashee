@@ -48,8 +48,8 @@ class CharactersService
     }
 
     public function getPagenated($page) {
-        if (is_null($page)) {
-            $characters = $this->charactersRepository->loadAll();
+        if (empty($page)) {
+            $characters = [];
         } else {
             $characters = $this->charactersRepository->loadByPage($page);
         }

@@ -26,13 +26,22 @@ class CharactersController extends Controller
         return response()->json($service->getById($id));
     }
 
+    public function getPagenated(Request $request, CharactersService $service)
+    {
+        Log::debug($request->page);
+        $page = (int)$request->page;
+        return response()->json($service->getPagenated($page));
+    }
+
     public function getByIdWithGuard(Request $request, CharactersService $service)
     {
         $id = (int)$request->id;
+        $character = $service->getById($id);
         $isOwn = $service->isOwn($id);
         return response(
         )->json([
             'status' => $isOwn,
+            'character' => $character,
         ]);
     }
 

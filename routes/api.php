@@ -21,6 +21,7 @@ Route::middleware(['auth:api'])->group(function() {
     Route::get('/user/groups', 'Coc\GroupsController@getOwned');
 
     Route::get('/characters', 'Coc\CharactersController@get');
+    Route::get('/characters/page/{page?}', 'Coc\CharactersController@getPagenated');
     Route::get('/characters/{id}', 'Coc\CharactersController@getById');
     Route::get('/characters/{id}/owned', 'Coc\CharactersController@getByIdWithGuard');
     Route::post('/characters/create', 'Coc\CharactersController@create');

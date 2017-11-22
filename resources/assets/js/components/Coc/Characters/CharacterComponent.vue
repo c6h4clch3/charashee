@@ -27,6 +27,7 @@ const validPageGuard = function(this: Vue, to: Route, from: Route, next: (to?: a
       'characterList/get',
       parseInt(to.query.page)
     ).then(() => {
+      vm.$data.loaded = true;
       next();
     }).catch((e) => {
       next(listDefault);
@@ -41,6 +42,11 @@ const validPageGuard = function(this: Vue, to: Route, from: Route, next: (to?: a
 };
 
 export default Vue.extend({
+  data() {
+    return {
+      loaded: false,
+    }
+  },
   props: {
     page: {
       type: Number,
@@ -48,16 +54,18 @@ export default Vue.extend({
   },
   beforeRouteEnter: validPageGuard,
   beforeRouteUpdate: validPageGuard,
-  beforeRouteLeave(to, from, next) {
-    this.$store.dispatch('characterList/reset');
-    next();
-  },
   computed: {
     characters(): character[] {
+      if (!this.loaded) {
+        return [];
+      }
       const list = this.$store.state.characterList as page;
       return list.characters;
     },
     pageLimit(): number {
+      if (!this.loaded) {
+        return 0;
+      }
       return this.$store.state.characterList.info.page;
     },
     userId(): number {

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Coc\Characters\CharactersRepository;
 use App\Models\Coc\Skills\SkillsRepository;
+use App\Models\Coc\Tags\TagsRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -12,22 +13,32 @@ class CharactersService
     protected $user;
     protected $charactersRepository;
     protected $skillsRepository;
+    protected $tagsRepository;
 
-    public function __construct(CharactersRepository $charactersRepository, SkillsRepository $skillsRepository)
+    public function __construct(
+        CharactersRepository $charactersRepository,
+        SkillsRepository $skillsRepository,
+        TagsRepository $tagsRepository
+    )
     {
         $this->user = Auth::user();
         $this->charactersRepository = $charactersRepository;
         $this->skillsRepository = $skillsRepository;
+        $this->tagsRepository = $tagsRepository;
     }
 
     public function getAll()
     {
-        return $this->charactersRepository->loadAll();
+        return array_map(function($character) {
+            return $this->plaining($character);
+        }, $this->charactersRepository->loadAll());
     }
 
     public function getAllOwn()
     {
-        return $this->user->characters->all();
+        return array_map(function ($character) {
+            return $this->plaining($character);
+        }, $this->user->characters()->with(['skills', 'tags'])->get()->all());
     }
 
     public function getById(int $id)
@@ -51,7 +62,9 @@ class CharactersService
         if (empty($page)) {
             $characters = [];
         } else {
-            $characters = $this->charactersRepository->loadByPage($page);
+            $characters = array_map(function($character) {
+                return $this->plaining($character);
+            }, $this->charactersRepository->loadByPage($page));
         }
         $info = $this->charactersRepository->count();
 
@@ -74,6 +87,10 @@ class CharactersService
                     'interest_point' => $skill['interest_point'],
                     'others_point'   => $skill['others_point'],
                 ]);
+            }
+            foreach ($character['tags'] as $tag) {
+                $tagRecord = $this->tagsRepository->firstOrCreate($tag);
+                $characterRecord->tags()->attach($tagRecord);
             }
             $this->user->characters()->save($characterRecord);
 
@@ -101,6 +118,12 @@ class CharactersService
                 ]);
             }
 
+            $characterRecord->tags()->detach();
+            foreach ($character['tags'] as $tag) {
+                $tagRecord = $this->tagsRepository->firstOrCreate($tag);
+                $characterRecord->tags()->attach($tagRecord);
+            }
+
             $this->user->characters()->save($characterRecord);
 
             return $this->plaining($characterRecord);
@@ -110,6 +133,8 @@ class CharactersService
     private function plaining($characterModel)
     {
         return [
+            'id'      => $characterModel->id,
+            'user_id' => $characterModel->user_id,
             'name'    => $characterModel->name,
             'age'     => $characterModel->age,
             'sex'     => $characterModel->sex,
@@ -127,6 +152,9 @@ class CharactersService
             'san'     => $characterModel->san,
             'comment' => $characterModel->comment,
             'skills'  => $characterModel->skillData,
+            'tags'    => array_map(function($tag) {
+                             return $tag['name'];
+                         }, $characterModel->tags->toArray()),
         ];
     }
 }

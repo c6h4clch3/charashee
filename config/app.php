@@ -230,7 +230,7 @@ return [
 
     'api' => [
         'characters' => [
-            'page_items' => 30,
+            'page_items' => 10,
         ]
     ],
 

@@ -11,8 +11,7 @@ import Vue from 'vue';
 
 import store from './store/app';
 import router from './router/router';
-import { VueConstructor } from 'vue/types/vue';
-import { ComponentOptions } from 'vue/types/options';
+import DataParser from './plugins/data-parser.js';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -20,11 +19,14 @@ import { ComponentOptions } from 'vue/types/options';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.use(DataParser);
 const app = new Vue({
   el: '#app',
   store,
   router,
-  mounted() {
-    this.$store.dispatch('getUser');
+  computed: {
+    userName(): string {
+      return this.$store.state.user.name;
+    }
   }
 });

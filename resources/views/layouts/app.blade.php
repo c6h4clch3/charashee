@@ -15,7 +15,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top navbar-sticky">
             <div class="container">
                 <div class="navbar-header">
 
@@ -36,20 +36,26 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        @guest
+                        @else
+                            @yield('nav_items')
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('login') }}">ログイン</a></li>
+                            <li><a href="{{ route('register') }}">ユーザー登録</a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-cloak>
+                                <a href="#" class="dropdown-toggle"
+                                   data-toggle="dropdown" role="button"
+                                   aria-expanded="false" aria-haspopup="true"
+                                   v-cloak v-data-parser:name="{{{ json_encode(Auth::user()->name) }}}">
                                     <!-- 1箇所だけなのでちょっとしたHackで対処 -->
-                                    <?php echo '{{'.json_encode(Auth::user()->name).'}}' ?> <span class="caret"></span>
+                                    @{{ extData.name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -57,7 +63,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            ログアウト
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

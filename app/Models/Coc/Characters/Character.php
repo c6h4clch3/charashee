@@ -61,4 +61,12 @@ class Character extends Model
         return $this->belongsToMany('App\Models\Coc\Groups\Group', 'coc_group_characters')
             ->withTimestamps();
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(
+            'App\Models\Coc\Tags\Tag',
+            'coc_character_tags'
+        )->withTimestamps();
+    }
 }

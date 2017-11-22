@@ -1,0 +1,9 @@
+// v-cloak対応
+[v-cloak] {
+  display: none !important;
+}
+
+.navbar-sticky {
+  position: sticky;
+  top: 0;
+}

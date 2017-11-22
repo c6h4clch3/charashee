@@ -5,9 +5,8 @@
                 <div class="panel-heading">Example Component</div>
 
                 <div class="panel-body">
-                    {{ character.name }}
+                    Welcome to Charashee!
                 </div>
-                <input v-model="character.age">
             </div>
         </div>
     </div>

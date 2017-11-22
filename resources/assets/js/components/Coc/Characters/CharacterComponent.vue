@@ -1,5 +1,5 @@
 <template>
-  <character-list :value="characters" :user-id="userId" />
+  <character-list :value="characters" :user-id="userId" :page-limit="pageLimit" :current="page"/>
 </template>
 
 <script lang="ts">
@@ -8,28 +8,36 @@ import { Location, Route } from 'vue-router';
 import axios, { AxiosPromise } from 'axios';
 import CharacterList from './CharacterListComponent.vue';
 
-const validPageGuard = function(to: Route, from: Route, next: (to?: any | ((vm: Vue) => any)) => void) {
+// beforeRouteUpdate/Enter 両対応
+const validPageGuard = function(this: Vue, to: Route, from: Route, next: (to?: any | ((vm: Vue) => any)) => any) {
   const listDefault: Location = {
-    name: 'list',
+    path: '/character',
     query: {
       page: '1',
     },
+    replace: true,
   };
 
   if (to.query.page === undefined) {
     next(listDefault);
   }
 
-  next((vm: Vue) => {
-    vm.$store.dispatch(
+  const callback = (vm: Vue) => {
+    return vm.$store.dispatch(
       'characterList/get',
       parseInt(to.query.page)
     ).then(() => {
       next();
-    }).catch(() => {
+    }).catch((e) => {
       next(listDefault);
     });
-  });
+  };
+
+  if (this !== undefined) {
+    callback(this);
+  } else {
+    next(callback);
+  }
 };
 
 export default Vue.extend({
@@ -40,6 +48,10 @@ export default Vue.extend({
   },
   beforeRouteEnter: validPageGuard,
   beforeRouteUpdate: validPageGuard,
+  beforeRouteLeave(to, from, next) {
+    this.$store.dispatch('characterList/reset');
+    next();
+  },
   computed: {
     characters(): character[] {
       const list = this.$store.state.characterList as page;

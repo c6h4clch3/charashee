@@ -15,9 +15,9 @@ export default {
       return axios.get<page>(`/api/characters/page/${page}`).then((res) => {
         commit('get', res.data);
         if (res.data.info.page < page || page <= 0) {
-          throw Error('要求されたページは存在しません')
+          throw Error('要求されたページは存在しません');
         }
-      })
+      });
     },
     getPageInfo({commit}, page: number) {
       return axios.get<page>('/api/characters/page').then((res) => {
@@ -25,6 +25,11 @@ export default {
         if (res.data.info.page < page || page <= 0) {
           throw Error('要求されたページは存在しません');
         }
+      });
+    },
+    reset({commit}) {
+      commit('get', {
+        characters: []
       });
     }
   },

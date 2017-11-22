@@ -15,4 +15,5 @@ declare class character {
   edu: number;
   comment: string;
   skills?: Array<skill>;
+  tags?: Array<string>;
 }

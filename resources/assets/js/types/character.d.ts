@@ -1,4 +1,5 @@
-declare class character {
+declare interface character {
+  [key: string]: string|number|null|Array<skill|string>|undefined;
   id?: number;
   user_id?: number;
   name: string;

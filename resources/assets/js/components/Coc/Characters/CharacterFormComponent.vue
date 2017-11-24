@@ -34,22 +34,49 @@
         </div>
       </div>
     </section>
+
+    <section class="panel panel-default">
+      <div class="panel-heading">
+        能力値
+      </div>
+
+      <div class="panel-body">
+        <div class="btn-group">
+          <button class="btn btn-primary">リロール</button>
+        </div>
+        <character-parameters v-model="character"/>
+      </div>
+    </section>
   </div>
 </section>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import CharacterParameters from './CharacterParameters.vue';
 
 export default Vue.extend({
   data(): character {
-    return this.$props.value as character;
+    return this.value as character;
+  },
+  computed: {
+    character:{
+      get(): character {
+        return this.value as character;
+      },
+      set(value: character) {
+        this.$emit('input', value);
+      }
+    }
+  },
+  updated() {
+    this.$emit('input', this.$data);
   },
   props: [
     'value'
   ],
-  updated() {
-    this.$emit('input', this.$data);
+  components: {
+    CharacterParameters
   }
 });
 </script>

@@ -46,7 +46,7 @@
       <div class="col-xs-12">
         <ul class="pagination pull-left without-margin" v-if="pageLimit > 0">
           <li :class="{ disabled: current === 1 }">
-            <router-link aria-label="Previous" :to="{ query: { page: current - 1 } }" :disabled="current === 1">
+            <router-link aria-label="Previous" :to="{ query: { page: Math.max(current - 1, 1) } }" :disabled="current === 1">
               <span aria-hidden="true">&laquo;</span>
             </router-link>
           </li>
@@ -56,7 +56,7 @@
             </router-link>
           </li>
           <li :class="{ disabled: current === pageLimit }">
-            <router-link aria-label="Next" :to="{ query: { page: current + 1 } }" :disabled="current === pageLimit">
+            <router-link aria-label="Next" :to="{ query: { page: Math.min(current + 1, pageLimit) } }" :disabled="current === pageLimit">
               <span aria-hidden="true">&raquo;</span>
             </router-link>
           </li>
@@ -104,7 +104,7 @@ export default Vue.extend({
       } else {
         return current - range <= n && n <= current + range;
       }
-    }
+    },
   },
   computed: {
     characters(): character[] {

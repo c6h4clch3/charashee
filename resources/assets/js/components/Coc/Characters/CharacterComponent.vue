@@ -10,13 +10,13 @@ import CharacterList from './CharacterListComponent.vue';
 
 // beforeRouteUpdate/Enter 両対応
 const validPageGuard = function(this: Vue, to: Route, from: Route, next: (to?: any | ((vm: Vue) => any)) => any) {
-  const listDefault: Location = {
+  const listDefault: Location = Object.assign({}, to, {
     path: '/character',
     query: {
       page: '1',
     },
     replace: true,
-  };
+  });
 
   if (to.query.page === undefined) {
     next(listDefault);

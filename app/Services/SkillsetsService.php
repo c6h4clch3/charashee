@@ -38,4 +38,13 @@ class SkillsetsService
             }, $skillset->skills()->get()->all()),
         ];
     }
+
+    public function getOwned(int $user_id) {
+        return array_map(function($skillset) {
+            return [
+                'id'   => $skillset->id,
+                'name' => $skillset->name,
+            ];
+        }, $this->skillsetsRepository->loadOwned($user_id)->all());
+    }
 }

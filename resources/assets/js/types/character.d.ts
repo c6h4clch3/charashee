@@ -14,6 +14,10 @@ declare interface character {
   siz: number;
   int: number;
   edu: number;
+  hp: number;
+  hp_additional: number;
+  mp: number;
+  mp_additional: number;
   comment: string;
   skills?: Array<skill>;
   tags?: Array<string>;

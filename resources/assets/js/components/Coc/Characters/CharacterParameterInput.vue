@@ -1,16 +1,21 @@
 <template>
   <div class="form-group">
     <label class="control-label">{{ label }}</label>
-    <input type="text" class="form-control" v-model.number="compValue" v-if="base === undefined">
-    <div class="input-group" v-else>
+    <div class="input-group">
       <input type="text" class="form-control" v-model.number="compValue">
-      <span class="input-group-addon">合計値: {{ sum }}</span>
+      <span class="input-group-addon" v-if="base !== undefined">合計値: {{ sum }}</span>
+      <span class="input-group-btn" v-else>
+        <button type="button" class="btn btn-primary" @click="roll()">
+          <span class="glyphicon glyphicon-refresh"></span>
+        </button>
+      </span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { mDn } from '../../config/config';
 
 export default Vue.extend({
   data() {
@@ -30,6 +35,20 @@ export default Vue.extend({
       required: true,
       default: '',
     },
+    theNumberOfDice: {
+      type: Number,
+    },
+    theNumberOfFacesOfDice: {
+      type: Number,
+    },
+    addtional: {
+      type: Number,
+    }
+  },
+  methods: {
+    roll() {
+      this.compValue = mDn(this.theNumberOfDice, this.theNumberOfFacesOfDice) + this.addtional;
+    }
   },
   updated() {
     this.$emit('input', (this.compValue + this.compBase))
@@ -48,7 +67,7 @@ export default Vue.extend({
       set: function(value: number) {
         this.$emit('input', (this.compBase) + value);
       }
-    }
+    },
   },
 });
 </script>

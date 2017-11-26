@@ -1,12 +1,54 @@
-export const params: { [key: string]: string } = {
-  'str': 'STR',
-  'con': 'CON',
-  'dex': 'DEX',
-  'pow': 'POW',
-  'app': 'APP',
-  'siz': 'SIZ',
-  'int': 'INT',
-  'edu': 'EDU',
+export const params: {
+  [key: string]: Parameter
+} = {
+  'str': {
+    name: 'STR',
+    dice: 3,
+    faces: 6,
+    additional: 0
+  },
+  'con': {
+    name: 'CON',
+    dice: 3,
+    faces: 6,
+    additional: 0
+  },
+  'dex': {
+    name: 'DEX',
+    dice: 3,
+    faces: 6,
+    additional: 0
+  },
+  'pow': {
+    name: 'POW',
+    dice: 3,
+    faces: 6,
+    additional: 0,
+  },
+  'app': {
+    name: 'APP',
+    dice: 3,
+    faces: 6,
+    additional: 0,
+  },
+  'siz': {
+    name: 'SIZ',
+    dice: 2,
+    faces: 6,
+    additional: 6,
+  },
+  'int': {
+    name: 'INT',
+    dice: 2,
+    faces: 6,
+    additional: 6,
+  },
+  'edu': {
+    name: 'EDU',
+    dice: 3,
+    faces: 6,
+    additional: 3,
+  }
 };
 
 export const characterGuard = function(value: any): value is character {
@@ -29,4 +71,19 @@ export const characterGuard = function(value: any): value is character {
     (value.skills === undefined || (typeof value.skills as string) === 'array') &&
     (value.tags === undefined || (typeof value.tags as string) === 'array')
   );
+};
+
+export const mDn = (m: number, n: number): number => {
+  if (m < 1) {
+    return 0;
+  } else {
+    return mDn(m - 1, n) + dn(n);
+  }
+};
+
+export const dn = (n: number): number => {
+  if (n < 1) {
+    return 0;
+  }
+  return Math.floor(Math.random() * n) + 1;
 };

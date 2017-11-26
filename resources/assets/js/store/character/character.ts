@@ -17,7 +17,9 @@ export default {
     int: 0,
     edu: 0,
     hp: 0,
+    hp_additional: 0,
     mp: 0,
+    mp_additional: 0,
     san: 0,
     comment: '',
     skills: [
@@ -108,7 +110,9 @@ export default {
         int: 0,
         edu: 0,
         hp: 0,
+        hp_additional: 0,
         mp: 0,
+        mp_additional: 0,
         san: 0,
         comment: '',
         skills: [

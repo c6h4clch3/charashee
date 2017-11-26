@@ -41,9 +41,6 @@
       </div>
 
       <div class="panel-body">
-        <div class="btn-group">
-          <button class="btn btn-primary">リロール</button>
-        </div>
         <character-parameters v-model="character"/>
       </div>
     </section>

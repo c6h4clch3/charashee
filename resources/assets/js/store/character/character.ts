@@ -162,7 +162,7 @@ export default {
     }) {
       _.set(state, item.key, item.value);
       if (item.key === 'con' || item.key === 'siz') {
-        state.hp = (state.con + state.siz)/2;
+        state.hp = Math.ceil((state.con + state.siz)/2);
       }
       if (item.key === 'pow') {
         state.mp = state.pow;
@@ -183,7 +183,7 @@ export default {
       _.map(params, function (param, key) {
         _.set(state, key, mDn(param.dice, param.faces) + param.additional);
       });
-      state.hp = (state.con + state.siz) / 2;
+      state.hp = Math.ceil((state.con + state.siz) / 2);
       state.mp = state.pow;
       state.san = state.pow * 5 - state.mythos_skill;
     },
@@ -195,7 +195,7 @@ export default {
       _.set(state, key, mDn(dice, faces) + additional);
 
       if (key === 'con' || key === 'siz') {
-        state.hp = (state.con + state.siz) / 2;
+        state.hp = Math.ceil((state.con + state.siz) / 2);
       }
       if (key === 'pow') {
         state.mp = state.pow;

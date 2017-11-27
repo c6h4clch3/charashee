@@ -9,26 +9,26 @@
       <div class="panel-heading">キャラクター基本情報</div>
       <div class="panel-body">
         <div class="form-group">
-          <label class="col-xs-2 control-label" for="name">名前:</label>
-          <div class="col-xs-5">
+          <label class="col-md-2 control-label" for="name">名前:</label>
+          <div class="col-md-5">
             <input class="form-control" v-model="name" name="name">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-xs-2 control-label" for="age">年齢:</label>
-          <div class="col-xs-5">
+          <label class="col-md-2 control-label" for="age">年齢:</label>
+          <div class="col-md-5">
             <input class="form-control" v-model="age" name="age">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-xs-2 control-label" for="sex">性別:</label>
-          <div class="col-xs-5">
+          <label class="col-md-2 control-label" for="sex">性別:</label>
+          <div class="col-md-5">
             <input class="form-control" v-model="sex" name="sex">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-xs-2 control-label" for="job">職業:</label>
-          <div class="col-xs-5">
+          <label class="col-md-2 control-label" for="job">職業:</label>
+          <div class="col-md-5">
             <input class="form-control" v-model="job" name="job">
           </div>
         </div>
@@ -41,7 +41,7 @@
       </div>
 
       <div class="panel-body">
-        <character-parameters v-model="character"/>
+        <character-parameters/>
       </div>
     </section>
   </div>
@@ -54,23 +54,18 @@ import CharacterParameters from './CharacterParameters.vue';
 
 export default Vue.extend({
   data(): character {
-    return this.value as character;
+    return this.$store.state.character as character;
   },
   computed: {
-    character:{
-      get(): character {
-        return this.value as character;
-      },
-      set(value: character) {
-        this.$emit('input', value);
-      }
+    character(): character {
+      return this.$store.state.character as character;
     }
   },
   updated() {
-    this.$emit('input', this.$data);
+    this.$store.dispatch('character/input', this.$data);
   },
   props: [
-    'value'
+    'isCreate'
   ],
   components: {
     CharacterParameters

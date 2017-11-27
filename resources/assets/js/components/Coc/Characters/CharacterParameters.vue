@@ -1,64 +1,45 @@
 <template>
 <div>
   <section class="parameters row">
-    <div class="col-md-4" v-for="param in params" :key="param.name">
-      <character-parameter-input :value="param.value"
+    <div class="col-md-4" v-for="(param, key) in params" :key="key">
+      <character-parameter-input :value="getValue(key)"
                                  :label="param.name"
-                                 @input="update(param.key, $event)"
-                                 :the-number-of-dice="param.dice"
-                                 :the-number-of-faces-of-dice="param.faces"
-                                 :addtional="param.additional" />
+                                 @roll="roll(key)"
+                                 @input="setValue(key, $event)" />
     </div>
   </section>
   <div class="btn-group">
-    <button class="btn btn-primary" @click="roll">
+    <button class="btn btn-primary" @click="rollAll">
       <span class="glyphicon glyphicon-refresh"></span>リロール
     </button>
   </div>
   <hr />
-  <section class="row">
-  </section>
+  <div class="row"></div>
 </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { params, mDn } from '../../config/config';
+import { params } from '../../config/config';
+import { mDn } from '../../utils/mdn';
 import * as _ from 'lodash';
 import CharacterParameterInput from './CharacterParameterInput.vue';
 
 export default Vue.extend({
   props: {
-    value: {
-      type: Object,
-    },
+    isCreate: Boolean,
   },
   computed: {
     character(): character {
-      return this.value;
+      return this.$store.state.character;
     },
-    params(): Parameter[] {
-      return _.map(params, (val: Parameter, key: string): Parameter => {
-        return {
-          name: val.name,
-          value: _.get(this.character, key) as number,
-          key: key,
-          dice: val.dice,
-          faces: val.faces,
-          additional: val.additional,
-        };
-      }) as Parameter[];
+    paramNames(): string[] {
+      return Object.keys(params);
     },
-    paramNames(): { [key: string]: Parameter } {
+    params(): {[key: string]: Parameter} {
       return params;
     },
-    hp(): number {
-      return (this.character.con + this.character.siz) / 2;
-    },
-    mp(): number {
-      return (this.character.pow);
-    },
-    san(): number {
+    initSan(): number {
       return this.character.pow * 5;
     },
     luck(): number {
@@ -72,17 +53,20 @@ export default Vue.extend({
     }
   },
   methods: {
-    update(key: number, value: number) {
-      this.$emit('input', _.set(this.character, key, value));
+    rollAll() {
+      this.$store.dispatch('character/rollAll');
     },
-    roll() {
-      this.params.forEach((val: Parameter) => {
-        _.set(this.character, val.key as _.Many<_.PropertyName>, mDn(val.dice, val.faces) + val.additional)
+    getValue(key: string): number {
+      return _.get<character, string>(this.character, key) as number;
+    },
+    setValue(key: string, value: number) {
+      this.$store.dispatch('character/updateParam', {
+        key: key,
+        value: value,
       });
-      this.character.hp = this.hp;
-      this.character.mp = this.mp;
-      this.character.san = this.san;
-      this.$emit('input', this.character);
+    },
+    roll(key: string) {
+      this.$store.dispatch('character/roll', key);
     }
   },
   components: {

@@ -152,6 +152,7 @@ class CharactersService
             'mp'            => $characterModel->mp,
             'mp_additional' => $characterModel->mp_additional,
             'san'           => $characterModel->san,
+            'mythos_skill'  => $characterModel->mythos_skill,
             'comment'       => $characterModel->comment,
             'skills'        => $characterModel->skillData,
             'tags'          => array_map(function($tag) {

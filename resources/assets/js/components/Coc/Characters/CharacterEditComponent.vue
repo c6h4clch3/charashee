@@ -1,5 +1,5 @@
 <template>
-  <character-form v-model="character" />
+  <character-form :is-create="true" />
 </template>
 
 <script lang="ts">
@@ -27,16 +27,6 @@ export default Vue.extend({
   props: [
     'id'
   ],
-  computed: {
-    character: {
-      get(): character {
-        return this.$store.state.character as character;
-      },
-      set(character: character): void {
-        this.$store.dispatch('character/input', this.character);
-      }
-    }
-  },
   beforeRouteUpdate: isOwned,
   beforeRouteEnter: isOwned,
   components: {

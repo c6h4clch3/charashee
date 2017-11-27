@@ -1,9 +1,12 @@
 <template>
   <div class="form-group">
-    <label class="control-label">{{ label }}</label>
+    <label class="control-label">
+      {{ label }}<template v-if="base !== undefined">(初期値: {{ base }})</template>
+    </label>
     <div class="input-group">
-      <input type="text" class="form-control" v-model.number="compValue">
-      <span class="input-group-addon" v-if="base !== undefined">合計値: {{ sum }}</span>
+      <span class="input-group-addon" v-if="base !== undefined">{{ base }} +</span>
+      <input type="number" class="form-control" v-model.number.lazy="compValue" min="0" required>
+      <span class="input-group-addon" v-if="base !== undefined">= {{ sum }}</span>
       <span class="input-group-btn" v-else>
         <button type="button" class="btn btn-primary" @click="roll()">
           <span class="glyphicon glyphicon-refresh"></span>
@@ -15,14 +18,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mDn } from '../../config/config';
+import { mDn } from '../../utils/mdn';
 
 export default Vue.extend({
-  data() {
-    return {
-      updater: 0
-    }
-  },
   props: {
     base: Number,
     value: {
@@ -35,23 +33,11 @@ export default Vue.extend({
       required: true,
       default: '',
     },
-    theNumberOfDice: {
-      type: Number,
-    },
-    theNumberOfFacesOfDice: {
-      type: Number,
-    },
-    addtional: {
-      type: Number,
-    }
   },
   methods: {
     roll() {
-      this.compValue = mDn(this.theNumberOfDice, this.theNumberOfFacesOfDice) + this.addtional;
+      this.$emit('roll');
     }
-  },
-  updated() {
-    this.$emit('input', (this.compValue + this.compBase))
   },
   computed: {
     sum(): number {
@@ -64,8 +50,17 @@ export default Vue.extend({
       get: function(): number {
         return this.value;
       },
-      set: function(value: number) {
-        this.$emit('input', (this.compBase) + value);
+      set: function(value: number|string) {
+        if (value === undefined || value === null || value === '') {
+          value = 0;
+        }
+        if (typeof value === 'string') {
+          value = parseInt(value);
+        }
+        if (value < 0) {
+          value = 0;
+        }
+        this.$emit('input', value);
       }
     },
   },

@@ -29,6 +29,32 @@ export default {
     skills: [] as Array<skill>,
     tags: [] as Array<string>
   } as character,
+  getters: {
+    parameters(state): {[key: string]: any} {
+      return _.pickBy(state, (param, key) => {
+        return _.includes([
+          'str',
+          'con',
+          'dex',
+          'pow',
+          'app',
+          'siz',
+          'int',
+          'edu',
+        ], key);
+      });
+    },
+    parameters2nd(state): {[key: string]: any} {
+      return _.pickBy(state, (param, key) => {
+        return _.includes([
+          'hp',
+          'mp',
+          'san',
+          'mythos_skill',
+        ], key);
+      });
+    }
+  },
   actions: {
     init({commit}) {
       commit('init');

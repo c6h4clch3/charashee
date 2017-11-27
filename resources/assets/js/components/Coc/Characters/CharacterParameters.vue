@@ -1,9 +1,9 @@
 <template>
 <div>
   <section class="parameters row">
-    <div class="col-md-4" v-for="(param, key) in params" :key="key">
-      <character-parameter-input :value="getValue(key)"
-                                 :label="param.name"
+    <div class="col-md-4" v-for="(param, key) in character" :key="key">
+      <character-parameter-input :value="param"
+                                 :label="key.toUpperCase()"
                                  @roll="roll(key)"
                                  @input="setValue(key, $event)" />
     </div>
@@ -20,9 +20,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { params } from '../../config/config';
-import { mDn } from '../../utils/mdn';
-import * as _ from 'lodash';
 import CharacterParameterInput from './CharacterParameterInput.vue';
 
 export default Vue.extend({
@@ -30,14 +27,8 @@ export default Vue.extend({
     isCreate: Boolean,
   },
   computed: {
-    character(): character {
-      return this.$store.state.character;
-    },
-    paramNames(): string[] {
-      return Object.keys(params);
-    },
-    params(): {[key: string]: Parameter} {
-      return params;
+    character(): any {
+      return this.$store.getters['character/parameters'];
     },
     initSan(): number {
       return this.character.pow * 5;
@@ -55,9 +46,6 @@ export default Vue.extend({
   methods: {
     rollAll() {
       this.$store.dispatch('character/rollAll');
-    },
-    getValue(key: string): number {
-      return _.get<character, string>(this.character, key) as number;
     },
     setValue(key: string, value: number) {
       this.$store.dispatch('character/updateParam', {

@@ -5,7 +5,7 @@
     </label>
     <div class="input-group">
       <span class="input-group-addon" v-if="base !== undefined">{{ base }} +</span>
-      <input type="number" class="form-control" v-model.number.lazy="compValue" min="0" required>
+      <input type="number" class="form-control" v-model.number.lazy="compValue" :min="base !== undefined ? undefined : 0" required>
       <span class="input-group-addon" v-if="base !== undefined">= {{ sum }}</span>
       <span class="input-group-btn" v-else>
         <button type="button" class="btn btn-primary" @click="roll()">
@@ -57,7 +57,7 @@ export default Vue.extend({
         if (typeof value === 'string') {
           value = parseInt(value);
         }
-        if (value < 0) {
+        if (value < 0 && this.base === undefined) {
           value = 0;
         }
         this.$emit('input', value);

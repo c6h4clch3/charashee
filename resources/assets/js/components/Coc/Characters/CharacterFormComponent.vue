@@ -41,7 +41,8 @@
       </div>
 
       <div class="panel-body">
-        <character-parameters/>
+        <character-parameters />
+        <hr>
       </div>
     </section>
   </div>

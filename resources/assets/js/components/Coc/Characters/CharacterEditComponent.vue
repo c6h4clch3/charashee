@@ -1,5 +1,5 @@
 <template>
-  <character-form :is-create="true" />
+  <character-form />
 </template>
 
 <script lang="ts">
@@ -11,7 +11,7 @@ import CharacterForm from './CharacterFormComponent.vue';
 const isOwned = function(to: Route, from: Route, next: (to?: any) => void): void {
   axios.get(`/api/characters/${to.params.id}/owned`).then(
     (res) => {
-      if (res.data.status) {
+      if (res.status === 200 && res.data.status) {
         next();
       } else {
         next(false);
@@ -23,6 +23,7 @@ const isOwned = function(to: Route, from: Route, next: (to?: any) => void): void
 export default Vue.extend({
   mounted() {
     this.$store.dispatch('character/get', this.id);
+    this.$store.dispatch('updateIsCreate', false);
   },
   props: [
     'id'

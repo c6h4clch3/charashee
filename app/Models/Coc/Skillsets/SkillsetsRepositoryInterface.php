@@ -19,5 +19,5 @@ interface SkillsetsRepositoryInterface
      * @param int $user_id
      * @return mixed
      */
-    public function loadOwned();
+    public function loadOwned(int $user_id);
 }

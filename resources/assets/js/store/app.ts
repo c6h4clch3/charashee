@@ -13,20 +13,38 @@ export default new Vuex.Store({
       id: 0,
       name: '',
       email: '',
-    } as user
+    } as user,
+    isCreate: true,
+    skillsets: [] as skillset[],
   },
   actions: {
     getUser({commit}) {
       return axios.get<user>('/api/user').then((res) => {
         commit('user', res.data);
+        return res;
       });
-    }
+    },
+    updateIsCreate({commit}, value: boolean) {
+      commit('updateIsCreate', value);
+    },
+    getSkillsets({commit}) {
+      return axios.get<skillset[]>('/api/skillsets').then((res) => {
+        commit('skillsets', res.data);
+        return res;
+      });
+    },
   },
   mutations: {
     user(state, user: user) {
       state.user.id = user.id;
       state.user.name = user.name;
       state.user.email = user.email;
+    },
+    updateIsCreate(state, value: boolean) {
+      state.isCreate = value;
+    },
+    skillsets(state, skillsets: skillset[]) {
+      state.skillsets = skillsets;
     }
   },
   modules: {

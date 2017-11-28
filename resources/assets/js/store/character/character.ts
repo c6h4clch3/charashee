@@ -3,6 +3,7 @@ import axios, { AxiosPromise } from 'axios';
 import * as _ from 'lodash';
 import { mDn } from '../../components/utils/mdn';
 import { params } from '../../components/config/config';
+import skills from './skills/skills';
 
 export default {
   namespaced: true,
@@ -104,7 +105,7 @@ export default {
     }): Promise<character> {
       return axios.post<character>(
         `/api/characters/update/${data.id}`,
-        data.character
+        {character:data.character}
       ).then((character) => {
         return character.data;
       }).catch((res: any) => {
@@ -158,7 +159,8 @@ export default {
     },
     updateParam(state: character, item: {
       key: string,
-      value: any
+      value: any,
+      isCreate?: boolean
     }) {
       _.set(state, item.key, item.value);
       if (item.key === 'con' || item.key === 'siz') {
@@ -166,6 +168,9 @@ export default {
       }
       if (item.key === 'pow') {
         state.mp = state.pow;
+        if (item.isCreate) {
+          state.san = state.pow * 5;
+        }
       }
       if (item.key === 'mythos_skill') {
         state.san = Math.min(state.san, 99 - state.mythos_skill);
@@ -203,4 +208,7 @@ export default {
       }
     }
   },
+  modules: {
+    skills
+  }
 } as Module<character, any>

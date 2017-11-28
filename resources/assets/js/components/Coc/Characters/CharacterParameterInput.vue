@@ -3,9 +3,15 @@
     <label class="control-label">
       {{ label }}<template v-if="base !== undefined">(初期値: {{ base }})</template>
     </label>
-    <div class="input-group">
+    <input type="number" class="form-control"
+           v-model.number.lazy="compValue"
+           :min="0" required
+           v-if="!isEnableRoll && base === undefined">
+    <div class="input-group" v-else>
       <span class="input-group-addon" v-if="base !== undefined">{{ base }} +</span>
-      <input type="number" class="form-control" v-model.number.lazy="compValue" :min="base !== undefined ? undefined : 0" required>
+      <input type="number" class="form-control"
+             v-model.number.lazy="compValue"
+             :min="base !== undefined ? undefined : 0" required>
       <span class="input-group-addon" v-if="base !== undefined">= {{ sum }}</span>
       <span class="input-group-btn" v-else>
         <button type="button" class="btn btn-primary" @click="roll()">
@@ -18,7 +24,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mDn } from '../../utils/mdn';
 
 export default Vue.extend({
   props: {
@@ -33,6 +38,7 @@ export default Vue.extend({
       required: true,
       default: '',
     },
+    isEnableRoll: Boolean
   },
   methods: {
     roll() {
@@ -67,6 +73,10 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-
+<style lang="scss">
+.input-group {
+  >*:only-child {
+    border-radius: 4px !important;
+  }
+}
 </style>

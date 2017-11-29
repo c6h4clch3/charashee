@@ -9,7 +9,7 @@
     <td class="text-center">
       <p>{{ sum }}</p>
     </td>
-    <td class="text-center">
+    <td class="text-center" @click="unset(index)">
       <span class="glyphicon glyphicon-remove"></span>
     </td>
   </tr>
@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
 import * as _ from 'lodash';
 
 export default Vue.extend({
@@ -28,6 +29,11 @@ export default Vue.extend({
     return {
       skill: this.value as skill,
     }
+  },
+  methods: {
+    ...mapActions('character/skills', [
+      'unset'
+    ]),
   },
   computed: {
     init: {
@@ -54,6 +60,11 @@ export default Vue.extend({
   updated() {
     if (!_.isEqual(this.skill, this.value)) {
       this.$emit('input', this.skill);
+    }
+  },
+  watch: {
+    'value': function(newVal) {
+      this.skill = newVal as skill;
     }
   }
 });

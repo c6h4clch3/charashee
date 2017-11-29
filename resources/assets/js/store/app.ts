@@ -16,6 +16,7 @@ export default new Vuex.Store({
     } as user,
     isCreate: true,
     skillsets: [] as skillset[],
+    skills: [] as skill[],
   },
   actions: {
     getUser({commit}) {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
         return res;
       });
     },
+    getSkills({commit}) {
+      return axios.get<skill[]>('/api/skills')
+    }
   },
   mutations: {
     user(state, user: user) {

@@ -64,9 +64,15 @@ export default {
     push({commit}, skill: skill) {
       commit('push', skill);
     },
-    replaceBySkillset({commit}, id) {
+    pushBySkillset({commit}, id) {
       return axios.get<skillset>(`/api/skillsets/${id}`).then((res) => {
-        commit('replace', res.data.skills as skill[]);
+        commit('pushArray', _.map(res.data.skills as skill[], function(skill: skill) {
+          return Object.assign({
+            job_point: 0,
+            interest_point: 0,
+            others_point: 0,
+          }, skill);
+        }));
       });
     },
     unset({commit}, id: number) {
@@ -85,6 +91,9 @@ export default {
     push(state, skill: skill) {
       state.push(skill);
     },
+    pushArray(state, skills: skill[]) {
+      state.push(...skills);
+    },
     replace(state, skills: skill[]) {
       state = _.map(skills, function(skill) {
         return Object.assign({
@@ -95,6 +104,7 @@ export default {
       });
     },
     unset(state, id: number) {
+      console.log(id);
       state.splice(id, 1);
     },
     update(state, item: { id: number, skill: skill }) {

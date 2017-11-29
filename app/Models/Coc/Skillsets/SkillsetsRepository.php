@@ -16,7 +16,7 @@ class SkillsetsRepository implements SkillsetsRepositoryInterface
      */
     public function loadAll()
     {
-        return $this->skillset->all();
+        return $this->skillset->with('skills')->get();
     }
 
     /**
@@ -36,6 +36,6 @@ class SkillsetsRepository implements SkillsetsRepositoryInterface
             ->where('is_custom', false)
             ->orWhere(function($query) use ($user_id) {
                 $query->where('is_custom', 'true')->where('user_id', $user_id);
-            })->get();
+            })->with('skills')->get();
     }
 }

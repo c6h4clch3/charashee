@@ -66,12 +66,25 @@
         </tr>
       </thead>
       <tbody>
-        <template v-for="(skill,key) in skills">
-          <skill-row-xs :key="key + '-xs'" :value="skill" :index="key" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row-xs>
-          <skill-row :key="key" :value="skill" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row>
+        <template v-for="(skill, key) in skills">
+          <skill-row-xs :key="`${key}-xs`" :value="skill" :index="key" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row-xs>
+          <skill-row :key="`${key}`" :value="skill" :index="key" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row>
         </template>
       </tbody>
     </table>
+    <hr>
+    <div clsss="button-group">
+      <button class="btn btn-primary" @click="create()">
+        <span class="glyphicon glyphicon-plus">空欄追加</span>
+      </button>
+      <button class="btn btn-default" data-toggle="modal" data-target="#skill">基本技能追加</button>
+    </div>
+    <modal id="skill">
+      <span slot="title">基本技能追加</span>
+      <div>
+
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -80,8 +93,14 @@ import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import SkillRow from './SkillRowComponent.vue';
 import SkillRowXs from './SkillRowXsComponent.vue';
+import Modal from '../../utils/Modal.vue';
 
 export default Vue.extend({
+  data() {
+    return {
+      counter: 0,
+    }
+  },
   computed: {
     skills(): skill[] {
       return this.$store.state.character.skills;
@@ -114,15 +133,21 @@ export default Vue.extend({
         others_point: 0,
       } as skill);
     },
+    count(): number {
+      this.counter++;
+      return this.counter;
+    },
     ...mapActions('character/skills', [
       'push',
-      'replaceBySkillset',
+      'pushBySkillset',
       'update',
+      'unset',
     ]),
   },
   components: {
     SkillRow,
     SkillRowXs,
+    Modal,
   }
 });
 </script>

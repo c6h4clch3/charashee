@@ -19,6 +19,14 @@ class SkillsetsService
             return [
                 'id'   => $skillset->id,
                 'name' => $skillset->name,
+                'skills' => array_map(function ($skill) {
+                    return [
+                        'name' => $skill->name,
+                        'init' => $skill->init,
+                        'reference' => $skill->reference,
+                        'is_custom' => $skill->is_custom,
+                    ];
+                },$skillset->skills()->get()->all()),
             ];
         }, $this->skillsetsRepository->loadAll()->all());
     }

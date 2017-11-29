@@ -3,9 +3,9 @@ import * as _ from 'lodash';
 import axios from 'axios';
 
 const format = function(obj: skill): {
-  name: any,
-  init: any,
-  reference: any
+  name: string,
+  init: number,
+  reference: string|null,
 } {
   return {
     name: obj.name,
@@ -15,6 +15,22 @@ const format = function(obj: skill): {
 };
 
 let duplicates: number[] = [];
+function getUnique(state: skill[]): boolean {
+  duplicates = [];
+  return !_.reduce<skill, boolean>(state, function(res: boolean, val, key) {
+    return _.reduce<skill, boolean>(_.slice(state, key+1), function(temp: boolean, othVal, othKey) {
+      const isMatch = _.isMatch(val, format(othVal));
+      if (isMatch) {
+        if (duplicates.length === 0) {
+          // 初めての重複
+          duplicates.push(key);
+        }
+        duplicates.push(othKey);
+      }
+      return isMatch || res;
+    }, false) || res;
+  }, false);
+}
 
 export default {
   namespaced: true,
@@ -24,20 +40,7 @@ export default {
       return state;
     },
     isUnique(state): boolean {
-      duplicates = [];
-      return !_.reduce<skill, boolean>(state, function(res: boolean, val, key) {
-        return _.reduce<skill, boolean>(_.slice(state, key+1), function(temp: boolean, othVal, othKey) {
-          const isMatch = _.isMatch(val, format(othVal));
-          if (isMatch) {
-            if (duplicates.length === 0) {
-              // 初めての重複
-              duplicates.push(key);
-            }
-            duplicates.push(othKey);
-          }
-          return isMatch || res;
-        }, false) || res;
-      }, false);
+      return getUnique(state);
     },
     sumOfJob(state): number {
       return _.reduce<skill, number>(state, function(res: number, val) {
@@ -50,6 +53,7 @@ export default {
       }, 0);
     },
     duplicates(state): number[] {
+      getUnique(state);
       return duplicates;
     }
   },
@@ -64,6 +68,12 @@ export default {
       return axios.get<skillset>(`/api/skillsets/${id}`).then((res) => {
         commit('replace', res.data.skills as skill[]);
       });
+    },
+    unset({commit}, id: number) {
+      commit('unset', id);
+    },
+    update({commit}, item: { id: number, skill: skill }) {
+      commit('update', item);
     }
   },
   mutations: {
@@ -76,7 +86,19 @@ export default {
       state.push(skill);
     },
     replace(state, skills: skill[]) {
-      state = skills;
+      state = _.map(skills, function(skill) {
+        return Object.assign({
+          job_point: 0,
+          interest_point: 0,
+          others_point: 0,
+        }, skill) as skill;
+      });
+    },
+    unset(state, id: number) {
+      state.splice(id, 1);
+    },
+    update(state, item: { id: number, skill: skill }) {
+      state.splice(item.id, 1, item.skill);
     }
   }
 } as Module<skill[], any>;

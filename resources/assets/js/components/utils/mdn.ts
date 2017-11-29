@@ -1,3 +1,4 @@
+// 再帰処理でn面ダイスをm回振る。
 export const mDn = (m: number, n: number): number => {
   if (m < 1) {
     return 0;
@@ -6,6 +7,7 @@ export const mDn = (m: number, n: number): number => {
   }
 };
 
+// n面ダイスを1回振る。
 export const dn = (n: number): number => {
   if (n < 1) {
     return 0;

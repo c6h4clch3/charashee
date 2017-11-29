@@ -13,6 +13,11 @@ class Skillset extends Model
 
     protected $fillable = [
         'name',
+        'is_custom',
+    ];
+
+    protected $casts = [
+        'is_custom' => 'boolean',
     ];
 
     public function skills()

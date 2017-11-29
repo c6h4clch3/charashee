@@ -80,8 +80,9 @@ class CharactersService
                 $name = $skill['name'];
                 $init = $skill['init'];
                 $reference = $skill['reference'];
+                $is_custom = $skill['is_custom'];
 
-                $skillRecord = $this->skillsRepository->firstOrCreate($name, $init, $reference);
+                $skillRecord = $this->skillsRepository->firstOrCreate($name, $init, $reference, $is_custom);
                 $characterRecord->skills()->attach($skillRecord, [
                     'job_point'      => $skill['job_point'],
                     'interest_point' => $skill['interest_point'],
@@ -109,8 +110,9 @@ class CharactersService
                 $name = $skill['name'];
                 $init = $skill['init'];
                 $reference = $skill['reference'];
+                $is_custom = $skill['is_custom'];
 
-                $skillRecord = $this->skillsRepository->firstOrCreate($name, $init, $reference);
+                $skillRecord = $this->skillsRepository->firstOrCreate($name, $init, $reference, $is_custom);
                 $characterRecord->skills()->attach($skillRecord, [
                     'job_point'      => $skill['job_point'],
                     'interest_point' => $skill['interest_point'],

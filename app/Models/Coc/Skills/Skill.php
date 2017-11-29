@@ -15,6 +15,11 @@ class Skill extends Model
         'name',
         'init',
         'reference',
+        'is_custom',
+    ];
+
+    protected $casts = [
+        'is_custom' => 'boolean',
     ];
 
     public function skillsets()

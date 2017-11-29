@@ -34,6 +34,7 @@ class SkillsetsService
                     'name'      => $skill->name,
                     'init'      => $skill->init,
                     'reference' => $skill->reference,
+                    'is_custom' => $skill->is_custom,
                 ];
             }, $skillset->skills()->get()->all()),
         ];

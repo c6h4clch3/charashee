@@ -49,6 +49,7 @@ class Character extends Model
                 'name' => $skill->name,
                 'init' => $skill->init,
                 'reference' => $skill->reference,
+                'is_custom' => $skill->is_custom,
                 'job_point' => $skill->pivot->job_point,
                 'interest_point' => $skill->pivot->interest_point,
                 'others_point' => $skill->pivot->others_point,

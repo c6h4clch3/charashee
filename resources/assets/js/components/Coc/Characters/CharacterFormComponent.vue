@@ -42,7 +42,16 @@
 
       <div class="panel-body">
         <character-parameters />
-        <hr>
+      </div>
+    </section>
+
+    <section class="panel panel-default">
+      <div class="panel-heading">
+        技能値
+      </div>
+
+      <div class="panel-body">
+        <character-skills />
       </div>
     </section>
   </div>
@@ -52,6 +61,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import CharacterParameters from './CharacterParameters.vue';
+import CharacterSkills from './CharacterSkillsComponent.vue';
 
 export default Vue.extend({
   data(): character {
@@ -69,7 +79,8 @@ export default Vue.extend({
     'isCreate'
   ],
   components: {
-    CharacterParameters
+    CharacterParameters,
+    CharacterSkills
   }
 });
 </script>

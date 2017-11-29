@@ -1,24 +1,15 @@
 <template>
-  <tr>
-    <td class="form-group hidden-xs">
+  <tr class="visible-xs">
+    <td class="text-centercol-xs-1" rowspan="2">
+      {{ index }}
+    </td>
+    <td class="form-group" colspan="2">
       <input class="form-control input-sm" v-model="skill.name" :readonly="!skill.is_custom">
     </td>
-    <td class="form-group">
-      <input type="number" class="form-control input-sm" v-model.number="init" min="0" :readonly="!skill.is_custom || skill.reference !== null" >
-    </td>
-    <td class="form-group">
-      <input type="number" class="form-control input-sm" v-model.number="skill.job_point" min="0">
-    </td>
-    <td class="form-group">
-      <input type="number" class="form-control input-sm" v-model.number="skill.interest_point" min="0">
-    </td>
-    <td class="form-group">
-      <input type="number" class="form-control input-sm" v-model.number="skill.others_point">
-    </td>
-    <td class="text-center hidden-xs">
+    <td class="text-center">
       <p>{{ sum }}</p>
     </td>
-    <td class="text-center hidden-xs">
+    <td class="text-center">
       <span class="glyphicon glyphicon-remove"></span>
     </td>
   </tr>
@@ -30,7 +21,8 @@ import * as _ from 'lodash';
 
 export default Vue.extend({
   props: [
-    'value'
+    'value',
+    'index'
   ],
   data() {
     return {

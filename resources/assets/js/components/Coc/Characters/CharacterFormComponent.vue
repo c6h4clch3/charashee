@@ -54,6 +54,18 @@
         <character-skills />
       </div>
     </section>
+
+    <section class="panel panel-default">
+      <div class="panel-heading">
+        その他/備考
+      </div>
+
+      <div class="panel-body">
+        <div class="form-group">
+          <textarea class="form-control" v-model="comment"></textarea>
+        </div>
+      </div>
+    </section>
   </div>
 </section>
 </template>

@@ -27,8 +27,22 @@
     <hr>
     <table class="table table-bordered">
       <thead>
+        <tr class="visible-xs">
+          <th class="text-center col-xs-1" rowspan="2">
+            #
+          </th>
+          <th class="text-center" colspan="2">
+            名称
+          </th>
+          <th class="text-center">
+            合計
+          </th>
+          <th class="text-center">
+            削除
+          </th>
+        </tr>
         <tr>
-          <th class="text-center col-xs-2">
+          <th class="text-center col-xs-2 hidden-xs">
             名称
           </th>
           <th class="text-center col-xs-2">
@@ -43,16 +57,19 @@
           <th class="text-center col-xs-2">
             その他
           </th>
-          <th class="text-center col-xs-1">
+          <th class="text-center col-xs-1 hidden-xs">
             合計
           </th>
-          <th class="text-center col-xs-1">
+          <th class="text-center col-xs-1 hidden-xs">
             削除
           </th>
         </tr>
       </thead>
       <tbody>
-        <skill-row v-for="(skill, key) in skills" :key="key" :value="skill" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row>
+        <template v-for="(skill,key) in skills">
+          <skill-row-xs :key="key + '-xs'" :value="skill" :index="key" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row-xs>
+          <skill-row :key="key" :value="skill" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row>
+        </template>
       </tbody>
     </table>
   </div>
@@ -62,6 +79,7 @@
 import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import SkillRow from './SkillRowComponent.vue';
+import SkillRowXs from './SkillRowXsComponent.vue';
 
 export default Vue.extend({
   computed: {
@@ -103,7 +121,8 @@ export default Vue.extend({
     ]),
   },
   components: {
-    SkillRow
+    SkillRow,
+    SkillRowXs,
   }
 });
 </script>

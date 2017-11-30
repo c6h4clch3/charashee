@@ -1,7 +1,7 @@
 <template>
   <tr class="visible-xs">
     <td class="text-centercol-xs-1" rowspan="2">
-      {{ index }}
+      {{ index + 1 }}
     </td>
     <td class="form-group" colspan="2">
       <input class="form-control input-sm" v-model="skill.name" :readonly="!skill.is_custom">

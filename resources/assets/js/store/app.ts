@@ -35,7 +35,10 @@ export default new Vuex.Store({
       });
     },
     getSkills({commit}) {
-      return axios.get<skill[]>('/api/skills')
+      return axios.get<skill[]>('/api/skills').then((res) => {
+        commit('skills', res.data);
+        return res;
+      });
     }
   },
   mutations: {
@@ -49,6 +52,9 @@ export default new Vuex.Store({
     },
     skillsets(state, skillsets: skillset[]) {
       state.skillsets = skillsets;
+    },
+    skills(state, skills: skill[]) {
+      state.skills = skills;
     }
   },
   modules: {

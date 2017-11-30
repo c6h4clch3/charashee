@@ -14,6 +14,7 @@ export default Vue.extend({
   mounted() {
     this.$store.dispatch('getUser');
     this.$store.dispatch('getSkillsets');
+    this.$store.dispatch('getSkills');
   }
 });
 </script>

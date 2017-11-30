@@ -32,6 +32,12 @@
             <input class="form-control" v-model="job" name="job">
           </div>
         </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" for="job">タグ:</label>
+          <div class="col-md-5">
+            <input class="form-control" v-model.lazy="character_tags" name="tag">
+          </div>
+        </div>
       </div>
     </section>
 
@@ -74,6 +80,7 @@
 import Vue from 'vue';
 import CharacterParameters from './CharacterParameters.vue';
 import CharacterSkills from './CharacterSkillsComponent.vue';
+import * as _ from 'lodash';
 
 export default Vue.extend({
   data(): character {
@@ -82,6 +89,18 @@ export default Vue.extend({
   computed: {
     character(): character {
       return this.$store.state.character as character;
+    },
+    character_tags: {
+      get(): string {
+        return this.tags.join(' ');
+      },
+      set(value: string) {
+        value = value.trim();
+        const tags = _.filter(value.split(' '), function(tag) {
+          return tag !== '';
+        });
+        this.tags = tags;
+      }
     }
   },
   updated() {
@@ -98,5 +117,10 @@ export default Vue.extend({
 </script>
 
 <style>
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
 </style>

@@ -30,6 +30,14 @@ class SkillsRepository implements SkillsRepositoryInterface
     /**
      * @inheritdoc
      */
+    public function loadForOptions()
+    {
+        return $this->skill->whereNotNull('source')->get();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function firstOrCreate(string $name, int $init, $reference)
     {
         return $this->skill->firstOrCreate([
@@ -44,6 +52,6 @@ class SkillsRepository implements SkillsRepositoryInterface
      */
     public function deleteUntied()
     {
-        $this->doesntHave('characters')->doesntHave('skillsets')->delete();
+        $this->doesntHave('characters')->doesntHave('skillsets')->where('source', null)->delete();
     }
 }

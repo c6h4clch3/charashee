@@ -32,6 +32,8 @@ Route::middleware(['auth:api'])->group(function() {
     Route::post('/groups/create', 'Coc\GroupsController@create');
     Route::post('/groups/add/{id}', 'Coc\GroupsController@add');
 
+    Route::get('/skills', 'Coc\SkillsController@getAsOptions');
+
     Route::get('/skillsets', 'Coc\SkillsetsController@get');
     Route::get('/skillsets/{id}', 'Coc\SKillsetsController@find');
 });

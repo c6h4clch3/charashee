@@ -42,19 +42,19 @@
           </th>
         </tr>
         <tr>
-          <th class="text-center col-xs-2 hidden-xs">
+          <th class="text-center col-xs-4 hidden-xs">
             名称
           </th>
-          <th class="text-center col-xs-2">
+          <th class="text-center">
             初期値
           </th>
-          <th class="text-center col-xs-2">
+          <th class="text-center">
             職業
           </th>
-          <th class="text-center col-xs-2">
+          <th class="text-center">
             興味
           </th>
-          <th class="text-center col-xs-2">
+          <th class="text-center">
             その他
           </th>
           <th class="text-center col-xs-1 hidden-xs">
@@ -65,24 +65,46 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <transition-group tag="tbody" name="fade">
         <template v-for="(skill, key) in skills">
-          <skill-row-xs :key="`${key}-xs`" :value="skill" :index="key" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row-xs>
-          <skill-row :key="`${key}`" :value="skill" :index="key" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row>
+          <skill-row-xs :key="`${skill.key}-xs`" :value="skill" :index="key" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row-xs>
+          <skill-row :key="`${skill.key}`" :value="skill" :index="key" @input="update({ id: key, skill: skill })" :class="{ 'danger' : !isUnique }"></skill-row>
         </template>
-      </tbody>
+      </transition-group>
     </table>
     <hr>
     <div clsss="button-group">
       <button class="btn btn-primary" @click="create()">
-        <span class="glyphicon glyphicon-plus">空欄追加</span>
+        <span class="glyphicon glyphicon-plus"></span> 空欄追加
       </button>
-      <button class="btn btn-default" data-toggle="modal" data-target="#skill">基本技能追加</button>
+      <button class="btn btn-default" data-toggle="modal" data-target="#skill">一括技能追加</button>
     </div>
     <modal id="skill">
-      <span slot="title">基本技能追加</span>
+      <span slot="title">一括技能追加</span>
       <div>
-
+        <div class="form-inline form-group">
+          <div class="form-group">
+            <label class="control-label">職業技能から一括で追加</label>
+            <select class="form-control" v-model="selectedSkillset">
+              <option selected value="">選択してください</option>
+              <option v-for="(skillset,index) in skillsets" :key="skillset.id" :value="index">{{skillset.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" :disabled="selectedSkillset === ''" data-dismiss="modal" @click="pushByArray(skillsets[selectedSkillset].skills)">
+              <span class="glyphicon glyphicon-plus"></span> 追加
+            </button>
+          </div>
+        </div>
+        <div class="col-xs-12 table-responsive hidden-xs hidden-sm">
+          <skillsets-skills-table v-if="!(selectedSkillset === '')" :selected="selectedSkillset"></skillsets-skills-table>
+        </div>
+        <hr>
+        <div class="form-inline">
+          <div class="form-group">
+            <label class="control-label">基本技能から1件追加</label>
+          </div>
+        </div>
       </div>
     </modal>
   </div>
@@ -93,12 +115,14 @@ import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import SkillRow from './SkillRowComponent.vue';
 import SkillRowXs from './SkillRowXsComponent.vue';
+import SkillsetsSkillsTable from './SkillsetsSkillsTable.vue';
 import Modal from '../../utils/Modal.vue';
 
 export default Vue.extend({
   data() {
     return {
       counter: 0,
+      selectedSkillset: '' as string|number,
     }
   },
   computed: {
@@ -139,7 +163,7 @@ export default Vue.extend({
     },
     ...mapActions('character/skills', [
       'push',
-      'pushBySkillset',
+      'pushByArray',
       'update',
       'unset',
     ]),
@@ -147,6 +171,7 @@ export default Vue.extend({
   components: {
     SkillRow,
     SkillRowXs,
+    SkillsetsSkillsTable,
     Modal,
   }
 });

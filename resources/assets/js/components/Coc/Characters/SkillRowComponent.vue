@@ -7,13 +7,13 @@
       <input type="number" class="form-control input-sm" v-model.number="init" min="0" :readonly="!skill.is_custom || skill.reference !== null" >
     </td>
     <td class="form-group">
-      <input type="number" class="form-control input-sm" v-model.number="skill.job_point" min="0">
+      <input type="number" class="form-control input-sm" v-model.number="job" min="0">
     </td>
     <td class="form-group">
-      <input type="number" class="form-control input-sm" v-model.number="skill.interest_point" min="0">
+      <input type="number" class="form-control input-sm" v-model.number="interest" min="0">
     </td>
     <td class="form-group">
-      <input type="number" class="form-control input-sm" v-model.number="skill.others_point">
+      <input type="number" class="form-control input-sm" v-model.number="others">
     </td>
     <td class="text-center hidden-xs">
       <p>{{ sum }}</p>
@@ -60,6 +60,48 @@ export default Vue.extend({
           value = parseInt(value);
         }
         this.skill.init = value;
+      }
+    },
+    job: {
+      get(): number {
+        return this.skill.job_point;
+      },
+      set(value: number|string) {
+        if (value === '' || value < 0) {
+          value = 0;
+        }
+        if (typeof value === 'string') {
+          value = parseInt(value);
+        }
+        this.skill.job_point = value;
+      }
+    },
+    interest: {
+      get(): number {
+        return this.skill.interest_point;
+      },
+      set(value: number|string) {
+        if (value === '' || value < 0) {
+          value = 0;
+        }
+        if (typeof value === 'string') {
+          value = parseInt(value);
+        }
+        this.skill.interest_point = value;
+      }
+    },
+    others: {
+      get(): number {
+        return this.skill.others_point;
+      },
+      set(value: number|string) {
+        if (value === '') {
+          value = 0;
+        }
+        if (typeof value === 'string') {
+          value = parseInt(value);
+        }
+        this.skill.others_point = value;
       }
     },
     sum(): number {

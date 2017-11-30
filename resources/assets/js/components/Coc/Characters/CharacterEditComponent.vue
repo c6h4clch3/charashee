@@ -22,7 +22,9 @@ const isOwned = function(to: Route, from: Route, next: (to?: any) => void): void
 
 export default Vue.extend({
   mounted() {
-    this.$store.dispatch('character/get', this.id);
+    this.$store.dispatch('character/get', this.id).then(() => {
+      this.$store.dispatch('character/skills/withKey');
+    });
     this.$store.dispatch('updateIsCreate', false);
   },
   props: [

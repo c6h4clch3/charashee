@@ -12,7 +12,7 @@
   <template v-if="isCreate">
     <div class="btn-group">
       <button class="btn btn-primary" @click="rollAll">
-        <span class="glyphicon glyphicon-refresh"></span>全リロール
+        <span class="glyphicon glyphicon-refresh"></span> 全リロール
       </button>
     </div>
     <p>※ 全ての能力値が再入力されます</p>

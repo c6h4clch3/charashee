@@ -18,8 +18,9 @@ let duplicates: number[] = [];
 function getUnique(state: skill[]): boolean {
   duplicates = [];
   return !_.reduce<skill, boolean>(state, function(res: boolean, val, key) {
-    return _.reduce<skill, boolean>(_.slice(state, key+1), function(temp: boolean, othVal, othKey) {
-      const isMatch = _.isMatch(val, format(othVal));
+    return (_.reduce<skill, boolean>(_.slice(state, key+1), function(temp: boolean, othVal, othKey) {
+      const isMatch = _.isMatch(format(val), format(othVal));
+      console.log(isMatch, othVal, val, temp);
       if (isMatch) {
         if (duplicates.length === 0) {
           // 初めての重複
@@ -27,10 +28,12 @@ function getUnique(state: skill[]): boolean {
         }
         duplicates.push(othKey);
       }
-      return isMatch || res;
-    }, false) || res;
+      return (isMatch || temp);
+    }, false) || res);
   }, false);
 }
+
+let counter = 0;
 
 export default {
   namespaced: true,
@@ -63,11 +66,26 @@ export default {
     },
     push({commit}, skill: skill) {
       commit('push', skill);
+      commit('withKey');
+    },
+    init({commit}) {
+      commit('withKey');
+    },
+    pushByArray({commit}, skills: skill[]) {
+      commit('pushArray', _.map(skills, function(skill: skill) {
+        return Object.assign({
+          key: counter++,
+          job_point: 0,
+          interest_point: 0,
+          others_point: 0,
+        }, skill);
+      }));
     },
     pushBySkillset({commit}, id) {
       return axios.get<skillset>(`/api/skillsets/${id}`).then((res) => {
         commit('pushArray', _.map(res.data.skills as skill[], function(skill: skill) {
           return Object.assign({
+            key: counter++,
             job_point: 0,
             interest_point: 0,
             others_point: 0,
@@ -88,6 +106,13 @@ export default {
         return _.isEqual(format(arrVal), format(othVal));
       });
     },
+    withKey(state) {
+      state = _.map(state, (skill) => {
+        return Object.assign(skill, Object.assign({
+          key: counter++,
+        }, skill)) as skill;
+      });
+    },
     push(state, skill: skill) {
       state.push(skill);
     },
@@ -97,6 +122,7 @@ export default {
     replace(state, skills: skill[]) {
       state = _.map(skills, function(skill) {
         return Object.assign({
+          key: counter++,
           job_point: 0,
           interest_point: 0,
           others_point: 0,

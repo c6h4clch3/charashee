@@ -16,6 +16,11 @@ interface SkillsRepositoryInterface
     public function loadById(int $id);
 
     /**
+     * @return mixed
+     */
+    public function loadForOptions();
+
+    /**
      * @param string $name
      * @param int $init
      * @param $reference

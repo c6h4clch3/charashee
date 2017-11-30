@@ -27,11 +27,13 @@ class CocSkillsTableSeeder extends Seeder
                 'init' => $row[1],
                 'reference' => $row[2] === '' ? null : $row[2],
                 'is_custom' => $row[3],
+                'source' => $row[4],
             ];
 
             Skill::create($record)->save();
         });
 
         $lexer->parse(base_path().self::PATH, $interpreter);
+        Skill::where('id', 14)->delete();
     }
 }

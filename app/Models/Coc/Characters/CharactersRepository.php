@@ -73,8 +73,11 @@ class CharactersRepository implements CharactersRepositoryInterface
                 'int',
                 'edu',
                 'hp',
+                'hp_additional',
                 'mp',
+                'mp_additional',
                 'san',
+                'mythos_skill',
                 'comment',
             ]);
         }, ARRAY_FILTER_USE_KEY);
@@ -102,8 +105,11 @@ class CharactersRepository implements CharactersRepositoryInterface
                 'int',
                 'edu',
                 'hp',
+                'hp_additional',
                 'mp',
+                'mp_additional',
                 'san',
+                'mythos_skill',
                 'comment',
             ]);
         }, ARRAY_FILTER_USE_KEY);

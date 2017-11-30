@@ -169,7 +169,7 @@ export default {
       if (item.key === 'pow') {
         state.mp = state.pow;
         if (item.isCreate) {
-          state.san = state.pow * 5;
+          state.san = Math.min(state.pow * 5, 99 - state.mythos_skill);
         }
       }
       if (item.key === 'mythos_skill') {
@@ -190,7 +190,7 @@ export default {
       });
       state.hp = Math.ceil((state.con + state.siz) / 2);
       state.mp = state.pow;
-      state.san = state.pow * 5 - state.mythos_skill;
+      state.san = Math.min(state.pow * 5, 99 - state.mythos_skill);
     },
     roll(state: character, key: string) {
       const dice = params[key].dice;
@@ -204,7 +204,7 @@ export default {
       }
       if (key === 'pow') {
         state.mp = state.pow;
-        state.san = state.pow * 5 - state.mythos_skill;
+        state.san = Math.min(state.pow * 5, 99 - state.mythos_skill);
       }
     }
   },

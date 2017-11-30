@@ -77,7 +77,7 @@
       <button class="btn btn-primary" @click="create()">
         <span class="glyphicon glyphicon-plus"></span> 空欄追加
       </button>
-      <button class="btn btn-default" data-toggle="modal" data-target="#skill">一括技能追加</button>
+      <button class="btn btn-default" data-toggle="modal" data-target="#skill" @click="() => { selectedSkillset = ''; selectedSkill = ''; }">一括技能追加</button>
     </div>
     <modal id="skill">
       <span slot="title">一括技能追加</span>
@@ -103,6 +103,16 @@
         <div class="form-inline">
           <div class="form-group">
             <label class="control-label">基本技能から1件追加</label>
+            <select class="form-control" v-model="selectedSkill">
+              <option selected value="">選択してください</option>
+              <option v-for="(skill, index) in skillOptions" :key="index" :value="index">{{ skill.name }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" :disabled="selectedSkill === ''" data-dismiss="modal"
+                    @click="push(Object.assign({job_point: 0, interest_point: 0, others_point: 0}, skillOptions[selectedSkill]))">
+              <span class="glyphicon glyphicon-plus"></span> 追加
+            </button>
           </div>
         </div>
       </div>
@@ -123,11 +133,15 @@ export default Vue.extend({
     return {
       counter: 0,
       selectedSkillset: '' as string|number,
+      selectedSkill: '' as string|number,
     }
   },
   computed: {
     skills(): skill[] {
       return this.$store.state.character.skills;
+    },
+    skillOptions(): skill[] {
+      return this.$store.state.skills;
     },
     skillsets(): skillset[] {
       return this.$store.state.skillsets;

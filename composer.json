@@ -54,8 +54,7 @@
             "php artisan clear-compiled",
             "php artisan optimize",
             "chmod -R 777 storage",
-            "find ./ -type f -exec chmod 644 {}",
-            "find ./ -type d -exec chmod 755 {}",
+            "chmod -R 755 ./",
             "php artisan passport:keys",
             "composer dump-autoload"
         ]

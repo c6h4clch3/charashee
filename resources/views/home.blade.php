@@ -9,6 +9,9 @@
             <router-link :to="'/character?page=1'" tag="li" v-cloak>
                 <a>キャラクター一覧</a>
             </router-link>
+            <router-link :to="'/character/user'" tag="li" v-cloak>
+                <a>所有キャラクター</a>
+            </router-link>
             <router-link :to="'/character/create'" tag="li" v-cloak>
                 <a>新規作成</a>
             </router-link>

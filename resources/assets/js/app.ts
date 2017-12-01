@@ -12,6 +12,7 @@ import Vue from 'vue';
 import store from './store/app';
 import router from './router/router';
 import DataParser from './plugins/data-parser.js';
+import Loading from './components/utils/Loading.vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -27,6 +28,12 @@ const app = new Vue({
   computed: {
     userName(): string {
       return this.$store.state.user.name;
+    },
+    wait(): boolean {
+      return this.$store.state.wait;
     }
+  },
+  components: {
+    Loading
   }
 });

@@ -81,6 +81,7 @@
         <div class="container">
             @yield('content')
         </div>
+        <loading v-if="wait"></loading>
     </div>
 
     <!-- Scripts -->

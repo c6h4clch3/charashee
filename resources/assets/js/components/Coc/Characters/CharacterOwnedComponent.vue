@@ -1,5 +1,5 @@
 <template>
-  <character-list :value="characters" :user-id="userId" :page-limit="pageLimit" :current="page"/>
+  <character-list :value="characters" :user-id="userId" :page-limit="pageLimit" :current="0"/>
 </template>
 
 <script lang="ts">
@@ -11,22 +11,14 @@ import CharacterList from './CharacterListComponent.vue';
 // beforeRouteUpdate/Enter 両対応
 const validPageGuard = function(this: Vue, to: Route, from: Route, next: (to?: any | ((vm: Vue) => any)) => any) {
   const listDefault: Location = Object.assign({}, to, {
-    path: '/character',
-    query: {
-      page: '1',
-    },
+    path: '/character/user',
     replace: true,
   });
-
-  if (to.query.page === undefined) {
-    next(listDefault);
-  }
 
   const callback = (vm: Vue) => {
     vm.$store.dispatch('wait');
     return vm.$store.dispatch(
-      'characterList/get',
-      parseInt(to.query.page)
+      'characterList/getOwned'
     ).then(() => {
       vm.$data.loaded = true;
       vm.$store.dispatch('resolveWait');
@@ -49,11 +41,6 @@ export default Vue.extend({
       loaded: false,
     }
   },
-  props: {
-    page: {
-      type: Number,
-    }
-  },
   beforeRouteEnter: validPageGuard,
   beforeRouteUpdate: validPageGuard,
   computed: {
@@ -68,7 +55,7 @@ export default Vue.extend({
       if (!this.loaded) {
         return 0;
       }
-      return this.$store.state.characterList.info.page;
+      return 0;
     },
     userId(): number {
       return this.$store.state.user.id;

@@ -1,7 +1,13 @@
 <template>
-<div class="row">
+<div class="row stretch">
   <div class="col-md-8 col-md-push-2">
     <router-view></router-view>
+  </div>
+  <div class="col-md-2 col-md-pull-8">
+    <router-view name="left"></router-view>
+  </div>
+  <div class="col-md-2">
+    <router-view name="right"></router-view>
   </div>
 </div>
 </template>
@@ -14,5 +20,7 @@ export default BaseComponent.extend({
 </script>
 
 <style>
-
+.stretch {
+  display: inherit;
+}
 </style>

@@ -115,7 +115,6 @@ export default Vue.extend({
   },
   watch: {
     'value': function(newVal) {
-      console.log(newVal);
       this.skill = newVal as skill;
     }
   }

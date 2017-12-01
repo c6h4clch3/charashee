@@ -27,6 +27,11 @@ export default {
         }
       });
     },
+    getOwned({commit}) {
+      return axios.get<page>('/api/user/characters').then((res) => {
+        commit('get', {characters: res.data});
+      });
+    },
     reset({commit}) {
       commit('get', {
         characters: []

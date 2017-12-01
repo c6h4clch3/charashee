@@ -9,7 +9,9 @@ import { Route } from 'vue-router';
 
 const load = function(this: Vue, to: Route, from: Route, next: (to?: false | ((vm: Vue) => any)) => any) {
   const callback = (vm: Vue): void => {
-    this.$store.dispatch('character/get', to.params.id).then(() => {
+    vm.$store.dispatch('wait');
+    vm.$store.dispatch('character/get', to.params.id).then(() => {
+      vm.$store.dispatch('resolveWait');
       next();
     }).catch(() => {
       next(false);

@@ -17,6 +17,7 @@ export default new Vuex.Store({
     isCreate: true,
     skillsets: [] as skillset[],
     skills: [] as skill[],
+    wait: false,
   },
   actions: {
     getUser({commit}) {
@@ -39,6 +40,15 @@ export default new Vuex.Store({
         commit('skills', res.data);
         return res;
       });
+    },
+    toggleWait({commit, state}) {
+      commit('wait', !state.wait);
+    },
+    wait({commit}) {
+      commit('wait', true);
+    },
+    resolveWait({commit}) {
+      commit('wait', false);
     }
   },
   mutations: {
@@ -55,6 +65,9 @@ export default new Vuex.Store({
     },
     skills(state, skills: skill[]) {
       state.skills = skills;
+    },
+    wait(state, value: boolean) {
+      state.wait = value;
     }
   },
   modules: {

@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col-sm-9">
               <h3 class="list-group-item-heading">
-                {{ character.name }}
+                <router-link :to="`/character/${character.id}`">{{ character.name }}</router-link>
               </h3>
               <ul class="list-inline">
                 <li>

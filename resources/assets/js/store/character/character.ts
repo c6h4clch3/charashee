@@ -60,11 +60,13 @@ export default {
     init({commit}) {
       commit('init');
     },
-    get({commit}, id: number) {
-      axios.get<character>(
+    get({commit, dispatch}, id: number) {
+      commit('init');
+      return axios.get<character>(
         `/api/characters/${id}`
       ).then((character) => {
         commit('insert', character.data);
+        return dispatch('skills/pushByArray', character.data.skills);
       }).catch((reason) => {
         throw Error(reason);
       });
@@ -76,17 +78,20 @@ export default {
       id: string|number|undefined,
       character: character
     }) {
-      let promise: Promise<character>;
-      if (data.id === undefined) {
-        promise = dispatch('create', data.character);
-      } else {
-        promise = dispatch('update', {
-          id: data.id,
-          character: data.character,
+      return new Promise<character>((res, rej) => {
+        let promise: Promise<character>;
+        if (data.id === undefined) {
+          promise = dispatch('create', data.character);
+        } else {
+          promise = dispatch('update', {
+            id: data.id,
+            character: data.character,
+          });
+        }
+        promise.then((val: character) => {
+          commit('insert', val);
+          res(val);
         });
-      }
-      promise.then((val: character) => {
-        commit('insert', val);
       });
     },
     create({}, character: character): Promise<character> {
@@ -155,7 +160,7 @@ export default {
       } as character);
     },
     insert(state: character, newState: character) {
-      state = Object.assign(state, newState) as character;
+      state = Object.assign(state, _.omit(newState, ['skills'])) as character;
     },
     updateParam(state: character, item: {
       key: string,

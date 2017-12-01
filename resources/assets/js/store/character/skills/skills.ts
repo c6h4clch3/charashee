@@ -20,7 +20,6 @@ function getUnique(state: skill[]): boolean {
   return !_.reduce<skill, boolean>(state, function(res: boolean, val, key) {
     return (_.reduce<skill, boolean>(_.slice(state, key+1), function(temp: boolean, othVal, othKey) {
       const isMatch = _.isMatch(format(val), format(othVal));
-      console.log(isMatch, othVal, val, temp);
       if (isMatch) {
         if (duplicates.length === 0) {
           // 初めての重複
@@ -130,7 +129,6 @@ export default {
       });
     },
     unset(state, id: number) {
-      console.log(id);
       state.splice(id, 1);
     },
     update(state, item: { id: number, skill: skill }) {

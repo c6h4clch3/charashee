@@ -26,8 +26,11 @@ class Character extends Model
         'int',
         'edu',
         'hp',
+        'hp_additional',
         'mp',
+        'mp_additional',
         'san',
+        'mythos_skill',
         'comment',
     ];
 

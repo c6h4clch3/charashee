@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import VueRouter, { RouterOptions, Route } from 'vue-router';
 
-import ExampleComponent from '../components/ExampleComponent.vue';
+import HomeComponent from '../components/HomeComponent.vue';
 import HGLayoutComponent from '../components/HGLayoutComponent.vue';
 import CharacterCreateComponent from '../components/Coc/Characters/CharacterCreateComponent.vue';
 import CharacterEditComponent from '../components/Coc/Characters/CharacterEditComponent.vue';
 import CharacterComponent from '../components/Coc/Characters/CharacterComponent.vue';
+import CharacterShowComponent from '../components/Coc/Characters/CharacterShowComponent.vue';
+import CharacterOwnedComponent from '../components/Coc/Characters/CharacterOwnedComponent.vue';
+import FormUpdater from '../components/Coc/Characters/FormUpdater.vue';
 import { RouteConfig } from 'vue-router/types/router';
 import { Component } from 'vue/types/options';
 
@@ -14,7 +17,7 @@ Vue.use(VueRouter);
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: ExampleComponent
+    component: HomeComponent
   },
   {
     path: '/character',
@@ -23,26 +26,47 @@ const routes: RouteConfig[] = [
       {
         path: '',
         name: 'list',
-        component: CharacterComponent,
-        props: (route) => ({
-          page: parseInt(route.query.page),
-        }),
+        components: {
+          default: CharacterComponent,
+        },
+        props: {
+          default: (route: Route) => ({
+            page: parseInt(route.query.page),
+          }),
+        }
+      },
+      {
+        path: 'user',
+        component: CharacterOwnedComponent,
       },
       {
         path: 'create',
-        component: CharacterCreateComponent
+        components: {
+          default: CharacterCreateComponent,
+          left: FormUpdater
+        }
       },
       {
         path: ':id',
-        component: {
-          template: `<p>未実装</p>`,
-        },
-        props: true,
+        component: CharacterShowComponent,
+        props: (route: Route) => ({
+          id: parseInt(route.params.id),
+        }),
       },
       {
         path: ':id/edit',
-        component: CharacterEditComponent,
-        props: true,
+        components: {
+          default: CharacterEditComponent,
+          left: FormUpdater
+        },
+        props: {
+          default: (route: Route) => ({
+            id: parseInt(route.params.id)
+          }),
+          left: (route: Route) => ({
+            id: parseInt(route.params.id),
+          }),
+        }
       }
     ]
   },

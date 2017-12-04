@@ -12,10 +12,6 @@
     "DB_CONNECTION": {
       "description": "DBドライバ",
       "value": "pgsql"
-    },
-    "APP_KEY": {
-      "description": "アプリケーションキー",
-      "generator": "secret"
     }
   },
   "addons": [

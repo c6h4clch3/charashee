@@ -31,6 +31,12 @@ interface GroupsRepositoryInterface
     public function update(int $id, string $name);
 
     /**
+     * @param int $id
+     * @return int
+     */
+    public function delete(int $id);
+
+    /**
      * @param int $user_id
      * @param int $group_id
      * @throws ServiceException

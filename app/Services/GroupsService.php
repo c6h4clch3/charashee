@@ -74,6 +74,32 @@ class GroupsService
         return $group;
     }
 
+    public function update(int $group_id, string $name)
+    {
+        $this->groupsRepository->userOwnsGroupsGuard(Auth::user()->id, $group_id);
+
+        $group = $this->groupsRepository->update($group_id, $name);
+        return $group;
+    }
+
+    public function delete(int $group_id)
+    {
+        $this->groupsRepository->userOwnsGroupsGuard(Auth::user()->id, $group_id);
+
+        return $this->groupsRepository->delete($group_id);
+    }
+
+    public function register(int $group_id, int $character_id)
+    {
+        $group = $this->groupsRepository->loadById($group_id);
+        $character = $this->characterRepository->loadById($character_id);
+        $this->groupsRepository->userOwnsGroupsGuard(Auth::user()->id, $group_id);
+
+        $group->characters()->save($character);
+
+        return $group;
+    }
+
     public function registerAll(int $group_id, array $character_ids)
     {
         return DB::transaction(function () use ($group_id, $character_ids) {
@@ -87,5 +113,11 @@ class GroupsService
 
             return $group;
         });
+    }
+
+    public function unregister(int $group_id, int $character_id)
+    {
+        $this->groupsRepository->userOwnsGroupsGuard(Auth::user()->id, $group_id);
+        return $this->groupRepository->characters()->detach($character_id);
     }
 }

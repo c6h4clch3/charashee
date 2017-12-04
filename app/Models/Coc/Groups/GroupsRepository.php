@@ -53,6 +53,14 @@ class GroupsRepository implements GroupsRepositoryInterface
     /**
      * @inheritdoc
      */
+    public function delete(int $id)
+    {
+        return $this->group->destroy($id);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function userOwnsGroupGuard(int $user_id, int $group_id)
     {
         $group = $this->group->find($group_id);

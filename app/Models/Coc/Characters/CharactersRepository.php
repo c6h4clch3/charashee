@@ -121,6 +121,14 @@ class CharactersRepository implements CharactersRepositoryInterface
     /**
      * @inheritdoc
      */
+    public function delete(int $character_id)
+    {
+        return $this->character->destroy($character_id);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function userOwnsCharacterGuard(int $user_id, int $character_id)
     {
         $character = $this->character->find($character_id);

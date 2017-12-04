@@ -132,6 +132,14 @@ class CharactersService
         });
     }
 
+    public function delete(int $character_id)
+    {
+        return DB::transaction(function() use ($character_id) {
+            $this->charactersRepository->userOwnsCharacterGuard(Auth::user()->id, $character_id);
+            return $this->charactersRepository->delete($character_id);
+        });
+    }
+
     private function plaining($characterModel)
     {
         return [

@@ -37,7 +37,7 @@
                 <router-link class="btn btn-default" tag="button" :to="`/character/${character.id}/edit`">
                   編集
                 </router-link>
-                <button class="btn btn-danger">削除</button>
+                <button class="btn btn-danger" @click="deleteCharacter(character.id)">削除</button>
               </div>
             </div>
           </div>
@@ -105,6 +105,15 @@ export default Vue.extend({
         return current - range <= n && n <= current + range;
       }
     },
+    deleteCharacter(id: number) {
+      this.$store.dispatch('wait');
+      this.$store.dispatch('character/delete', id).then(() => {
+        this.$store.dispatch('resolveWait');
+        this.$emit('deleted');
+      }).catch(() => {
+        this.$store.dispatch('resolveWait');
+      });
+    }
   },
   computed: {
     characters(): character[] {

@@ -1,0 +1,30 @@
+{
+  "name": "Charashee",
+  "description": "クトゥルフ神話TRPG キャラシ管理ツール",
+  "keywords": [
+    "laravel",
+    "Vue.js",
+    "Call of Chthulhu"
+  ],
+  "repository": "https://github.com/c6h4clch3/charashee",
+  "logo": "https://github.com/c6h4clch3/charashee/blob/master/logo.png",
+  "env": {
+    "DB_CONNECTION": {
+      "description": "DBドライバ",
+      "value": "pgsql"
+    }
+  },
+  "addons": [
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-php"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "php artisan migrate --seed"
+  }
+}

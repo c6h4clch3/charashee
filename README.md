@@ -2,6 +2,8 @@
 
 キャラクターシート管理ツール
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 - メインターゲットはCoC(クトゥルフ神話TRPG)
 - キャラクターシートの新規作成/編集
 - 複数のキャラクターシートをグループ化する(自身の作成したものに限らない)グループ作成機能

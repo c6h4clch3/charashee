@@ -24,8 +24,5 @@
     {
       "url": "heroku/nodejs"
     }
-  ],
-  "scripts": {
-    "postdeploy": "echo \"APP_KEY=$(php artisan key:generate --show)\" >> .env && php artisan migrate:fresh --seed"
-  }
+  ]
 }

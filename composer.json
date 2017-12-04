@@ -52,6 +52,7 @@
         ],
         "post-install-cmd": [
             "php artisan optimize",
+            "echo \"APP_KEY=$(php artisan key:generate --show)\" > .env",
             "chmod -R 777 storage",
             "php artisan passport:keys"
         ]

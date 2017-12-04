@@ -30,6 +30,6 @@
     }
   ],
   "scripts": {
-    "postdeploy": "php artisan db:migrate"
+    "postdeploy": "php artisan migrate:fresh --force && php artisan db:seed --force"
   }
 }

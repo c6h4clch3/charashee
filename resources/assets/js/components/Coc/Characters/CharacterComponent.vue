@@ -1,5 +1,5 @@
 <template>
-  <character-list :value="characters" :user-id="userId" :page-limit="pageLimit" :current="page"/>
+  <character-list :value="characters" :user-id="userId" :page-limit="pageLimit" :current="page" @deleted="update()"/>
 </template>
 
 <script lang="ts">
@@ -32,6 +32,10 @@ const validPageGuard = function(this: Vue, to: Route, from: Route, next: (to?: a
       vm.$store.dispatch('resolveWait');
       next();
     }).catch((e) => {
+      if (to.query.page === '1') {
+        vm.$store.dispatch('resolveWait');
+        next();
+      }
       next(listDefault);
     });
   };
@@ -72,6 +76,16 @@ export default Vue.extend({
     },
     userId(): number {
       return this.$store.state.user.id;
+    }
+  },
+  methods: {
+    update() {
+      this.$store.dispatch('wait');
+      this.$store.dispatch('characterList/get', this.page).then(() => {
+        this.$store.dispatch('resolveWait');
+      }).catch(() => {
+        this.$store.dispatch('resolveWait');
+      });
     }
   },
   components: {

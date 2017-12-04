@@ -13,9 +13,9 @@
       </div>
     </div>
     <div class="visible-xs visible-sm">
-      <div class="bottom-bar">
-
-      </div>
+      <button class="btn btn-primary float-button-round" @click="send()" :disabled="!validate">
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+      </button>
     </div>
   </div>
 </template>
@@ -93,6 +93,17 @@ export default Vue.extend({
 }
 
 .panel {
+  pointer-events: all;
+}
+
+.float-button-round {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  font-size: 32px;
   pointer-events: all;
 }
 

@@ -7,7 +7,7 @@ $password = '';
 
 if (env('DATABASE_URL', false) && env('DB_CONNECTION', 'mysql') === 'pgsql') {
     // heroku 用設定。 TODO: postgres以外の対応。clearDBの仕様でSeedingが難しいため優先度低。
-    $match = preg_match('/postgres:\/\/(.*?):(.*?)@(.*?):(.*?)\/(.*?)/');
+    $match = preg_match('/postgres:\/\/(.*?):(.*?)@(.*?):(.*?)\/(.*?)/', env('DATABASE_URL'));
 
     $host = $match[3];
     $db = $match[5];

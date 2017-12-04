@@ -1,12 +1,12 @@
 <template>
 <div class="row stretch">
-  <div class="col-md-8 col-md-push-2">
+  <div class="col-md-8 col-md-push-2 center">
     <router-view></router-view>
   </div>
-  <div class="col-md-2 col-md-pull-8">
+  <div class="col-md-2 col-md-pull-8 left">
     <router-view name="left"></router-view>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-2 right">
     <router-view name="right"></router-view>
   </div>
 </div>
@@ -22,5 +22,17 @@ export default BaseComponent.extend({
 <style>
 .stretch {
   display: inherit;
+}
+
+.center {
+  z-index: 0;
+}
+
+.left {
+  z-index: 1;
+}
+
+.right {
+  z-index: 2;
 }
 </style>

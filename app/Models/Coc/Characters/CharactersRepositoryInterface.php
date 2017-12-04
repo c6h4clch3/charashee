@@ -43,6 +43,12 @@ interface CharactersRepositoryInterface
     public function update(int $character_id, array $character);
 
     /**
+     * @param int $character_id
+     * @return int
+     */
+    public function delete(int $character_id);
+
+    /**
      * @param int $user_id
      * @param int $character_id
      * @throws ServiceException

@@ -18,7 +18,6 @@ Route::middleware(['auth:api'])->group(function() {
         return $request->user();
     });
     Route::get('/user/characters', 'Coc\CharactersController@getOwned');
-    Route::get('/user/groups', 'Coc\GroupsController@getOwned');
 
     Route::get('/characters', 'Coc\CharactersController@get');
     Route::get('/characters/page/{page?}', 'Coc\CharactersController@getPagenated');
@@ -29,6 +28,7 @@ Route::middleware(['auth:api'])->group(function() {
 
     Route::get('/groups', 'Coc\GroupsController@get');
     Route::get('/groups/{id}', 'Coc\GroupsController@find');
+    Route::get('/groups/owner-only/{id}', 'Coc\GroupsController@findOwned');
     Route::post('/groups/create', 'Coc\GroupsController@create');
     Route::post('/groups/update/{id}', 'Coc\GroupsController@update');
     Route::post('/groups/delete/{id}', 'Coc\GroupsController@delete');

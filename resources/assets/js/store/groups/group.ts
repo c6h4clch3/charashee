@@ -15,6 +15,13 @@ export default {
         commit('replace', res.data);
       });
     },
+    getOwned({ commit }, id: number) {
+      return axios.get<group>(
+        `/api/groups/owner-only/${id}`
+      ).then((res) => {
+        commit('replace', res.data);
+      });
+    },
     post({ commit, dispatch }, item: group) {
       let request: AxiosPromise<group>;
       if (item.id !== undefined) {

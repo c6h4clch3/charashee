@@ -101,6 +101,40 @@ class GroupsService
         ];
     }
 
+    public function getOwnedById(int $id)
+    {
+        $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $id);
+        $group = $this->groupsRepository->loadById($id);
+
+        if (is_null($group)) {
+            return [];
+        }
+
+        if (count($group->characters) === 0) {
+            return [
+                'id' => $group->id,
+                'name' => $group->name,
+                'description' => $group->description,
+                'characters' => [],
+            ];
+        }
+
+        return [
+            'id' => $group->id,
+            'name' => $group->name,
+            'description' => $group->description,
+            'characters' => array_map(function($character) {
+                return [
+                    'id' => $character->id,
+                    'name' => $character->name,
+                    'age' => $character->age,
+                    'sex' => $character->sex,
+                    'job' => $character->job,
+                ];
+            }, $group->characters->all()),
+        ];
+    }
+
     public function create(string $name, string $description)
     {
         $group = $this->groupsRepository->create($name, $description);

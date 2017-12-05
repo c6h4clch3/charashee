@@ -21,6 +21,13 @@ class GroupsController extends Controller
         return response()->json($group);
     }
 
+    public function findOwned(Request $request, GroupsService $service)
+    {
+        $id = (int)$request->id;
+
+        return response()->json($service->getOwnedById($id));
+    }
+
     public function create(Request $request, GroupsService $service)
     {
         $name = $request->name;

@@ -19,16 +19,18 @@ interface GroupsRepositoryInterface
 
     /**
      * @param string $name
+     * @param string $description
      * @return mixed
      */
-    public function create(string $name);
+    public function create(string $name, string $description);
 
     /**
      * @param int $id
      * @param string $name
+     * @param string $description
      * @return mixed
      */
-    public function update(int $id, string $name);
+    public function update(int $id, string $name, string $description);
 
     /**
      * @param int $id

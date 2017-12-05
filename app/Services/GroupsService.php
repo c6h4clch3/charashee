@@ -23,16 +23,49 @@ class GroupsService
     public function getAll()
     {
         return array_map(function($group) {
+            $characters = [];
+            if (count($group->characters)) {
+                $characters = array_map(function($character) {
+                    return [
+                        'id' => $character->id,
+                        'name' => $character->name,
+                        'age' => $character->age,
+                        'sex' => $character->sex,
+                        'job' => $character->job,
+                    ];
+                }, $group->characters->all());
+            }
             return [
                 'id' => $group->id,
                 'name' => $group->name,
+                'description' => $group->description,
+                'characters' => $characters,
             ];
         }, $this->groupsRepository->loadAll()->all());
     }
 
-    public function getAllOwn()
+    public function getAllOwned()
     {
-        return $this->user->groups()->all();
+        return array_map(function($group) {
+            $characters = [];
+            if (count($group->characters)) {
+                $characters = array_map(function($character) {
+                    return [
+                        'id' => $character->id,
+                        'name' => $character->name,
+                        'age' => $character->age,
+                        'sex' => $character->sex,
+                        'job' => $character->job,
+                    ];
+                }, $group->characters->all());
+            }
+            return [
+                'id' => $group->id,
+                'name' => $group->name,
+                'description' => $group->description,
+                'characters' => $characters,
+            ];
+        }, $this->user->groups->all());
     }
 
     public function getById(int $id)
@@ -47,6 +80,7 @@ class GroupsService
             return [
                 'id' => $group->id,
                 'name' => $group->name,
+                'description' => $group->description,
                 'characters' => [],
             ];
         }
@@ -54,6 +88,7 @@ class GroupsService
         return [
             'id' => $group->id,
             'name' => $group->name,
+            'description' => $group->description,
             'characters' => array_map(function($character) {
                 return [
                     'id' => $character->id,
@@ -62,29 +97,63 @@ class GroupsService
                     'sex' => $character->sex,
                     'job' => $character->job,
                 ];
-            }, $group->characters),
+            }, $group->characters->all()),
         ];
     }
 
-    public function create(string $name)
+    public function getOwnedById(int $id)
     {
-        $group = $this->groupsRepository->create($name);
+        $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $id);
+        $group = $this->groupsRepository->loadById($id);
+
+        if (is_null($group)) {
+            return [];
+        }
+
+        if (count($group->characters) === 0) {
+            return [
+                'id' => $group->id,
+                'name' => $group->name,
+                'description' => $group->description,
+                'characters' => [],
+            ];
+        }
+
+        return [
+            'id' => $group->id,
+            'name' => $group->name,
+            'description' => $group->description,
+            'characters' => array_map(function($character) {
+                return [
+                    'id' => $character->id,
+                    'name' => $character->name,
+                    'age' => $character->age,
+                    'sex' => $character->sex,
+                    'job' => $character->job,
+                ];
+            }, $group->characters->all()),
+        ];
+    }
+
+    public function create(string $name, string $description)
+    {
+        $group = $this->groupsRepository->create($name, $description);
         $this->user->groups()->save($group);
 
         return $group;
     }
 
-    public function update(int $group_id, string $name)
+    public function update(int $group_id, string $name, string $description)
     {
-        $this->groupsRepository->userOwnsGroupsGuard(Auth::user()->id, $group_id);
+        $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $group_id);
 
-        $group = $this->groupsRepository->update($group_id, $name);
+        $group = $this->groupsRepository->update($group_id, $name, $description);
         return $group;
     }
 
     public function delete(int $group_id)
     {
-        $this->groupsRepository->userOwnsGroupsGuard(Auth::user()->id, $group_id);
+        $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $group_id);
 
         return $this->groupsRepository->delete($group_id);
     }
@@ -93,7 +162,7 @@ class GroupsService
     {
         $group = $this->groupsRepository->loadById($group_id);
         $character = $this->characterRepository->loadById($character_id);
-        $this->groupsRepository->userOwnsGroupsGuard(Auth::user()->id, $group_id);
+        $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $group_id);
 
         $group->characters()->save($character);
 
@@ -103,6 +172,7 @@ class GroupsService
     public function registerAll(int $group_id, array $character_ids)
     {
         return DB::transaction(function () use ($group_id, $character_ids) {
+            $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $group_id);
             $group = $this->groupsRepository->loadById($group_id);
 
             foreach ($character_ids as $character_id) {
@@ -117,7 +187,7 @@ class GroupsService
 
     public function unregister(int $group_id, int $character_id)
     {
-        $this->groupsRepository->userOwnsGroupsGuard(Auth::user()->id, $group_id);
+        $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $group_id);
         return $this->groupRepository->characters()->detach($character_id);
     }
 }

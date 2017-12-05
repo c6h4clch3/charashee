@@ -10,7 +10,12 @@ class GroupsController extends Controller
 {
     public function get(Request $request, GroupsService $service)
     {
-        return response()->json($service->getAllOwn());
+        return response()->json($service->getAll());
+    }
+
+    public function getOwned(Request $request, GroupsService $service)
+    {
+        return response()->json($service->getAllOwned());
     }
 
     public function find(Request $request, GroupsService $service)
@@ -21,19 +26,37 @@ class GroupsController extends Controller
         return response()->json($group);
     }
 
+    public function findOwned(Request $request, GroupsService $service)
+    {
+        $id = (int)$request->id;
+
+        return response()->json($service->getOwnedById($id));
+    }
+
     public function create(Request $request, GroupsService $service)
     {
         $name = $request->name;
+        $description = $request->description;
 
-        return response()->json($service->create($name));
+        return response()->json($service->create($name, $description));
     }
 
     public function update(Request $request, GroupsService $service)
     {
         $id = $request->id;
         $name = $request->name;
+        $description = $request->description;
 
-        return response()->json($service->update($id, $name));
+        return response()->json($service->update($id, $name, $description));
+    }
+
+    public function delete(Request $request, GroupsService $service)
+    {
+        $id = $request->id;
+
+        return response()->json([
+            'deleted' => $service->delete($id),
+        ]);
     }
 
     public function addAll(Request $request, GroupsService $service)

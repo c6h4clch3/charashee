@@ -131,6 +131,13 @@ export default {
     },
     roll({commit}, key: string) {
       commit('roll', key);
+    },
+    addToGroup({state}, groupId: number) {
+      return axios.post(`/api/groups/${groupId}/add`, {
+        character_id: state.id
+      }).then(() => {
+        return true;
+      });
     }
   },
   mutations: {

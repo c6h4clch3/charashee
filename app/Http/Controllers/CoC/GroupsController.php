@@ -24,16 +24,27 @@ class GroupsController extends Controller
     public function create(Request $request, GroupsService $service)
     {
         $name = $request->name;
+        $description = $request->description;
 
-        return response()->json($service->create($name));
+        return response()->json($service->create($name, $description));
     }
 
     public function update(Request $request, GroupsService $service)
     {
         $id = $request->id;
         $name = $request->name;
+        $description = $request->description;
 
-        return response()->json($service->update($id, $name));
+        return response()->json($service->update($id, $name, $description));
+    }
+
+    public function delete(Request $request, GroupsService $service)
+    {
+        $id = $request->id;
+
+        return response()->json([
+            'deleted' => $service->delete($id),
+        ]);
     }
 
     public function addAll(Request $request, GroupsService $service)

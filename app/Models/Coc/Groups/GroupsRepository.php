@@ -33,20 +33,22 @@ class GroupsRepository implements GroupsRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function create(string $name)
+    public function create(string $name, string $description)
     {
         return $this->group->create([
             'name' => $name,
+            'description' => $description,
         ]);
     }
 
     /**
      * @inheritdoc
      */
-    public function update(int $id, string $name)
+    public function update(int $id, string $name, string $description)
     {
         return $this->group->find($id)->update([
             'name' => $name,
+            'description' => $description,
         ])->save();
     }
 

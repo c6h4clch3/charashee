@@ -42,11 +42,7 @@ export default {
     delete({ dispatch }, id: number) {
       return axios.delete(
         `/api/groups/delete/${id}`
-      ).then(() => {
-        return dispatch('groups/get', undefined, {
-          root: true
-        }) as Promise<group>;
-      });
+      );
     },
     removeCharacterFromGroup({ state }, characterId: number) {
       return axios.post(

@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import character from './character/character';
 import characterList from './characterList/characterList';
+import group from './groups/group';
+import groupsList from './groups/groups';
 
 Vue.use(Vuex);
 
@@ -73,5 +75,7 @@ export default new Vuex.Store({
   modules: {
     character,
     characterList,
+    group,
+    groupsList,
   },
 });

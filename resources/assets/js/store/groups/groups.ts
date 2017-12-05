@@ -14,7 +14,7 @@ export default {
   },
   mutations: {
     replace(state, data: group[]) {
-      state.splice(0, state.length).push(...data);
+      state.splice(0, state.length, ...data);
     }
   },
   getters: {},

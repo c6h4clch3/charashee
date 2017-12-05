@@ -44,7 +44,7 @@ class GroupsService
         }, $this->groupsRepository->loadAll()->all());
     }
 
-    public function getAllOwn()
+    public function getAllOwned()
     {
         return array_map(function($group) {
             $characters = [];

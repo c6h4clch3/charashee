@@ -11,6 +11,12 @@ export default {
         return res.data;
       });
     },
+    getOwned({ commit }) {
+      return axios.get<group>('/api/user/groups').then((res) => {
+        commit('replace', res.data);
+        return res.data;
+      })
+    }
   },
   mutations: {
     replace(state, data: group[]) {

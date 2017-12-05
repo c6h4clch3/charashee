@@ -18,6 +18,7 @@ Route::middleware(['auth:api'])->group(function() {
         return $request->user();
     });
     Route::get('/user/characters', 'Coc\CharactersController@getOwned');
+    Route::get('/user/groups', 'Coc\GroupsController@getOwned');
 
     Route::get('/characters', 'Coc\CharactersController@get');
     Route::get('/characters/page/{page?}', 'Coc\CharactersController@getPagenated');

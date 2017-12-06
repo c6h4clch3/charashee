@@ -36,7 +36,7 @@ Route::middleware(['auth:api'])->group(function() {
     Route::post('/groups/delete/{id}', 'Coc\GroupsController@delete');
     Route::post('/groups/{id}/add', 'Coc\GroupsController@add');
     Route::post('/groups/{id}/addAll', 'Coc\GroupsController@addAll');
-    Route::post('/groups/{id}/remove', 'Coc\GroupsController@add');
+    Route::post('/groups/{id}/remove', 'Coc\GroupsController@remove');
 
     Route::get('/skills', 'Coc\SkillsController@getAsOptions');
 

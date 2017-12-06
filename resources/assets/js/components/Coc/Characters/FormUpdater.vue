@@ -1,35 +1,18 @@
 <template>
-  <div class="fixed-panel container">
-    <div class="row">
-      <div class="col-md-2">
-        <div class="panel panel-default hidden-xs hidden-sm">
-          <div class="panel-heading">操作</div>
-          <div class="panel-body">
-            <button class="btn btn-primary pull-right" @click="send()" :disabled="!validate">
-              <span class="glyphicon glyphicon-floppy-disk"></span> 保存
-            </button>
-          </div>
-        </div>
-      </div>
+  <fixed-column>
+    <div class="col-md-2">
+      <save-panel :send="send" :is-valid="validate"></save-panel>
     </div>
-    <div class="visible-xs visible-sm">
-      <button class="btn btn-primary float-button-round" @click="send()" :disabled="!validate">
-        <span class="glyphicon glyphicon-floppy-disk"></span>
-      </button>
-    </div>
-  </div>
+  </fixed-column>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
+import FixedColumn from '../../utils/FixedColumn.vue';
+import SavePanel from '../../utils/Save.vue';
 
 export default Vue.extend({
-  data(){
-    return {
-      wait: false
-    };
-  },
   computed: {
     character(): character {
       return this.$store.state.character;
@@ -82,20 +65,14 @@ export default Vue.extend({
   props: {
     id: Number,
   },
+  components: {
+    SavePanel,
+    FixedColumn,
+  }
 });
 </script>
 
 <style>
-.fixed-panel {
-  position: fixed;
-  top: 73px;
-  pointer-events: none;
-}
-
-.panel {
-  pointer-events: all;
-}
-
 .float-button-round {
   position: fixed;
   bottom: 15px;

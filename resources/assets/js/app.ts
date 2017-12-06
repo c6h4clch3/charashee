@@ -34,6 +34,6 @@ const app = new Vue({
     }
   },
   components: {
-    Loading
+    Loading,
   }
 });

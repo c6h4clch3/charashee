@@ -161,7 +161,7 @@ export default Vue.extend({
   },
   methods: {
     create() {
-      this.$store.dispatch('character/skills', {
+      this.$store.dispatch('character/skills/push', {
         name: '',
         init: 0,
         reference: null,

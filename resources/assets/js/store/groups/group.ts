@@ -1,5 +1,5 @@
 import { Module } from 'vuex';
-import axios, { AxiosPromise } from 'axios';
+import axios, { AxiosPromise, AxiosResponse } from 'axios';
 
 export default {
   namespaced: true,
@@ -10,29 +10,35 @@ export default {
     characters: [] as character[],
   } as group,
   actions: {
-    get({ commit }, id: number) {
-      return axios.get<group>(`/api/groups/${id}`).then((res) => {
-        commit('replace', res.data);
+    init({ commit }) {
+      commit('replace', {
+        id: undefined,
+        name: '',
+        description: '',
+        characters: [] as character[],
       });
     },
-    getOwned({ commit }, id: number) {
-      return axios.get<group>(
+    insert({ commit }, value: group) {
+      commit('replace', value);
+    },
+    async get({ commit }, id: number) {
+      commit('replace', (await axios.get<group>(`/api/groups/${id}`)).data);
+    },
+    async getOwned({ commit }, id: number) {
+      commit('replace', (await axios.get<group>(
         `/api/groups/owner-only/${id}`
-      ).then((res) => {
-        commit('replace', res.data);
-      });
+      )).data);
     },
-    post({ commit, dispatch }, item: group) {
-      let request: AxiosPromise<group>;
+    async post({ commit, dispatch }, item: group) {
+      let response: AxiosResponse<group>;
       if (item.id !== undefined) {
-        request = dispatch('update', item);
+        response = await dispatch('update', item);
       } else {
-        request = dispatch('create', item);
+        response = await dispatch('create', item);
       }
 
-      return request.then((res) => {
-        commit('replace', res.data);
-      });
+      commit('replace', response.data);
+      return response.data;
     },
     create({ commit }, item: group) {
       return axios.post<group>(

@@ -9,6 +9,9 @@ import CharacterComponent from '../components/Coc/Characters/CharacterComponent.
 import CharacterShowComponent from '../components/Coc/Characters/CharacterShowComponent.vue';
 import CharacterOwnedComponent from '../components/Coc/Characters/CharacterOwnedComponent.vue';
 import FormUpdater from '../components/Coc/Characters/FormUpdater.vue';
+import GroupCreate from '../components/Coc/Groups/Create.vue';
+import GroupEdit from '../components/Coc/Groups/Edit.vue';
+import GroupSavePanel from '../components/Coc/Groups/Save.vue';
 import { RouteConfig } from 'vue-router/types/router';
 import { Component } from 'vue/types/options';
 
@@ -67,7 +70,35 @@ const routes: RouteConfig[] = [
             id: parseInt(route.params.id),
           }),
         }
-      }
+      },
+    ]
+  },
+  {
+    path: '/group',
+    component: HGLayoutComponent,
+    children: [
+      {
+        path: 'create',
+        components: {
+          default: GroupCreate,
+          left: GroupSavePanel,
+        },
+      },
+      {
+        path: ':id/edit',
+        components: {
+          default: GroupEdit,
+          left: GroupSavePanel,
+        },
+        props:{
+          default: (route: Route) => ({
+            id: parseInt(route.params.id),
+          }),
+          left: (route: Route) => ({
+            id: parseInt(route.params.id),
+          }),
+        },
+      },
     ]
   },
   {

@@ -46,10 +46,12 @@ class GroupsRepository implements GroupsRepositoryInterface
      */
     public function update(int $id, string $name, string $description)
     {
-        return $this->group->find($id)->update([
+        $model = $this->group->find($id);
+        $model->update([
             'name' => $name,
             'description' => $description,
-        ])->save();
+        ]);
+        return $model;
     }
 
     /**

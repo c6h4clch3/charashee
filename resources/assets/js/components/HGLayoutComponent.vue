@@ -33,10 +33,10 @@ export default Vue.extend({
 }
 
 .left {
-  z-index: 1;
+  z-index: 1000;
 }
 
 .right {
-  z-index: 2;
+  z-index: 2000;
 }
 </style>

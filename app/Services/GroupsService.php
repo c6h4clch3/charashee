@@ -164,9 +164,29 @@ class GroupsService
         $character = $this->characterRepository->loadById($character_id);
         $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $group_id);
 
-        $group->characters()->save($character);
+        $ids = array_map(function($character) {
+            return $character->id;
+        }, $group->characters->all());
 
-        return $group;
+        $ids[] = $character_id;
+        $group->characters()->sync(array_unique($ids));
+
+        $group = $this->groupsRepository->loadById($group_id);
+
+        return [
+            'id' => $group->id,
+            'name' => $group->name,
+            'description' => $group->description,
+            'characters' => array_map(function($character){
+                return [
+                    'id' => $character->id,
+                    'name' => $character->name,
+                    'age' => $character->age,
+                    'sex' => $character->sex,
+                    'job' => $character->job,
+                ];
+            }, $group->characters->all()),
+        ];
     }
 
     public function registerAll(int $group_id, array $character_ids)
@@ -188,6 +208,6 @@ class GroupsService
     public function unregister(int $group_id, int $character_id)
     {
         $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $group_id);
-        return $this->groupRepository->characters()->detach($character_id);
+        return $this->groupsRepository->loadById($group_id)->characters()->detach($character_id);
     }
 }

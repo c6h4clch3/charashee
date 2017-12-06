@@ -26,6 +26,7 @@ Route::middleware(['auth:api'])->group(function() {
     Route::get('/characters/{id}/owned', 'Coc\CharactersController@getByIdWithGuard');
     Route::post('/characters/create', 'Coc\CharactersController@create');
     Route::post('/characters/update/{id}', 'Coc\CharactersController@update');
+    Route::delete('/characters/delete/{id}', 'Coc\CharactersController@delete');
 
     Route::get('/groups', 'Coc\GroupsController@get');
     Route::get('/groups/{id}', 'Coc\GroupsController@find');

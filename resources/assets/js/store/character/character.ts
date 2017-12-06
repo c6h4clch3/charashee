@@ -118,7 +118,7 @@ export default {
       });
     },
     delete({}, id: number|string): Promise<any> {
-      return axios.post(`/api/characters/delete/${id}`);
+      return axios.delete(`/api/characters/delete/${id}`);
     },
     updateParam({commit}, item: {
       key: number,

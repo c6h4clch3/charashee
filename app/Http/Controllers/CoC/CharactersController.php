@@ -63,4 +63,13 @@ class CharactersController extends Controller
 
         return response()->json($service->update($id, $character));
     }
+
+    public function delete(Request $request, CharactersService $service)
+    {
+        $id = (int)$request->id;
+
+        return response()->json([
+            "deleted" => $service->delete($id)
+        ]);
+    }
 }

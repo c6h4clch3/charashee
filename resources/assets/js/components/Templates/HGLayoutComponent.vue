@@ -1,6 +1,6 @@
 <template>
 <div class="row stretch">
-  <div class="col-md-8 col-md-push-2 center">
+  <div class="col-md-8 col-md-push-2">
     <router-view></router-view>
   </div>
   <div class="col-md-2 col-md-pull-8 left">

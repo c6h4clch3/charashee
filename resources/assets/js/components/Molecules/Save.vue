@@ -19,7 +19,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
-import Panel from './Panel.vue';
+import Panel from '../Molecules/Panel.vue';
 
 export default Vue.extend({
   props: {

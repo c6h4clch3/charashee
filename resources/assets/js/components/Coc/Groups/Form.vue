@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Panel from '../../utils/Panel.vue';
+import Panel from '../../Molecules/Panel.vue';
 
 export default Vue.extend({
   props: [

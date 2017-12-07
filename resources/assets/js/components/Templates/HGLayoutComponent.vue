@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import BaseComponent from './BaseComponent.vue';
+import BaseComponent from '../BaseComponent.vue';
 
 export default Vue.extend({
   mixins: [
@@ -33,10 +33,10 @@ export default Vue.extend({
 }
 
 .left {
-  z-index: 1000;
+  z-index: 100;
 }
 
 .right {
-  z-index: 2000;
+  z-index: 200;
 }
 </style>

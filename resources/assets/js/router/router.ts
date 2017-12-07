@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter, { RouterOptions, Route } from 'vue-router';
 
 import HomeComponent from '../components/HomeComponent.vue';
-import HGLayoutComponent from '../components/HGLayoutComponent.vue';
+import HGLayoutComponent from '../components/Templates/HGLayoutComponent.vue';
 import CharacterCreateComponent from '../components/Coc/Characters/CharacterCreateComponent.vue';
 import CharacterEditComponent from '../components/Coc/Characters/CharacterEditComponent.vue';
 import CharacterComponent from '../components/Coc/Characters/CharacterComponent.vue';

@@ -10,7 +10,7 @@
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 import FixedColumn from '../../utils/FixedColumn.vue';
-import SavePanel from '../../utils/Save.vue';
+import SavePanel from '../../Molecules/Save.vue';
 
 export default Vue.extend({
   computed: {

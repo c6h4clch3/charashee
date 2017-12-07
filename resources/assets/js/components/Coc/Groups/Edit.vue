@@ -5,7 +5,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Route } from 'vue-router';
-import { RouteGuardGenerator } from '../../utils/RouteGuardGenerator';
+import { RouteGuardGenerator } from '../../utils/ts/RouteGuardGenerator';
 import GroupForm from './Form.vue';
 
 const guard = RouteGuardGenerator('group/get');

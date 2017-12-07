@@ -1,124 +1,52 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      キャラクター一覧
+  <panel>
+    <div slot="title">
+      <slot name="header">キャラクター一覧</slot>
     </div>
 
-    <div class="panel-body">
-      <ul class="list-group">
-        <li class="list-group-item" v-for="character in characters" :key="character.id">
-          <div class="row">
-            <div class="col-sm-9">
-              <h3 class="list-group-item-heading">
-                <router-link :to="`/character/${character.id}`">{{ character.name }}</router-link>
-              </h3>
-              <ul class="list-inline">
-                <li>
-                  年齢:&nbsp;{{ character.age }}
-                </li>
-                <li>
-                  性別:&nbsp;{{ character.sex }}
-                </li>
-                <li>
-                  職業:&nbsp;{{ character.job }}
-                </li>
-              </ul>
-              <div class="tags">
-                <ul class="list-inline">
-                  <li>タグ:</li>
-                  <li v-for="tag in character.tags" :key="tag">
-                    {{ tag }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="btn-group pull-right" v-if="character.user_id === userId">
-                <router-link class="btn btn-default" tag="button" :to="`/character/${character.id}/edit`">
-                  編集
-                </router-link>
-                <button class="btn btn-danger" @click="deleteCharacter(character.id)">削除</button>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-      <div class="col-xs-12">
-        <ul class="pagination pull-left without-margin" v-if="pageLimit > 0">
-          <li :class="{ disabled: current === 1 }">
-            <router-link aria-label="Previous" :to="{ query: { page: Math.max(current - 1, 1) } }" :disabled="current === 1">
-              <span aria-hidden="true">&laquo;</span>
-            </router-link>
-          </li>
-          <li v-for="n in pageLimit" :key="n" :class="{ active: n === current }" v-if="isPageShow(n, current, pageLimit, 2)">
-            <router-link :aria-label="n" :to="{ query: { page: n } }">
-              <span aria-hidden="true">{{ n }}</span>
-            </router-link>
-          </li>
-          <li :class="{ disabled: current === pageLimit }">
-            <router-link aria-label="Next" :to="{ query: { page: Math.min(current + 1, pageLimit) } }" :disabled="current === pageLimit">
-              <span aria-hidden="true">&raquo;</span>
-            </router-link>
-          </li>
-        </ul>
-        <span class="btn-group pull-right">
-          <router-link class="btn btn-primary" tag="button" :to="`/character/create`">
-            新規作成
-          </router-link>
-        </span>
-      </div>
-    </div>
-  </div>
+    <paging-list slot="body" :current="current" key-name="id" :page-limit="pageLimit" :items="characters">
+      <character-list-cell slot="item" slot-scope="character" v-model="character.item" @deleted="update()"></character-list-cell>
+
+      <router-link class="btn btn-primary" tag="button" :to="`/character/create`" slot="buttons">
+        新規作成
+      </router-link>
+    </paging-list>
+  </panel>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import Panel from '../../Molecules/Panel.vue';
+import PagingList from '../../Molecules/List.vue';
+import CharacterListCell from './CharacterListCell.vue';
 
 export default Vue.extend({
   props: {
-    value: {
-      type: Array,
-    },
     current: {
       type: Number,
     },
     pageLimit: {
       type: Number,
     },
-    userId: {
-      type: Number
-    },
+    updator: Function,
   },
   methods: {
-    isPageShow(n: number, current: number, limit: number, range: number) {
-      if (current <= 0 || range <= 0) {
-        return false;
+    update() {
+      if (this.updator === undefined) {
+        return;
       }
-      const isInStartRange = current <= range;
-      const isInEndRange = limit - range <= current;
-
-      if (isInStartRange) {
-        return n <= range * 2 + 1;
-      } else if (isInEndRange) {
-        return limit - (range * 2) + 1 < n;
-      } else {
-        return current - range <= n && n <= current + range;
-      }
-    },
-    deleteCharacter(id: number) {
-      this.$store.dispatch('wait');
-      this.$store.dispatch('character/delete', id).then(() => {
-        this.$store.dispatch('resolveWait');
-        this.$emit('deleted');
-      }).catch(() => {
-        this.$store.dispatch('resolveWait');
-      });
+      this.updator();
     }
   },
   computed: {
     characters(): character[] {
-      return this.value as character[];
+      return this.$store.state.characterList.characters;
     }
+  },
+  components: {
+    Panel,
+    PagingList,
+    CharacterListCell,
   }
 });
 </script>

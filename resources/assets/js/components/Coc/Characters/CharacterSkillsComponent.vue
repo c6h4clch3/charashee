@@ -126,7 +126,7 @@ import { mapActions, mapGetters } from 'vuex';
 import SkillRow from './SkillRowComponent.vue';
 import SkillRowXs from './SkillRowXsComponent.vue';
 import SkillsetsSkillsTable from './SkillsetsSkillsTable.vue';
-import Modal from '../../utils/Modal.vue';
+import Modal from '../../Molecules/Modal.vue';
 
 export default Vue.extend({
   data() {

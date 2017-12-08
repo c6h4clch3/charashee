@@ -1,13 +1,13 @@
 <template>
-<section class="panel panel-default">
-  <div class="panel-heading">
+<panel>
+  <div slot="title">
     キャラクター作成/編集
   </div>
 
-  <div class="panel-body">
-    <section class="panel panel-default form-horizontal">
-      <div class="panel-heading">キャラクター基本情報</div>
-      <div class="panel-body">
+  <div slot="body">
+    <panel class="form-horizontal">
+      <div slot="title">キャラクター基本情報</div>
+      <div slot="body">
         <div class="form-group">
           <label class="col-md-2 control-label" for="name">名前:</label>
           <div class="col-md-5">
@@ -39,47 +39,48 @@
           </div>
         </div>
       </div>
-    </section>
+    </panel>
 
-    <section class="panel panel-default">
-      <div class="panel-heading">
+    <panel>
+      <div slot="title">
         能力値
       </div>
 
-      <div class="panel-body">
+      <div slot="body">
         <character-parameters />
       </div>
-    </section>
+    </panel>
 
-    <section class="panel panel-default">
-      <div class="panel-heading">
+    <panel>
+      <div slot="title">
         技能値
       </div>
 
-      <div class="panel-body">
+      <div slot="body">
         <character-skills />
       </div>
-    </section>
+    </panel>
 
-    <section class="panel panel-default">
-      <div class="panel-heading">
+    <panel>
+      <div slot="title">
         その他/備考
       </div>
 
-      <div class="panel-body">
+      <div slot="body">
         <div class="form-group">
           <textarea class="form-control" v-model="comment"></textarea>
         </div>
       </div>
-    </section>
+    </panel>
   </div>
-</section>
+</panel>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import CharacterParameters from './CharacterParameters.vue';
 import CharacterSkills from './CharacterSkillsComponent.vue';
+import Panel from '../../Molecules/Panel.vue';
 import * as _ from 'lodash';
 
 export default Vue.extend({
@@ -111,7 +112,8 @@ export default Vue.extend({
   ],
   components: {
     CharacterParameters,
-    CharacterSkills
+    CharacterSkills,
+    Panel
   }
 });
 </script>

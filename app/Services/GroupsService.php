@@ -37,6 +37,7 @@ class GroupsService
             }
             return [
                 'id' => $group->id,
+                'user_id' => $group->user_id,
                 'name' => $group->name,
                 'description' => $group->description,
                 'characters' => $characters,
@@ -61,6 +62,7 @@ class GroupsService
             }
             return [
                 'id' => $group->id,
+                'user_id' => $group->user_id,
                 'name' => $group->name,
                 'description' => $group->description,
                 'characters' => $characters,
@@ -79,6 +81,7 @@ class GroupsService
         if (count($group->characters) === 0) {
             return [
                 'id' => $group->id,
+                'user_id' => $group->user_id,
                 'name' => $group->name,
                 'description' => $group->description,
                 'characters' => [],
@@ -87,6 +90,7 @@ class GroupsService
 
         return [
             'id' => $group->id,
+            'user_id' => $group->user_id,
             'name' => $group->name,
             'description' => $group->description,
             'characters' => array_map(function($character) {
@@ -113,6 +117,7 @@ class GroupsService
         if (count($group->characters) === 0) {
             return [
                 'id' => $group->id,
+                'user_id' => $group->user_id,
                 'name' => $group->name,
                 'description' => $group->description,
                 'characters' => [],
@@ -121,6 +126,7 @@ class GroupsService
 
         return [
             'id' => $group->id,
+            'user_id' => $group->user_id,
             'name' => $group->name,
             'description' => $group->description,
             'characters' => array_map(function($character) {
@@ -175,6 +181,7 @@ class GroupsService
 
         return [
             'id' => $group->id,
+            'user_id' => $group->user_id,
             'name' => $group->name,
             'description' => $group->description,
             'characters' => array_map(function($character){

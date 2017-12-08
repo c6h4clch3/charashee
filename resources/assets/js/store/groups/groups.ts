@@ -16,6 +16,9 @@ export default {
         commit('replace', res.data);
         return res.data;
       })
+    },
+    reset({ commit }) {
+      commit('replace', []);
     }
   },
   mutations: {

@@ -1,8 +1,19 @@
-<template functional>
+<template>
   <div class="background">
-    <span class="glyphicon glyphicon-refresh loading"></span>
+    <glyphicon type="refresh" class="loading"></glyphicon>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import Glyphicon from '../Atoms/Glyphicon.vue';
+
+export default Vue.extend({
+  components: {
+    Glyphicon
+  }
+});
+</script>
 
 <style>
 .background {

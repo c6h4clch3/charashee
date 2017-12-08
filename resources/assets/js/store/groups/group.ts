@@ -57,6 +57,19 @@ export default {
         `/api/groups/delete/${id}`
       );
     },
+    addCharacterToGroup({commit}, item: {
+      groupId: number,
+      characterId: number,
+    }) {
+      return axios.post(
+        `/api/groups/${item.groupId}/add`,
+        {
+          character_id: item.characterId,
+        }
+      ).then((res) => {
+        commit('replace', res.data);
+      });
+    },
     removeCharacterFromGroup({ state }, characterId: number) {
       return axios.post(
         `/api/groups/${state.id}/remove`,

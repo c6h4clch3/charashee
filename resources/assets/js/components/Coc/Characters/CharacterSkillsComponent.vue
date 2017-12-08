@@ -75,7 +75,7 @@
     <hr>
     <div clsss="button-group">
       <button class="btn btn-primary" @click="create()">
-        <span class="glyphicon glyphicon-plus"></span> 空欄追加
+        <glyphicon type="plus"></glyphicon> 空欄追加
       </button>
       <button class="btn btn-default" data-toggle="modal" data-target="#skill" @click="() => { selectedSkillset = ''; selectedSkill = ''; }">一括技能追加</button>
     </div>
@@ -92,7 +92,7 @@
           </div>
           <div class="form-group">
             <button class="btn btn-primary" :disabled="selectedSkillset === ''" data-dismiss="modal" @click="pushByArray(skillsets[selectedSkillset].skills)">
-              <span class="glyphicon glyphicon-plus"></span> 追加
+              <glyphicon type="plus"></glyphicon> 追加
             </button>
           </div>
         </div>
@@ -111,7 +111,7 @@
           <div class="form-group">
             <button class="btn btn-primary" :disabled="selectedSkill === ''" data-dismiss="modal"
                     @click="push(Object.assign({job_point: 0, interest_point: 0, others_point: 0}, skillOptions[selectedSkill]))">
-              <span class="glyphicon glyphicon-plus"></span> 追加
+              <glyphicon type="plus"></glyphicon> 追加
             </button>
           </div>
         </div>
@@ -127,6 +127,7 @@ import SkillRow from './SkillRowComponent.vue';
 import SkillRowXs from './SkillRowXsComponent.vue';
 import SkillsetsSkillsTable from './SkillsetsSkillsTable.vue';
 import Modal from '../../Molecules/Modal.vue';
+import Glyphicon from '../../Atoms/Glyphicon.vue';
 
 export default Vue.extend({
   data() {
@@ -187,6 +188,7 @@ export default Vue.extend({
     SkillRowXs,
     SkillsetsSkillsTable,
     Modal,
+    Glyphicon,
   }
 });
 </script>

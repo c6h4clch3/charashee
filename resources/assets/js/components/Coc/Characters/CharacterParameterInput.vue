@@ -15,7 +15,7 @@
       <span class="input-group-addon" v-if="base !== undefined">= {{ sum }}</span>
       <span class="input-group-btn" v-else>
         <button type="button" class="btn btn-primary" @click="roll()">
-          <span class="glyphicon glyphicon-refresh"></span>
+          <glyphicon type="refresh"></glyphicon>
         </button>
       </span>
     </div>
@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Glyphicon from '../../Atoms/Glyphicon.vue';
 
 export default Vue.extend({
   props: {
@@ -70,6 +71,9 @@ export default Vue.extend({
       }
     },
   },
+  components: {
+    Glyphicon
+  }
 });
 </script>
 

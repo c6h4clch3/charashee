@@ -8,7 +8,7 @@ import { Route } from 'vue-router';
 import { RouteGuardGenerator } from '../../utils/ts/RouteGuardGenerator';
 import GroupForm from './Form.vue';
 
-const guard = RouteGuardGenerator('group/get');
+const guard = RouteGuardGenerator('group/getOwned');
 export default Vue.extend({
   beforeRouteEnter: guard,
   beforeRouteUpdate: guard,

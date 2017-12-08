@@ -9,6 +9,8 @@ import CharacterComponent from '../components/Coc/Characters/CharacterComponent.
 import CharacterShowComponent from '../components/Coc/Characters/CharacterShowComponent.vue';
 import CharacterOwnedComponent from '../components/Coc/Characters/CharacterOwnedComponent.vue';
 import FormUpdater from '../components/Coc/Characters/FormUpdater.vue';
+import Group from '../components/Coc/Groups/Group.vue';
+import GroupUser from '../components/Coc/Groups/GroupUser.vue';
 import GroupCreate from '../components/Coc/Groups/Create.vue';
 import GroupEdit from '../components/Coc/Groups/Edit.vue';
 import GroupSavePanel from '../components/Coc/Groups/Save.vue';
@@ -78,6 +80,12 @@ const routes: RouteConfig[] = [
     component: HGLayoutComponent,
     children: [
       {
+        path: '',
+        components: {
+          default: Group
+        }
+      },
+      {
         path: 'create',
         components: {
           default: GroupCreate,
@@ -98,6 +106,10 @@ const routes: RouteConfig[] = [
             id: parseInt(route.params.id),
           }),
         },
+      },
+      {
+        path: 'user',
+        component: GroupUser,
       },
     ]
   },

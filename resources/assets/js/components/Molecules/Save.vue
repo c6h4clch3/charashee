@@ -4,13 +4,13 @@
       <span slot="title">操作</span>
       <div slot="body">
         <button class="btn btn-primary pull-right" @click="send()" :disabled="!isValid">
-          <span class="glyphicon glyphicon-floppy-disk"></span> 保存
+          <glyphicon type="floppy-disk"></glyphicon> 保存
         </button>
       </div>
     </panel>
     <div class="visible-xs visible-sm">
       <button class="btn btn-primary float-button-round" @click="send()" :disabled="!isValid">
-        <span class="glyphicon glyphicon-floppy-disk"></span>
+        <glyphicon type="floppy-disk"></glyphicon>
       </button>
     </div>
   </div>
@@ -20,6 +20,7 @@
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 import Panel from '../Molecules/Panel.vue';
+import Glyphicon from '../Atoms/Glyphicon.vue';
 
 export default Vue.extend({
   props: {
@@ -27,7 +28,8 @@ export default Vue.extend({
     send: Function,
   },
   components: {
-    Panel
+    Panel,
+    Glyphicon,
   }
 });
 </script>

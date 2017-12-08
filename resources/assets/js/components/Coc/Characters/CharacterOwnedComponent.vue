@@ -1,5 +1,7 @@
 <template>
-  <character-list :page-limit="pageLimit" :current="0" :updator="update"><span slot="header">所持キャラクター一覧</span></character-list>
+  <character-list :page-limit="pageLimit" :current="0" :updator="update">
+    <span slot="header">所持キャラクター一覧</span>
+  </character-list>
 </template>
 
 <script lang="ts">

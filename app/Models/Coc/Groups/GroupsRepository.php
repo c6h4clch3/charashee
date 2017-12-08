@@ -68,7 +68,7 @@ class GroupsRepository implements GroupsRepositoryInterface
     public function userOwnsGroupGuard(int $user_id, int $group_id)
     {
         $group = $this->group->find($group_id);
-        if ($group->id !== $user_id) {
+        if ($group->user_id !== $user_id) {
             throw new ServiceException('自身の所有するグループのみ更新できます');
         }
     }

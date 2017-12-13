@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div :class="[$style.accordion, 'accordion']" :style="{ height: isOpened ? height : '0px' }" :key="'accordion'">
-      <div>
+    <div :class="[$style.accordion]" :style="{ height: isOpened ? height : '0px' }">
+      <div class="col-xs-12 target" :class="[$style.content]">
         <slot></slot>
       </div>
     </div>
@@ -24,11 +24,11 @@ export default Vue.extend({
       if (this.accordion === null) {
         return '';
       }
-      return window.getComputedStyle(this.accordion.firstElementChild as Element).height as string;
-    }
+      return window.getComputedStyle(this.accordion as Element).height as string;
+    },
   },
   mounted() {
-    this.accordion = this.$el.querySelector(`.accordion`) as Element;
+    this.accordion = this.$el.querySelector(`.target`) as Element;
   }
 });
 </script>
@@ -36,8 +36,13 @@ export default Vue.extend({
 <style lang="scss" module>
 .accordion {
   transition: height .2s linear 0s;
+  background-color: #eee;
   height: auto;
   width: 100%;
   overflow: hidden;
+}
+
+.content {
+  padding: 15px;
 }
 </style>

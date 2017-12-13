@@ -1,8 +1,10 @@
 <template>
   <div class="row">
     <div class="col-sm-12">
-      <h3 :class="$style['flex-head']" @click="toggle()">
-        {{ group.name }}
+      <h3 :class="$style['flex-head']">
+        <span @click.self="toggle()">
+          {{ group.name }}
+        </span>
 
         <span>
           <div class="btn-group" v-if="userId === group.user_id">
@@ -17,7 +19,42 @@
         </span>
       </h3>
       <accordion :is-opened="isOpened">
-        ほげほげ
+        <div class="form-inline">
+          <div class="form-group">
+            <label class="control-label">説明 : </label>
+            <p class="form-control-static">
+              {{ group.description }}
+            </p>
+          </div>
+        </div>
+        <template v-for="(character, key) in group.characters">
+          <hr :key="key" :class="$style.hr">
+          <div :key="character.id">
+            <p>
+              {{ character.name }}
+            </p>
+            <div>
+              <div class="form-group">
+                <label class="control-label">性別 :</label>
+                <p class="form-control-static">
+                  {{ character.sex }}
+                </p>
+              </div>
+              <div class="form-group">
+                <label class="control-label">年齢 :</label>
+                <p class="form-control-static">
+                  {{ character.age }}
+                </p>
+              </div>
+              <div class="form-group">
+                <label class="control-label">職業 :</label>
+                <p class="form-control-static">
+                  {{ character.job }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </template>
       </accordion>
     </div>
   </div>
@@ -53,9 +90,7 @@ export default Vue.extend({
       });
     },
     toggle() {
-      console.log('toggle');
       this.isOpened = !this.isOpened;
-      console.log(this.isOpened);
     }
   },
   components: {
@@ -69,5 +104,9 @@ export default Vue.extend({
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+
+.hr {
+  border-color: #ccc;
 }
 </style>

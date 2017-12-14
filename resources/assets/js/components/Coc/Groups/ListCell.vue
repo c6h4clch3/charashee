@@ -33,7 +33,7 @@
             <p>
               {{ character.name }}
             </p>
-            <div>
+            <div class="form-inline" :class="$style['character-container']">
               <div class="form-group">
                 <label class="control-label">性別 :</label>
                 <p class="form-control-static">
@@ -108,5 +108,12 @@ export default Vue.extend({
 
 .hr {
   border-color: #ccc;
+}
+
+.character-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 15px;
+  position: relative;
 }
 </style>

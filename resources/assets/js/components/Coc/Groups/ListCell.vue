@@ -1,10 +1,8 @@
 <template>
   <div class="row">
     <div class="col-sm-12">
-      <h3 :class="$style['flex-head']">
-        <span @click.self="toggle()">
-          {{ group.name }}
-        </span>
+      <h3 :class="$style['flex-head']" @click.self="toggle()">
+        {{ group.name }}
 
         <span>
           <div class="btn-group" v-if="userId === group.user_id">
@@ -18,7 +16,7 @@
           </div>
         </span>
       </h3>
-      <accordion :is-opened="isOpened">
+      <accordion v-model="isOpened">
         <div class="form-inline">
           <div class="form-group">
             <label class="control-label">説明 : </label>
@@ -29,31 +27,9 @@
         </div>
         <template v-for="(character, key) in group.characters">
           <hr :key="key" :class="$style.hr">
-          <div :key="character.id">
-            <p>
-              {{ character.name }}
-            </p>
-            <div class="form-inline" :class="$style['character-container']">
-              <div class="form-group">
-                <label class="control-label">性別 :</label>
-                <p class="form-control-static">
-                  {{ character.sex }}
-                </p>
-              </div>
-              <div class="form-group">
-                <label class="control-label">年齢 :</label>
-                <p class="form-control-static">
-                  {{ character.age }}
-                </p>
-              </div>
-              <div class="form-group">
-                <label class="control-label">職業 :</label>
-                <p class="form-control-static">
-                  {{ character.job }}
-                </p>
-              </div>
-            </div>
-          </div>
+          <character-info
+            :value="character"
+            :key="character.id"/>
         </template>
       </accordion>
     </div>
@@ -63,6 +39,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Accordion from '../../Molecules/Accordion.vue';
+import CharacterInfo from './ListCellCharacterInfo.vue';
 
 export default Vue.extend({
   data() {
@@ -94,7 +71,8 @@ export default Vue.extend({
     }
   },
   components: {
-    Accordion
+    Accordion,
+    CharacterInfo,
   }
 });
 </script>
@@ -108,12 +86,5 @@ export default Vue.extend({
 
 .hr {
   border-color: #ccc;
-}
-
-.character-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 15px;
-  position: relative;
 }
 </style>

@@ -14,6 +14,7 @@ import GroupUser from '../components/Coc/Groups/GroupUser.vue';
 import GroupCreate from '../components/Coc/Groups/Create.vue';
 import GroupEdit from '../components/Coc/Groups/Edit.vue';
 import GroupSavePanel from '../components/Coc/Groups/Save.vue';
+import GroupShow from '../components/Coc/Groups/Show.vue';
 import { RouteConfig } from 'vue-router/types/router';
 import { Component } from 'vue/types/options';
 
@@ -91,6 +92,15 @@ const routes: RouteConfig[] = [
           default: GroupCreate,
           left: GroupSavePanel,
         },
+      },
+      {
+        path: ':id',
+        component: GroupShow,
+        props: {
+          default: (route: Route) => ({
+            id: parseInt(route.params.id),
+          }),
+        }
       },
       {
         path: ':id/edit',

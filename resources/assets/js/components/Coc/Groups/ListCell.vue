@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-12">
       <h3 :class="$style['flex-head']" @click.self="toggle()">
-        {{ group.name }}
+        <router-link :to="`/group/${group.id}`">{{ group.name }}</router-link>
 
         <span>
           <div class="btn-group" v-if="userId === group.user_id">
@@ -86,5 +86,6 @@ export default Vue.extend({
 
 .hr {
   border-color: #ccc;
+  margin: 10px 0;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div :key="character.id">
+  <accordion :key="character.id" v-model="isOpen">
     <p>
       <router-link :to="`/character/${character.id}`">
         {{ character.name }}
@@ -25,11 +25,17 @@
         </p>
       </div>
     </div>
-  </div>
+    <hr>
+    <div class="parameters">
+
+    </div>
+  </accordion>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import * as _ from 'lodash';
+import Accordion from '../../Molecules/Accordion.vue';
 export default Vue.extend({
   props: {
     value: Object,
@@ -37,7 +43,30 @@ export default Vue.extend({
   data() {
     return {
       character: this.value,
+      isOpen: false,
     };
+  },
+  computed: {
+    parameters(): {[key: string]: number} {
+      const targets = [
+        'str',
+        'con',
+        'dex',
+        'pow',
+        'app',
+        'siz',
+        'int',
+        'edu',
+      ];
+      const character = this.character;
+
+      return _.mapValues(_.keyBy(targets), function(target) {
+        return _.get(character, target) as number;
+      });
+    }
+  },
+  components: {
+    Accordion,
   }
 });
 </script>

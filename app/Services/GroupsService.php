@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use App\Models\Coc\Characters\CharactersRepository;
-use App\Models\Groups\GroupsRepository;
+use App\Models\Coc\Groups\GroupsRepository;
+use App\Models\Coc\Groups\Group;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -12,12 +13,14 @@ class GroupsService
     protected $user;
     protected $groupsRepository;
     protected $characterRepository;
+    protected $charactersService;
 
-    public function __construct(GroupsRepository $groupsRepository, CharactersRepository $charactersRepository)
+    public function __construct(GroupsRepository $groupsRepository, CharactersRepository $charactersRepository, CharactersService $charactersService)
     {
         $this->user                = Auth::user();
         $this->groupsRepository    = $groupsRepository;
         $this->characterRepository = $charactersRepository;
+        $this->charactersService = $charactersService;
     }
 
     public function getAll()
@@ -26,13 +29,7 @@ class GroupsService
             $characters = [];
             if (count($group->characters)) {
                 $characters = array_map(function($character) {
-                    return [
-                        'id' => $character->id,
-                        'name' => $character->name,
-                        'age' => $character->age,
-                        'sex' => $character->sex,
-                        'job' => $character->job,
-                    ];
+                    return $this->charactersService->plaining($character);
                 }, $group->characters->all());
             }
             return [
@@ -51,13 +48,7 @@ class GroupsService
             $characters = [];
             if (count($group->characters)) {
                 $characters = array_map(function($character) {
-                    return [
-                        'id' => $character->id,
-                        'name' => $character->name,
-                        'age' => $character->age,
-                        'sex' => $character->sex,
-                        'job' => $character->job,
-                    ];
+                    return $this->charactersService->plaining($character);
                 }, $group->characters->all());
             }
             return [
@@ -88,21 +79,7 @@ class GroupsService
             ];
         }
 
-        return [
-            'id' => $group->id,
-            'user_id' => $group->user_id,
-            'name' => $group->name,
-            'description' => $group->description,
-            'characters' => array_map(function($character) {
-                return [
-                    'id' => $character->id,
-                    'name' => $character->name,
-                    'age' => $character->age,
-                    'sex' => $character->sex,
-                    'job' => $character->job,
-                ];
-            }, $group->characters->all()),
-        ];
+        return $this->plainGroup($group);
     }
 
     public function getOwnedById(int $id)
@@ -124,21 +101,7 @@ class GroupsService
             ];
         }
 
-        return [
-            'id' => $group->id,
-            'user_id' => $group->user_id,
-            'name' => $group->name,
-            'description' => $group->description,
-            'characters' => array_map(function($character) {
-                return [
-                    'id' => $character->id,
-                    'name' => $character->name,
-                    'age' => $character->age,
-                    'sex' => $character->sex,
-                    'job' => $character->job,
-                ];
-            }, $group->characters->all()),
-        ];
+        return $this->plainGroup($group);
     }
 
     public function create(string $name, string $description)
@@ -179,21 +142,7 @@ class GroupsService
 
         $group = $this->groupsRepository->loadById($group_id);
 
-        return [
-            'id' => $group->id,
-            'user_id' => $group->user_id,
-            'name' => $group->name,
-            'description' => $group->description,
-            'characters' => array_map(function($character){
-                return [
-                    'id' => $character->id,
-                    'name' => $character->name,
-                    'age' => $character->age,
-                    'sex' => $character->sex,
-                    'job' => $character->job,
-                ];
-            }, $group->characters->all()),
-        ];
+        return $this->plainGroup($group);
     }
 
     public function registerAll(int $group_id, array $character_ids)
@@ -216,5 +165,17 @@ class GroupsService
     {
         $this->groupsRepository->userOwnsGroupGuard(Auth::user()->id, $group_id);
         return $this->groupsRepository->loadById($group_id)->characters()->detach($character_id);
+    }
+
+    private function plainGroup(Group $group) {
+        return [
+            'id' => $group->id,
+            'user_id' => $group->user_id,
+            'name' => $group->name,
+            'description' => $group->description,
+            'characters' => array_map(function($character) {
+                return $this->charactersService->plaining($character);
+            }, $group->characters->all()),
+        ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Groups;
+namespace App\Models\Coc\Groups;
 
 use App\Services\ServiceException;
 

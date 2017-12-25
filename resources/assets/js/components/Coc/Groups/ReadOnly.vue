@@ -16,6 +16,26 @@
             <h5>{{ character.name }}</h5>
           </div>
           <div slot="body">
+            <div :class="$style.grid">
+              <div class="form-group">
+                <label class="control-label">性別 : </label>
+                <p class="form-control-static">
+                  {{ character.sex }}
+                </p>
+              </div>
+              <div class="form-group">
+                <label class="control-label">年齢 : </label>
+                <p class="form-control-static">
+                  {{ character.age }}
+                </p>
+              </div>
+              <div class="form-group">
+                <label class="control-label">職業 : </label>
+                <p class="form-control-static">
+                  {{ character.job }}
+                </p>
+              </div>
+            </div>
             <character-info :value="character"></character-info>
           </div>
         </panel>
@@ -45,5 +65,9 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
 
 </style>

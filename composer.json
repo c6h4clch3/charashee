@@ -51,13 +51,13 @@
             "@php artisan package:discover"
         ],
         "post-install-cmd": [
-            "php artisan optimize",
+            "@php artisan optimize",
             "chmod -R 777 storage",
-            "php artisan passport:keys"
+            "@php artisan passport:keys"
         ],
         "compile": [
             "@php -r \"file_exists('.env') || copy('.env.heroku', '.env');\"",
-            "php artisan key:generate"
+            "@php artisan key:generate"
         ]
     },
     "config": {

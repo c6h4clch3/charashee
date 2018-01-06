@@ -140,7 +140,7 @@ class CharactersService
         });
     }
 
-    private function plaining($characterModel)
+    public function plaining($characterModel)
     {
         return [
             'id'            => $characterModel->id,

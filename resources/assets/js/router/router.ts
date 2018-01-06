@@ -2,13 +2,19 @@ import Vue from 'vue';
 import VueRouter, { RouterOptions, Route } from 'vue-router';
 
 import HomeComponent from '../components/HomeComponent.vue';
-import HGLayoutComponent from '../components/HGLayoutComponent.vue';
+import HGLayoutComponent from '../components/Templates/HGLayoutComponent.vue';
 import CharacterCreateComponent from '../components/Coc/Characters/CharacterCreateComponent.vue';
 import CharacterEditComponent from '../components/Coc/Characters/CharacterEditComponent.vue';
 import CharacterComponent from '../components/Coc/Characters/CharacterComponent.vue';
 import CharacterShowComponent from '../components/Coc/Characters/CharacterShowComponent.vue';
 import CharacterOwnedComponent from '../components/Coc/Characters/CharacterOwnedComponent.vue';
 import FormUpdater from '../components/Coc/Characters/FormUpdater.vue';
+import Group from '../components/Coc/Groups/Group.vue';
+import GroupUser from '../components/Coc/Groups/GroupUser.vue';
+import GroupCreate from '../components/Coc/Groups/Create.vue';
+import GroupEdit from '../components/Coc/Groups/Edit.vue';
+import GroupSavePanel from '../components/Coc/Groups/Save.vue';
+import GroupShow from '../components/Coc/Groups/Show.vue';
 import { RouteConfig } from 'vue-router/types/router';
 import { Component } from 'vue/types/options';
 
@@ -67,7 +73,54 @@ const routes: RouteConfig[] = [
             id: parseInt(route.params.id),
           }),
         }
-      }
+      },
+    ]
+  },
+  {
+    path: '/group',
+    component: HGLayoutComponent,
+    children: [
+      {
+        path: '',
+        components: {
+          default: Group
+        }
+      },
+      {
+        path: 'create',
+        components: {
+          default: GroupCreate,
+          left: GroupSavePanel,
+        },
+      },
+      {
+        path: ':id',
+        component: GroupShow,
+        props: {
+          default: (route: Route) => ({
+            id: parseInt(route.params.id),
+          }),
+        }
+      },
+      {
+        path: ':id/edit',
+        components: {
+          default: GroupEdit,
+          left: GroupSavePanel,
+        },
+        props:{
+          default: (route: Route) => ({
+            id: parseInt(route.params.id),
+          }),
+          left: (route: Route) => ({
+            id: parseInt(route.params.id),
+          }),
+        },
+      },
+      {
+        path: 'user',
+        component: GroupUser,
+      },
     ]
   },
   {

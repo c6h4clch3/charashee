@@ -1,5 +1,7 @@
 <template>
-  <character-list :value="characters" :user-id="userId" :page-limit="pageLimit" :current="0" @deleted="update()"/>
+  <character-list :page-limit="pageLimit" :current="0" :updator="update">
+    <span slot="header">所持キャラクター一覧</span>
+  </character-list>
 </template>
 
 <script lang="ts">
@@ -45,18 +47,12 @@ export default Vue.extend({
   },
   beforeRouteEnter: validPageGuard,
   beforeRouteUpdate: validPageGuard,
+  beforeRouteLeave(to, from, next) {
+    this.$store.dispatch('characterList/reset');
+    next();
+  },
   computed: {
-    characters(): character[] {
-      if (!this.loaded) {
-        return [];
-      }
-      const list = this.$store.state.characterList as page;
-      return list.characters;
-    },
     pageLimit(): number {
-      if (!this.loaded) {
-        return 0;
-      }
       return 0;
     },
     userId(): number {

@@ -1,7 +1,7 @@
 import { Module } from 'vuex';
 import axios, { AxiosPromise } from 'axios';
 import * as _ from 'lodash';
-import { mDn } from '../../components/utils/mdn';
+import { mDn } from '../../components/utils/ts/mdn';
 import { params } from '../../components/config/config';
 import skills from './skills/skills';
 
@@ -131,6 +131,13 @@ export default {
     },
     roll({commit}, key: string) {
       commit('roll', key);
+    },
+    addToGroup({state}, groupId: number) {
+      return axios.post(`/api/groups/${groupId}/add`, {
+        character_id: state.id
+      }).then(() => {
+        return true;
+      });
     }
   },
   mutations: {

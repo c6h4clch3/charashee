@@ -10,7 +10,7 @@
       <p>{{ sum }}</p>
     </td>
     <td class="text-center" @click="unset(index)">
-      <span class="glyphicon glyphicon-remove"></span>
+      <glyphicon type="remove"></glyphicon>
     </td>
   </tr>
 </template>
@@ -19,6 +19,7 @@
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 import * as _ from 'lodash';
+import Glyphicon from '../../Atoms/Glyphicon.vue';
 
 export default Vue.extend({
   props: [
@@ -66,6 +67,9 @@ export default Vue.extend({
     'value': function(newVal) {
       this.skill = newVal as skill;
     }
+  },
+  components: {
+    Glyphicon,
   }
 });
 </script>

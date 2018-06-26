@@ -20,11 +20,11 @@ import Glyphicon from '../Atoms/Glyphicon.vue';
 export default Vue.extend({
   data() {
     return {
-      accordion: null as Element|null,
-    }
+      accordion: null as Element | null
+    };
   },
   props: {
-    value: Boolean,
+    value: Boolean
   },
   computed: {
     height(): string {
@@ -32,8 +32,9 @@ export default Vue.extend({
         return '0px';
       }
 
-      return window.getComputedStyle(this.accordion as Element).height as string;
-    },
+      return window.getComputedStyle(this.accordion as Element)
+        .height as string;
+    }
   },
   methods: {
     toggle() {
@@ -44,14 +45,14 @@ export default Vue.extend({
     this.accordion = this.$el.querySelector(`.target`) as Element;
   },
   components: {
-    Glyphicon,
-  },
+    Glyphicon
+  }
 });
 </script>
 
 <style lang="scss" module>
 .accordion {
-  transition: height .2s linear 0s;
+  transition: height 0.2s linear 0s;
   background-color: #eee;
   height: auto;
   overflow: hidden;

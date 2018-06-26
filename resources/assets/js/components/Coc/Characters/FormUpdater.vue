@@ -33,39 +33,51 @@ export default Vue.extend({
     validateSKillsUnique(): boolean {
       return this.$store.getters['character/skills/isUnique'];
     },
-    validateNames():boolean {
-      return this.character.name !== '' && this.character.age !== null && this.character.job !== '' && this.character.sex !== '';
+    validateNames(): boolean {
+      return (
+        this.character.name !== '' &&
+        this.character.age !== null &&
+        this.character.job !== '' &&
+        this.character.sex !== ''
+      );
     },
     validate(): boolean {
-      return this.validateJobPoint && this.validateInterestPoint && this.validateNames && this.validateSKillsUnique;
+      return (
+        this.validateJobPoint &&
+        this.validateInterestPoint &&
+        this.validateNames &&
+        this.validateSKillsUnique
+      );
     },
     param(): {
-      id: number|undefined,
-      character: character,
+      id: number | undefined;
+      character: character;
     } {
       return {
         id: this.id,
-        character: this.character,
-      }
+        character: this.character
+      };
     }
   },
   methods: {
     send() {
       this.$store.dispatch('wait');
-      this.$store.dispatch('character/post', this.param).then((res: character) => {
-        this.$store.dispatch('resolveWait');
-        this.$router.push({
-          path: `/character/${res.id}/edit`
+      this.$store
+        .dispatch('character/post', this.param)
+        .then((res: character) => {
+          this.$store.dispatch('resolveWait');
+          this.$router.push({
+            path: `/character/${res.id}/edit`
+          });
         });
-      });
-    },
+    }
   },
   props: {
-    id: Number,
+    id: Number
   },
   components: {
     SavePanel,
-    FixedColumn,
+    FixedColumn
   }
 });
 </script>
@@ -81,5 +93,4 @@ export default Vue.extend({
   font-size: 32px;
   pointer-events: all;
 }
-
 </style>

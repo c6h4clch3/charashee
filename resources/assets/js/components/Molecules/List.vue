@@ -20,15 +20,24 @@ import Pagination from './Pagination.vue';
 import * as _ from 'lodash';
 
 export default Vue.extend({
+  data() {
+    return {
+      keyname: ''
+    };
+  },
   props: {
     current: {
-      type: Number,
+      type: Number
     },
     pageLimit: {
-      type: Number,
+      type: Number
     },
-    keyName: String,
-    items: Array,
+    keyName: {
+      type: String
+    },
+    items: {
+      type: Array as () => Array<any>
+    }
   },
   methods: {
     getKey(item: object): any {
@@ -36,7 +45,7 @@ export default Vue.extend({
     }
   },
   components: {
-    Pagination,
+    Pagination
   }
 });
 </script>

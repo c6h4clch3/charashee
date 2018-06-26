@@ -24,11 +24,11 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     current: {
-      type: Number,
+      type: Number
     },
     pageLimit: {
-      type: Number,
-    },
+      type: Number
+    }
   },
   methods: {
     isPageShow(n: number, current: number, limit: number, range: number) {
@@ -41,17 +41,17 @@ export default Vue.extend({
       if (isInStartRange) {
         return n <= range * 2 + 1;
       } else if (isInEndRange) {
-        return limit - (range * 2) + 1 < n;
+        return limit - range * 2 + 1 < n;
       } else {
         return current - range <= n && n <= current + range;
       }
-    },
-  },
+    }
+  }
 });
 </script>
 
 <style lang="scss">
-  .without-margin {
-    margin: 0;
-  }
+.without-margin {
+  margin: 0;
+}
 </style>

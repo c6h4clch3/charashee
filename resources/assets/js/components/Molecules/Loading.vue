@@ -23,7 +23,7 @@ export default Vue.extend({
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   color: #fff;
   top: 0;
   bottom: 0;

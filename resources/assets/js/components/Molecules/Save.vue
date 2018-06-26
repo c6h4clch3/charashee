@@ -25,11 +25,11 @@ import Glyphicon from '../Atoms/Glyphicon.vue';
 export default Vue.extend({
   props: {
     isValid: Boolean,
-    send: Function,
+    send: Function
   },
   components: {
     Panel,
-    Glyphicon,
+    Glyphicon
   }
 });
 </script>

@@ -17,9 +17,7 @@ import Vue from 'vue';
 import BaseComponent from '../BaseComponent.vue';
 
 export default Vue.extend({
-  mixins: [
-    BaseComponent
-  ]
+  mixins: [BaseComponent]
 });
 </script>
 
@@ -29,5 +27,4 @@ export default Vue.extend({
   grid-template-columns: 2.5fr 8fr 1.5fr;
   grid-gap: 5px;
 }
-
 </style>

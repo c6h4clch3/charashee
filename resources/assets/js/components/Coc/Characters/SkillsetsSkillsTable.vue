@@ -30,30 +30,31 @@ import Vue from 'vue';
 import * as _ from 'lodash';
 
 export default Vue.extend({
-  props: [
-    'selected',
-  ],
+  props: ['selected'],
   computed: {
     skillsets(): skillset[] {
       return this.$store.state.skillsets;
     },
     character(): character {
       return this.$store.state.character;
-    },
+    }
   },
   methods: {
-    init(base: number, reference: string|null): number {
-      return reference === null ? base : base * (_.get(this.character, reference as string) as number);
-    },
+    init(base: number, reference: string | null): number {
+      return reference === null
+        ? base
+        : base * (_.get(this.character, reference as string) as number);
+    }
   }
 });
 </script>
 
 <style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0
+  opacity: 0;
 }
 </style>

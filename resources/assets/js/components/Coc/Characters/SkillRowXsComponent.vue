@@ -22,19 +22,14 @@ import * as _ from 'lodash';
 import Glyphicon from '../../Atoms/Glyphicon.vue';
 
 export default Vue.extend({
-  props: [
-    'value',
-    'index'
-  ],
+  props: ['value', 'index'],
   data() {
     return {
-      skill: this.value as skill,
-    }
+      skill: this.value as skill
+    };
   },
   methods: {
-    ...mapActions('character/skills', [
-      'unset'
-    ]),
+    ...mapActions('character/skills', ['unset'])
   },
   computed: {
     init: {
@@ -42,9 +37,13 @@ export default Vue.extend({
         if (this.skill.reference === null) {
           return this.skill.init;
         }
-        return this.skill.init * _.get(this.$store.getters['character/parameters'], this.skill.reference) as number;
+        return (this.skill.init *
+          _.get(
+            this.$store.getters['character/parameters'],
+            this.skill.reference
+          )) as number;
       },
-      set(value: number|string) {
+      set(value: number | string) {
         if (value === null || value === '') {
           value = 0;
         }
@@ -55,8 +54,13 @@ export default Vue.extend({
       }
     },
     sum(): number {
-      return (this.init as number) + this.skill.job_point + this.skill.interest_point + this.skill.others_point;
-    },
+      return (
+        (this.init as number) +
+        this.skill.job_point +
+        this.skill.interest_point +
+        this.skill.others_point
+      );
+    }
   },
   updated() {
     if (!_.isEqual(this.skill, this.value)) {
@@ -64,16 +68,15 @@ export default Vue.extend({
     }
   },
   watch: {
-    'value': function(newVal) {
+    value: function(newVal) {
       this.skill = newVal as skill;
     }
   },
   components: {
-    Glyphicon,
+    Glyphicon
   }
 });
 </script>
 
 <style>
-
 </style>

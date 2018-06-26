@@ -1,10 +1,10 @@
 <template>
   <div :key="character.id">
-    <p>
+    <h3>
       <router-link :to="`/character/${character.id}`">
-        {{ character.name }}
+        <b>{{ character.name }}</b>
       </router-link>
-    </p>
+    </h3>
     <div class="form-inline" :class="$style['character-container']">
       <div class="form-group">
         <label class="control-label">性別 :</label>

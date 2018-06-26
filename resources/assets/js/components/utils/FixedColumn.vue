@@ -1,20 +1,13 @@
 <template functional>
-  <div class="fixed-column container">
-    <div class="row">
-      <slot></slot>
-    </div>
+  <div class="fixed-column">
+    <slot></slot>
   </div>
 </template>
 
 <style lang="scss">
 .fixed-column {
-  position: fixed;
+  position: sticky;
   top: 73px;
-  pointer-events: none;
-
-  & > .row > * {
-    pointer-events: all;
-  }
 }
 </style>
 

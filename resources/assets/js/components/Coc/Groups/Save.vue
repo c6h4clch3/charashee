@@ -1,8 +1,6 @@
 <template>
   <fixed-column>
-    <div class="col-md-2">
-      <save-panel :send="send" :is-valid="isValid"></save-panel>
-    </div>
+    <save-panel :send="send" :is-valid="isValid"></save-panel>
   </fixed-column>
 </template>
 

@@ -13,33 +13,21 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import BaseComponent from "../BaseComponent.vue";
+import Vue from 'vue';
+import BaseComponent from '../BaseComponent.vue';
 
 export default Vue.extend({
-  mixins: [BaseComponent]
+  mixins: [
+    BaseComponent
+  ]
 });
 </script>
 
 <style>
 .stretch {
   display: grid;
-  grid-template-columns: 2fr 8fr 2fr;
+  grid-template-columns: 2.5fr 8fr 1.5fr;
   grid-gap: 5px;
-}
-
-@media screen and (max-width: 767px){
-  .stretch {
-    grid-template-columns: 1fr;
-  }
-}
-
-.left {
-  z-index: 1;
-}
-
-.right {
-  z-index: 2;
 }
 
 </style>

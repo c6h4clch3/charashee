@@ -13,13 +13,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import BaseComponent from '../BaseComponent.vue';
+import Vue from "vue";
+import BaseComponent from "../BaseComponent.vue";
 
 export default Vue.extend({
-  mixins: [
-    BaseComponent
-  ]
+  mixins: [BaseComponent]
 });
 </script>
 

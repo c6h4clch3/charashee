@@ -1,7 +1,7 @@
 {
     "defaultSeverity": "error",
-    "extends": [
-    ],
+    "extends": ["airbnb-base", "prettier"],
+    "plugins": ["prettier"],
     "jsRules": {},
     "rules": {},
     "rulesDirectory": []

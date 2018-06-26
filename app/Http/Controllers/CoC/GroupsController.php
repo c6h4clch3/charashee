@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Coc;
 use App\Services\GroupsService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GroupsRequest;
 
 class GroupsController extends Controller
 {
@@ -33,7 +34,7 @@ class GroupsController extends Controller
         return response()->json($service->getOwnedById($id));
     }
 
-    public function create(Request $request, GroupsService $service)
+    public function create(GroupsRequest $request, GroupsService $service)
     {
         $name = $request->name;
         $description = $request->description;
@@ -41,7 +42,7 @@ class GroupsController extends Controller
         return response()->json($service->create($name, $description));
     }
 
-    public function update(Request $request, GroupsService $service)
+    public function update(GroupsRequest $request, GroupsService $service)
     {
         $id = $request->id;
         $name = $request->name;

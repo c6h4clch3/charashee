@@ -1,0 +1,23 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/base",
+        "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2015,
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true
+            }
+        ]
+    }
+}

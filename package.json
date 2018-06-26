@@ -11,7 +11,9 @@
         "heroku-postbuild": "yarn run production"
     },
     "dependencies": {
+        "@tweenjs/tween.js": "^17.1.1",
         "@types/es6-promise": "^0.0.33",
+        "@types/lodash": "^4.14.85",
         "axios": "^0.17",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
@@ -21,9 +23,16 @@
         "ts-loader": "^3.1.1",
         "typescript": "^2.6.1",
         "vue": "^2.1.10",
+        "vue-eslint-parser": "^2.0.2",
         "vue-router": "^3.0.1",
-        "vuex": "^3.0.1",
-        "@tweenjs/tween.js": "^17.1.1",
-        "@types/lodash": "^4.14.85"
+        "vuex": "^3.0.1"
+    },
+    "devDependencies": {
+        "eslint-config-airbnb-base": "^12.1.0",
+        "eslint-config-prettier": "^2.9.0",
+        "eslint-config-vue": "^2.0.2",
+        "eslint-plugin-prettier": "^2.4.0",
+        "eslint-plugin-vue": "^4.2.0",
+        "prettier": "^1.10.2"
     }
 }

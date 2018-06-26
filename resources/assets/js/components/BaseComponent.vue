@@ -12,6 +12,6 @@ export default Vue.extend({
     this.$store.dispatch('getSkillsets');
     this.$store.dispatch('getSkills');
     this.$store.dispatch('getGroups');
-  }
+  },
 });
 </script>

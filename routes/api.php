@@ -24,19 +24,19 @@ Route::middleware(['auth:api'])->group(function() {
     Route::get('/characters/page/{page?}', 'Coc\CharactersController@getPagenated');
     Route::get('/characters/{id}', 'Coc\CharactersController@getById');
     Route::get('/characters/{id}/owned', 'Coc\CharactersController@getByIdWithGuard');
-    Route::post('/characters/create', 'Coc\CharactersController@create');
-    Route::post('/characters/update/{id}', 'Coc\CharactersController@update');
+    Route::post('/characters', 'Coc\CharactersController@create');
+    Route::put('/characters/{id}', 'Coc\CharactersController@update');
     Route::delete('/characters/delete/{id}', 'Coc\CharactersController@delete');
 
     Route::get('/groups', 'Coc\GroupsController@get');
     Route::get('/groups/{id}', 'Coc\GroupsController@find');
     Route::get('/groups/owner-only/{id}', 'Coc\GroupsController@findOwned');
-    Route::post('/groups/create', 'Coc\GroupsController@create');
-    Route::post('/groups/update/{id}', 'Coc\GroupsController@update');
-    Route::delete('/groups/delete/{id}', 'Coc\GroupsController@delete');
-    Route::post('/groups/{id}/add', 'Coc\GroupsController@add');
-    Route::post('/groups/{id}/addAll', 'Coc\GroupsController@addAll');
-    Route::post('/groups/{id}/remove', 'Coc\GroupsController@remove');
+    Route::post('/groups', 'Coc\GroupsController@create');
+    Route::post('/groups/{id}', 'Coc\GroupsController@update');
+    Route::delete('/groups/{id}', 'Coc\GroupsController@delete');
+    Route::post('/groups/{id}/character', 'Coc\GroupsController@addAll');
+    Route::post('/groups/{id}/characters', 'Coc\GroupsController@addAll');
+    Route::delete('/groups/{id}', 'Coc\GroupsController@remove');
 
     Route::get('/skills', 'Coc\SkillsController@getAsOptions');
 

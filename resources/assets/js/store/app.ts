@@ -9,7 +9,7 @@ import groupsList from './groups/groups';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store<any>({
+export default new Vuex.Store<AppStore>({
   state: {
     user: {
       id: 0,

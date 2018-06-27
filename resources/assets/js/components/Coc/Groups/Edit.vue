@@ -20,7 +20,7 @@ export default Vue.extend({
       set(value: group) {
         this.$store.dispatch('group/insert', value);
       }
-    },
+    }
   },
   components: {
     GroupForm
@@ -29,5 +29,4 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-
 </style>

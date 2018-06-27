@@ -1,7 +1,7 @@
 import { Module } from 'vuex';
 import axios, { AxiosPromise, AxiosResponse } from 'axios';
 
-export default {
+const _default: Module<group, AppStore> = {
   namespaced: true,
   state: {
     id: undefined,
@@ -87,4 +87,6 @@ export default {
     },
   },
   getters: {},
-} as Module<group, any>;
+};
+
+export default _default;

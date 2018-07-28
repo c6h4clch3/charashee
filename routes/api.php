@@ -30,8 +30,13 @@ Route::middleware(['auth:api'])->group(function() {
 
     Route::get('/groups', 'Coc\GroupsController@get');
     Route::get('/groups/{id}', 'Coc\GroupsController@find');
+    Route::get('/groups/owner-only/{id}', 'Coc\GroupsController@findOwned');
     Route::post('/groups/create', 'Coc\GroupsController@create');
-    Route::post('/groups/add/{id}', 'Coc\GroupsController@add');
+    Route::post('/groups/update/{id}', 'Coc\GroupsController@update');
+    Route::delete('/groups/delete/{id}', 'Coc\GroupsController@delete');
+    Route::post('/groups/{id}/add', 'Coc\GroupsController@add');
+    Route::post('/groups/{id}/addAll', 'Coc\GroupsController@addAll');
+    Route::post('/groups/{id}/remove', 'Coc\GroupsController@remove');
 
     Route::get('/skills', 'Coc\SkillsController@getAsOptions');
 

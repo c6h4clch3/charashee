@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import character from './character/character';
 import characterList from './characterList/characterList';
+import group from './groups/group';
+import groupsList from './groups/groups';
 
 Vue.use(Vuex);
 
@@ -17,6 +19,7 @@ export default new Vuex.Store({
     isCreate: true,
     skillsets: [] as skillset[],
     skills: [] as skill[],
+    groups: [] as group[],
     wait: false,
   },
   actions: {
@@ -40,6 +43,11 @@ export default new Vuex.Store({
         commit('skills', res.data);
         return res;
       });
+    },
+    async getGroups({commit}) {
+      const res = await axios.get<group[]>('/api/user/groups');
+      commit('groups', res.data);
+      return res;
     },
     toggleWait({commit, state}) {
       commit('wait', !state.wait);
@@ -66,6 +74,9 @@ export default new Vuex.Store({
     skills(state, skills: skill[]) {
       state.skills = skills;
     },
+    groups(state, groups: group[]) {
+      state.groups = groups;
+    },
     wait(state, value: boolean) {
       state.wait = value;
     }
@@ -73,5 +84,7 @@ export default new Vuex.Store({
   modules: {
     character,
     characterList,
+    group,
+    groupsList,
   },
 });

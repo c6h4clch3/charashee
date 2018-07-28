@@ -17,6 +17,22 @@
             </router-link>
         </ul>
     </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            グループ<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <router-link :to="'/group?page=1'" tag="li" v-cloak>
+                <a>グループ一覧</a>
+            </router-link>
+            <router-link :to="'/group/user'" tag="li" v-cloak>
+                <a>所有グループ</a>
+            </router-link>
+            <router-link :to="'/group/create'" tag="li" v-cloak>
+                <a>新規作成</a>
+            </router-link>
+        </ul>
+    </li>
 @endsection
 
 @section('content')

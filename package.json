@@ -1,29 +1,35 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "heroku-postbuild": "yarn run production"
-    },
-    "dependencies": {
-        "@tweenjs/tween.js": "^17.1.1",
-        "@types/es6-promise": "^0.0.33",
-        "@types/lodash": "^4.14.85",
-        "axios": "^0.18",
-        "bootstrap-sass": "^3.3.7",
-        "cross-env": "^5.1",
-        "jquery": "^3.2",
-        "laravel-mix": "^1.0",
-        "lodash": "^4.17.13",
-        "ts-loader": "^3.1.1",
-        "typescript": "^2.6.1",
-        "vue": "^2.1.10",
-        "vue-router": "^3.0.1",
-        "vuex": "^3.0.1"
-    }
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "heroku-postbuild": "yarn run production"
+  },
+  "dependencies": {
+    "@tweenjs/tween.js": "^17.1.1",
+    "@types/es6-promise": "^0.0.33",
+    "@types/lodash": "^4.14.85",
+    "axios": "^0.18",
+    "bootstrap-sass": "^3.3.7",
+    "cross-env": "^5.1",
+    "jquery": "^3.2",
+    "laravel-mix": "^4.0",
+    "lodash": ">4.17.13",
+    "ts-loader": "^6.0.4",
+    "typescript": "^2.6.1",
+    "vue": "^2.1.10",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "resolve-url-loader": "3.1.0",
+    "sass": "^1.22.6",
+    "sass-loader": "7.*",
+    "vue-template-compiler": "^2.6.10"
+  }
 }

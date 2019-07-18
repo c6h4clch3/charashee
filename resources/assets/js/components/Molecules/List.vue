@@ -15,20 +15,20 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Pagination from './Pagination.vue';
-import * as _ from 'lodash';
+import Vue from "vue";
+import Pagination from "./Pagination.vue";
+import * as _ from "lodash";
 
 export default Vue.extend({
   props: {
     current: {
-      type: Number,
+      type: Number
     },
     pageLimit: {
-      type: Number,
+      type: Number
     },
     keyName: String,
-    items: Array,
+    items: Array as () => {}[]
   },
   methods: {
     getKey(item: object): any {
@@ -36,7 +36,7 @@ export default Vue.extend({
     }
   },
   components: {
-    Pagination,
+    Pagination
   }
 });
 </script>

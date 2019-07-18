@@ -1,66 +1,66 @@
-import Vue from 'vue';
-import VueRouter, { RouterOptions, Route } from 'vue-router';
+import Vue from "vue";
+import VueRouter, { RouterOptions, Route } from "vue-router";
 
-import HomeComponent from '../components/HomeComponent.vue';
-import HGLayoutComponent from '../components/Templates/HGLayoutComponent.vue';
-import CharacterCreateComponent from '../components/Coc/Characters/CharacterCreateComponent.vue';
-import CharacterEditComponent from '../components/Coc/Characters/CharacterEditComponent.vue';
-import CharacterComponent from '../components/Coc/Characters/CharacterComponent.vue';
-import CharacterShowComponent from '../components/Coc/Characters/CharacterShowComponent.vue';
-import CharacterOwnedComponent from '../components/Coc/Characters/CharacterOwnedComponent.vue';
-import FormUpdater from '../components/Coc/Characters/FormUpdater.vue';
-import Group from '../components/Coc/Groups/Group.vue';
-import GroupUser from '../components/Coc/Groups/GroupUser.vue';
-import GroupCreate from '../components/Coc/Groups/Create.vue';
-import GroupEdit from '../components/Coc/Groups/Edit.vue';
-import GroupSavePanel from '../components/Coc/Groups/Save.vue';
-import GroupShow from '../components/Coc/Groups/Show.vue';
-import { RouteConfig } from 'vue-router/types/router';
-import { Component } from 'vue/types/options';
+import HomeComponent from "../components/HomeComponent.vue";
+import HGLayoutComponent from "../components/Templates/HGLayoutComponent.vue";
+import CharacterCreateComponent from "../components/Coc/Characters/CharacterCreateComponent.vue";
+import CharacterEditComponent from "../components/Coc/Characters/CharacterEditComponent.vue";
+import CharacterComponent from "../components/Coc/Characters/CharacterComponent.vue";
+import CharacterShowComponent from "../components/Coc/Characters/CharacterShowComponent.vue";
+import CharacterOwnedComponent from "../components/Coc/Characters/CharacterOwnedComponent.vue";
+import FormUpdater from "../components/Coc/Characters/FormUpdater.vue";
+import Group from "../components/Coc/Groups/Group.vue";
+import GroupUser from "../components/Coc/Groups/GroupUser.vue";
+import GroupCreate from "../components/Coc/Groups/Create.vue";
+import GroupEdit from "../components/Coc/Groups/Edit.vue";
+import GroupSavePanel from "../components/Coc/Groups/Save.vue";
+import GroupShow from "../components/Coc/Groups/Show.vue";
+import { RouteConfig } from "vue-router/types/router";
+import { Component } from "vue/types/options";
 
 Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
   {
-    path: '/',
+    path: "/",
     component: HomeComponent
   },
   {
-    path: '/character',
+    path: "/character",
     component: HGLayoutComponent,
     children: [
       {
-        path: '',
-        name: 'list',
+        path: "",
+        name: "list",
         components: {
-          default: CharacterComponent,
+          default: CharacterComponent
         },
         props: {
           default: (route: Route) => ({
-            page: parseInt(route.query.page),
-          }),
+            page: parseInt(route.query.page as string)
+          })
         }
       },
       {
-        path: 'user',
-        component: CharacterOwnedComponent,
+        path: "user",
+        component: CharacterOwnedComponent
       },
       {
-        path: 'create',
+        path: "create",
         components: {
           default: CharacterCreateComponent,
           left: FormUpdater
         }
       },
       {
-        path: ':id',
+        path: ":id",
         component: CharacterShowComponent,
         props: (route: Route) => ({
-          id: parseInt(route.params.id),
-        }),
+          id: parseInt(route.params.id)
+        })
       },
       {
-        path: ':id/edit',
+        path: ":id/edit",
         components: {
           default: CharacterEditComponent,
           left: FormUpdater
@@ -70,61 +70,61 @@ const routes: RouteConfig[] = [
             id: parseInt(route.params.id)
           }),
           left: (route: Route) => ({
-            id: parseInt(route.params.id),
-          }),
+            id: parseInt(route.params.id)
+          })
         }
-      },
+      }
     ]
   },
   {
-    path: '/group',
+    path: "/group",
     component: HGLayoutComponent,
     children: [
       {
-        path: '',
+        path: "",
         components: {
           default: Group
         }
       },
       {
-        path: 'create',
+        path: "create",
         components: {
           default: GroupCreate,
-          left: GroupSavePanel,
-        },
-      },
-      {
-        path: ':id',
-        component: GroupShow,
-        props: {
-          default: (route: Route) => ({
-            id: parseInt(route.params.id),
-          }),
+          left: GroupSavePanel
         }
       },
       {
-        path: ':id/edit',
-        components: {
-          default: GroupEdit,
-          left: GroupSavePanel,
-        },
-        props:{
+        path: ":id",
+        component: GroupShow,
+        props: {
           default: (route: Route) => ({
-            id: parseInt(route.params.id),
-          }),
-          left: (route: Route) => ({
-            id: parseInt(route.params.id),
-          }),
-        },
+            id: parseInt(route.params.id)
+          })
+        }
       },
       {
-        path: 'user',
-        component: GroupUser,
+        path: ":id/edit",
+        components: {
+          default: GroupEdit,
+          left: GroupSavePanel
+        },
+        props: {
+          default: (route: Route) => ({
+            id: parseInt(route.params.id)
+          }),
+          left: (route: Route) => ({
+            id: parseInt(route.params.id)
+          })
+        }
       },
+      {
+        path: "user",
+        component: GroupUser
+      }
     ]
   },
   {
-    path: '*',
+    path: "*",
     component: {
       template: `
         <div class="col-md-8 col-md-push-2 text-center">
@@ -136,7 +136,7 @@ const routes: RouteConfig[] = [
 ];
 
 export default new VueRouter({
-  mode: 'history',
-  base: '/store/',
+  mode: "history",
+  base: "/store/",
   routes
 } as RouterOptions);

@@ -1,21 +1,26 @@
 <template>
-  <character-list :page-limit="pageLimit" :current="page" :updator="update"/>
+  <character-list :page-limit="pageLimit" :current="page" :updator="update" />
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { Location, Route } from 'vue-router';
-import axios, { AxiosPromise } from 'axios';
-import CharacterList from './CharacterListComponent.vue';
+import Vue from "vue";
+import { Location, Route } from "vue-router";
+import axios, { AxiosPromise } from "axios";
+import CharacterList from "./CharacterListComponent.vue";
 
 // beforeRouteUpdate/Enter 両対応
-const validPageGuard = function(this: Vue, to: Route, from: Route, next: (to?: any | ((vm: Vue) => any)) => any) {
+const validPageGuard = function(
+  this: Vue,
+  to: Route,
+  from: Route,
+  next: (to?: any | ((vm: Vue) => any)) => any
+) {
   const listDefault: Location = Object.assign({}, to, {
-    path: '/character',
+    path: "/character",
     query: {
-      page: '1',
+      page: "1"
     },
-    replace: true,
+    replace: true
   });
 
   if (to.query.page === undefined) {
@@ -23,21 +28,21 @@ const validPageGuard = function(this: Vue, to: Route, from: Route, next: (to?: a
   }
 
   const callback = (vm: Vue) => {
-    vm.$store.dispatch('wait');
-    return vm.$store.dispatch(
-      'characterList/get',
-      parseInt(to.query.page)
-    ).then(() => {
-      vm.$data.loaded = true;
-      vm.$store.dispatch('resolveWait');
-      next();
-    }).catch((e) => {
-      if (to.query.page === '1') {
-        vm.$store.dispatch('resolveWait');
+    vm.$store.dispatch("wait");
+    return vm.$store
+      .dispatch("characterList/get", parseInt(to.query.page as string))
+      .then(() => {
+        vm.$data.loaded = true;
+        vm.$store.dispatch("resolveWait");
         next();
-      }
-      next(listDefault);
-    });
+      })
+      .catch(e => {
+        if (to.query.page === "1") {
+          vm.$store.dispatch("resolveWait");
+          next();
+        }
+        next(listDefault);
+      });
   };
 
   if (this !== undefined) {
@@ -50,18 +55,18 @@ const validPageGuard = function(this: Vue, to: Route, from: Route, next: (to?: a
 export default Vue.extend({
   data() {
     return {
-      loaded: false,
-    }
+      loaded: false
+    };
   },
   props: {
     page: {
-      type: Number,
+      type: Number
     }
   },
   beforeRouteEnter: validPageGuard,
   beforeRouteUpdate: validPageGuard,
   beforeRouteLeave(to, from, next) {
-    this.$store.dispatch('characterList/reset');
+    this.$store.dispatch("characterList/reset");
     next();
   },
   computed: {
@@ -70,16 +75,19 @@ export default Vue.extend({
         return 0;
       }
       return this.$store.state.characterList.info.page;
-    },
+    }
   },
   methods: {
     update() {
-      this.$store.dispatch('wait');
-      this.$store.dispatch('characterList/get', this.page).then(() => {
-        this.$store.dispatch('resolveWait');
-      }).catch(() => {
-        this.$store.dispatch('resolveWait');
-      });
+      this.$store.dispatch("wait");
+      this.$store
+        .dispatch("characterList/get", this.page)
+        .then(() => {
+          this.$store.dispatch("resolveWait");
+        })
+        .catch(() => {
+          this.$store.dispatch("resolveWait");
+        });
     }
   },
   components: {

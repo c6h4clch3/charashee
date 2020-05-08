@@ -17,6 +17,7 @@ const validPageGuard = function(
 ) {
   const listDefault: Location = Object.assign({}, to, {
     path: "/character",
+    name: to.name || undefined,
     query: {
       page: "1"
     },

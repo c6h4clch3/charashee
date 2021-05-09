@@ -19,7 +19,7 @@
     "cross-env": "^5.1",
     "jquery": "^3.5",
     "laravel-mix": "^4.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
     "vue": "^2.1.10",

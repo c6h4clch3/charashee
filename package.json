@@ -14,7 +14,7 @@
     "@tweenjs/tween.js": "^17.1.1",
     "@types/es6-promise": "^3.3.0",
     "@types/lodash": "^4.14.85",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^5.1",
     "jquery": "^3.5",
